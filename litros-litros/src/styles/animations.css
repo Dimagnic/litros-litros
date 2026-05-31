@@ -1,0 +1,49 @@
+@keyframes neonGlow {
+  from { box-shadow: 0 0 20px rgba(239,68,68,.4),0 0 40px rgba(168,85,247,.2); }
+  to   { box-shadow: 0 0 30px rgba(239,68,68,.65),0 0 60px rgba(168,85,247,.4); }
+}
+@keyframes neonFlicker {
+  0%,19%,21%,23%,25%,54%,56%,100% {
+    text-shadow: 0 0 10px rgba(239,68,68,.5),0 0 20px rgba(168,85,247,.3);
+  }
+  20%,24%,55% {
+    text-shadow: 0 0 5px rgba(239,68,68,.3),0 0 10px rgba(168,85,247,.2);
+  }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes pulseScale {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.08); }
+}
+@keyframes ping {
+  75%,100% { transform: scale(2); opacity: 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-up  { animation: fadeUp .6s ease both; }
+.animate-slide-l  { animation: slideLeft .5s ease both; }
+.animate-slide-r  { animation: slideRight .5s ease both; }
+.delay-1 { animation-delay: .1s; }
+.delay-2 { animation-delay: .2s; }
+.delay-3 { animation-delay: .3s; }
+.delay-4 { animation-delay: .4s; }
+.delay-5 { animation-delay: .5s; }
+.spinner { animation: spin .8s linear infinite; }
