@@ -400,52 +400,74 @@ export default function AdminPanel() {
   const os = section => () => handleSave(section)
 
   return (
-    <div style={{ position:'fixed', inset:0, zIndex:200, background:'rgba(0,0,0,.8)', backdropFilter:'blur(6px)', display:'flex', justifyContent:'flex-end' }}
-      onClick={e => e.target === e.currentTarget && setAdminPanelOpen(false)}>
-      <div style={{ width:'min(720px,100vw)', height:'100vh', background:'#0f0f0f', borderLeft:'1px solid #1f1f1f', display:'flex', flexDirection:'column', overflow:'hidden' }}>
+    <>
+      <style>{`
+        .adm-overlay { position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);display:flex;justify-content:flex-end; }
+        .adm-panel   { width:min(720px,100vw);height:100dvh;background:#0f0f0f;border-left:1px solid #1f1f1f;display:flex;flex-direction:column;overflow:hidden; }
+        .adm-header  { padding:1rem 1.25rem;border-bottom:1px solid #1f1f1f;display:flex;align-items:center;justify-content:space-between;flex-shrink:0; }
+        .adm-tabs    { display:flex;overflow-x:auto;border-bottom:1px solid #1f1f1f;flex-shrink:0;scrollbar-width:none; }
+        .adm-tabs::-webkit-scrollbar { display:none; }
+        .adm-tab     { padding:.6rem .9rem;font-size:.75rem;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:var(--font-body);transition:color .2s;border-bottom:2px solid transparent; }
+        .adm-content { flex:1;overflow-y:auto;padding:1.25rem; }
+        .adm-close   { background:none;border:none;color:#555;cursor:pointer;padding:.5rem;border-radius:.4rem;line-height:0; }
+        .adm-close:hover { background:#1a1a1a;color:#ccc; }
+        @media(max-width:640px){
+          .adm-panel  { width:100vw !important;border-left:none !important; }
+          .adm-header { padding:.85rem 1rem; }
+          .adm-tab    { padding:.55rem .7rem !important;font-size:.72rem !important; }
+          .adm-content{ padding:.9rem !important; }
+          .adm-content input,.adm-content textarea { font-size:1rem !important;padding:.75rem .9rem !important; }
+          .adm-content label { font-size:.72rem !important; }
+        }
+      `}</style>
 
-        {/* Header */}
-        <div style={{ padding:'1rem 1.25rem', borderBottom:'1px solid #1f1f1f', display:'flex', alignItems:'center', justifyContent:'space-between', flexShrink:0 }}>
-          <div>
-            <div style={{ fontWeight:800, fontSize:'1rem', fontFamily:'var(--font-head)', background:'linear-gradient(135deg,#ef4444,#a855f7)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>Panel Admin</div>
-            <div style={{ fontSize:'.72rem', color:'#555' }}>Litros & Litros — Todos los elementos son editables</div>
+      <div className="adm-overlay" onClick={e => e.target === e.currentTarget && setAdminPanelOpen(false)}>
+        <div className="adm-panel">
+
+          {/* Header */}
+          <div className="adm-header">
+            <div>
+              <div style={{ fontWeight:800, fontSize:'1rem', fontFamily:'var(--font-head)', background:'linear-gradient(135deg,#ef4444,#a855f7)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
+                Panel Admin
+              </div>
+              <div style={{ fontSize:'.7rem', color:'#555', marginTop:'.1rem' }}>Litros & Litros — Todo editable</div>
+            </div>
+            <button className="adm-close" onClick={() => setAdminPanelOpen(false)}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
           </div>
-          <button onClick={() => setAdminPanelOpen(false)} style={{ background:'none', border:'none', color:'#555', cursor:'pointer', padding:'.35rem' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
 
-        {/* Tabs */}
-        <div style={{ display:'flex', overflowX:'auto', borderBottom:'1px solid #1f1f1f', flexShrink:0, scrollbarWidth:'none' }}>
-          {TABS.map(t => (
-            <button key={t.id} onClick={() => setActiveTab(t.id)} style={{
-              padding:'.6rem .9rem', fontSize:'.75rem', fontWeight: activeTab === t.id ? 700 : 500,
-              color: activeTab === t.id ? 'var(--primary)' : '#555',
-              borderBottom: activeTab === t.id ? '2px solid var(--primary)' : '2px solid transparent',
-              background:'none', border:'none', cursor:'pointer', whiteSpace:'nowrap',
-              fontFamily:'var(--font-body)', transition:'color .2s',
-            }}>{t.label}</button>
-          ))}
-        </div>
+          {/* Tabs — scrollables en móvil */}
+          <div className="adm-tabs">
+            {TABS.map(t => (
+              <button key={t.id} className="adm-tab" onClick={() => setActiveTab(t.id)} style={{
+                fontWeight: activeTab === t.id ? 700 : 500,
+                color: activeTab === t.id ? 'var(--primary)' : '#555',
+                borderBottom: activeTab === t.id ? '2px solid var(--primary)' : '2px solid transparent',
+              }}>{t.label}</button>
+            ))}
+          </div>
 
-        {/* Content */}
-        <div style={{ flex:1, overflowY:'auto', padding:'1.25rem' }}>
-          {d.hero            && activeTab==='hero'            && <HeroEditor       d={d.hero}            onChange={oc('hero')}            onSave={os('hero')}            loading={loading} />}
-          {d.porqueElegirnos && activeTab==='porqueElegirnos' && <PorqueEditor     d={d.porqueElegirnos} onChange={oc('porqueElegirnos')} onSave={os('porqueElegirnos')} loading={loading} />}
-          {d.horario         && activeTab==='horario'         && <HorarioEditor    d={d.horario}         onChange={oc('horario')}         onSave={os('horario')}         loading={loading} />}
-          {d.reservas        && activeTab==='reservas'        && <ReservasEditor   d={d.reservas}        onChange={oc('reservas')}        onSave={os('reservas')}        loading={loading} />}
-          {d.alimentos       && activeTab==='alimentos'       && <AlimentosEditor  d={d.alimentos}       onChange={oc('alimentos')}       onSave={os('alimentos')}       loading={loading} />}
-          {d.bebidas         && activeTab==='bebidas'         && <BebidasEditor    d={d.bebidas}         onChange={oc('bebidas')}         onSave={os('bebidas')}         loading={loading} />}
-          {d.eventos         && activeTab==='eventos'         && <EventosEditor    d={d.eventos}         onChange={oc('eventos')}         onSave={os('eventos')}         loading={loading} />}
-          {d.footer          && activeTab==='footer'          && <FooterEditor     d={d.footer}          onChange={oc('footer')}          onSave={os('footer')}          loading={loading} />}
-          {d.socials         && activeTab==='socials'         && <SocialsEditor    d={d.socials}         onChange={oc('socials')}         onSave={os('socials')}         loading={loading} />}
-          {d.waFlotante      && activeTab==='waFlotante'      && <WAEditor         d={d.waFlotante}      onChange={oc('waFlotante')}      onSave={os('waFlotante')}      loading={loading} />}
-          {d.contact         && activeTab==='contact'         && <ContactEditor    d={d.contact}         onChange={oc('contact')}         onSave={os('contact')}         loading={loading} />}
-          {d.seo             && activeTab==='seo'             && <SeoEditor        d={d.seo}             onChange={oc('seo')}             onSave={os('seo')}             loading={loading} />}
+          {/* Content */}
+          <div className="adm-content">
+            {d.hero            && activeTab==='hero'            && <HeroEditor      d={d.hero}            onChange={oc('hero')}            onSave={os('hero')}            loading={loading} />}
+            {d.porqueElegirnos && activeTab==='porqueElegirnos' && <PorqueEditor    d={d.porqueElegirnos} onChange={oc('porqueElegirnos')} onSave={os('porqueElegirnos')} loading={loading} />}
+            {d.horario         && activeTab==='horario'         && <HorarioEditor   d={d.horario}         onChange={oc('horario')}         onSave={os('horario')}         loading={loading} />}
+            {d.reservas        && activeTab==='reservas'        && <ReservasEditor  d={d.reservas}        onChange={oc('reservas')}        onSave={os('reservas')}        loading={loading} />}
+            {d.alimentos       && activeTab==='alimentos'       && <AlimentosEditor d={d.alimentos}       onChange={oc('alimentos')}       onSave={os('alimentos')}       loading={loading} />}
+            {d.bebidas         && activeTab==='bebidas'         && <BebidasEditor   d={d.bebidas}         onChange={oc('bebidas')}         onSave={os('bebidas')}         loading={loading} />}
+            {d.eventos         && activeTab==='eventos'         && <EventosEditor   d={d.eventos}         onChange={oc('eventos')}         onSave={os('eventos')}         loading={loading} />}
+            {d.footer          && activeTab==='footer'          && <FooterEditor    d={d.footer}          onChange={oc('footer')}          onSave={os('footer')}          loading={loading} />}
+            {d.socials         && activeTab==='socials'         && <SocialsEditor   d={d.socials}         onChange={oc('socials')}         onSave={os('socials')}         loading={loading} />}
+            {d.waFlotante      && activeTab==='waFlotante'      && <WAEditor        d={d.waFlotante}      onChange={oc('waFlotante')}      onSave={os('waFlotante')}      loading={loading} />}
+            {d.contact         && activeTab==='contact'         && <ContactEditor   d={d.contact}         onChange={oc('contact')}         onSave={os('contact')}         loading={loading} />}
+            {d.seo             && activeTab==='seo'             && <SeoEditor       d={d.seo}             onChange={oc('seo')}             onSave={os('seo')}             loading={loading} />}
+          </div>
+
         </div>
       </div>
-    </div>
+    </>
   )
 }
