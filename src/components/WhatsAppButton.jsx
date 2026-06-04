@@ -2,11 +2,11 @@ import { useCMS } from '@/context/CMSContext'
 
 export default function WhatsAppButton() {
   const { cms } = useCMS()
-  const wa = cms.contact?.wa || cms.reservas?.wa || '522224302693'
-  const msg = encodeURIComponent('Hola, quiero información sobre Litros & Litros')
+  const wa = cms.waFlotante || {}
+  if (wa.visible === false) return null
+  const url = `https://wa.me/${wa.numero}?text=${encodeURIComponent(wa.mensaje || '')}`
   return (
-    <a href={`https://wa.me/${wa}?text=${msg}`} target="_blank" rel="noopener noreferrer"
-      aria-label="WhatsApp"
+    <a href={url} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
       style={{
         position:'fixed', bottom:'1.75rem', right:'1.75rem', zIndex:100,
         width:'3.25rem', height:'3.25rem', borderRadius:'50%',

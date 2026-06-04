@@ -4,7 +4,11 @@ import { getCMSSection } from '@/services/adminService'
 
 const CMSContext = createContext(null)
 
-const SECTIONS = ['hero','musica','bebidas','alimentos','eventos','reservas','contact','footer','socials','seo']
+const SECTIONS = [
+  'header','hero','porqueElegirnos','horario','reservas',
+  'alimentos','bebidas','eventos','contact','footer',
+  'socials','waFlotante','seo'
+]
 
 export function CMSProvider({ children }) {
   const [cms, setCms] = useState(initialCMSData)
@@ -29,12 +33,9 @@ export function CMSProvider({ children }) {
   function updateCMS(section, data) {
     setCms(prev => ({ ...prev, [section]: { ...prev[section], ...data } }))
   }
-
   function showToast(msg, duration = 3200) {
-    setToast(msg)
-    setTimeout(() => setToast(null), duration)
+    setToast(msg); setTimeout(() => setToast(null), duration)
   }
-
   function openAdmin() { setLoginModalOpen(true) }
 
   return (
@@ -42,7 +43,6 @@ export function CMSProvider({ children }) {
       cms, adminPanelOpen, loginModalOpen, toast,
       updateCMS, showToast, openAdmin,
       setLoginModalOpen, setAdminPanelOpen,
-      // legacy compat
       updateMenuData: () => {}, updateList: () => {},
     }}>
       {children}
