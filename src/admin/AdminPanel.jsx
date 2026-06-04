@@ -402,13 +402,14 @@ export default function AdminPanel() {
   return (
     <>
       <style>{`
-        .adm-overlay { position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);display:flex;justify-content:flex-end; }
-        .adm-panel   { width:min(720px,100vw);height:100dvh;background:#0f0f0f;border-left:1px solid #1f1f1f;display:flex;flex-direction:column;overflow:hidden; }
-        .adm-header  { padding:1rem 1.25rem;border-bottom:1px solid #1f1f1f;display:flex;align-items:center;justify-content:space-between;flex-shrink:0; }
-        .adm-tabs    { display:flex;overflow-x:auto;border-bottom:1px solid #1f1f1f;flex-shrink:0;scrollbar-width:none; }
+        .adm-overlay { position:fixed;inset:0;z-index:200;background:#0f0f0f;display:flex;justify-content:center; }
+        .adm-panel   { width:100%;max-width:100vw;height:100dvh;background:#0f0f0f;display:flex;flex-direction:column;overflow:hidden; }
+        .adm-header  { padding:1rem 2rem;border-bottom:1px solid #1f1f1f;display:flex;align-items:center;justify-content:space-between;flex-shrink:0; }
+        .adm-tabs    { display:flex;overflow-x:auto;border-bottom:1px solid #1f1f1f;flex-shrink:0;scrollbar-width:none;padding:0 1rem; }
         .adm-tabs::-webkit-scrollbar { display:none; }
-        .adm-tab     { padding:.6rem .9rem;font-size:.75rem;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:var(--font-body);transition:color .2s;border-bottom:2px solid transparent; }
-        .adm-content { flex:1;overflow-y:auto;padding:1.25rem; }
+        .adm-tab     { padding:.65rem 1.1rem;font-size:.8rem;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:var(--font-body);transition:color .2s;border-bottom:2px solid transparent; }
+        .adm-content { flex:1;overflow-y:auto;padding:2rem; }
+        .adm-inner   { max-width:860px;margin:0 auto; }
         .adm-close   { background:none;border:none;color:#555;cursor:pointer;padding:.5rem;border-radius:.4rem;line-height:0; }
         .adm-close:hover { background:#1a1a1a;color:#ccc; }
         @media(max-width:640px){
@@ -421,7 +422,7 @@ export default function AdminPanel() {
         }
       `}</style>
 
-      <div className="adm-overlay" onClick={e => e.target === e.currentTarget && setAdminPanelOpen(false)}>
+      <div className="adm-overlay">
         <div className="adm-panel">
 
           {/* Header */}
@@ -452,6 +453,7 @@ export default function AdminPanel() {
 
           {/* Content */}
           <div className="adm-content">
+            <div className="adm-inner">
             {d.hero            && activeTab==='hero'            && <HeroEditor      d={d.hero}            onChange={oc('hero')}            onSave={os('hero')}            loading={loading} />}
             {d.porqueElegirnos && activeTab==='porqueElegirnos' && <PorqueEditor    d={d.porqueElegirnos} onChange={oc('porqueElegirnos')} onSave={os('porqueElegirnos')} loading={loading} />}
             {d.horario         && activeTab==='horario'         && <HorarioEditor   d={d.horario}         onChange={oc('horario')}         onSave={os('horario')}         loading={loading} />}
@@ -464,6 +466,7 @@ export default function AdminPanel() {
             {d.waFlotante      && activeTab==='waFlotante'      && <WAEditor        d={d.waFlotante}      onChange={oc('waFlotante')}      onSave={os('waFlotante')}      loading={loading} />}
             {d.contact         && activeTab==='contact'         && <ContactEditor   d={d.contact}         onChange={oc('contact')}         onSave={os('contact')}         loading={loading} />}
             {d.seo             && activeTab==='seo'             && <SeoEditor       d={d.seo}             onChange={oc('seo')}             onSave={os('seo')}             loading={loading} />}
+            </div>
           </div>
 
         </div>
