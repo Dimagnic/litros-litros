@@ -4,44 +4,30 @@ import { getCMSSection } from '@/services/adminService'
 
 const CMSContext = createContext(null)
 
+const SECTIONS = ['hero','musica','bebidas','alimentos','eventos','reservas','contact','footer','socials','seo']
+
 export function CMSProvider({ children }) {
   const [cms, setCms] = useState(initialCMSData)
   const [adminPanelOpen, setAdminPanelOpen] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [toast, setToast] = useState(null)
 
-  // Carga secciones CMS desde Supabase al iniciar
   useEffect(() => {
-    const sections = ['hero', 'cta', 'contact', 'footer', 'about', 'seo']
-    sections.forEach(section => {
+    SECTIONS.forEach(section => {
       getCMSSection(section)
-        .then(data => {
-          if (data) setCms(prev => ({ ...prev, [section]: data }))
-        })
-        .catch(() => {}) // Usa initialCMSData como fallback silencioso
+        .then(data => { if (data) setCms(prev => ({ ...prev, [section]: data })) })
+        .catch(() => {})
     })
   }, [])
 
-  // Actualiza SEO en el <head> cuando cambia
   useEffect(() => {
-    document.title = cms.seo.title
+    document.title = cms.seo?.title || 'Litros & Litros'
     const meta = document.querySelector('meta[name="description"]')
-    if (meta) meta.setAttribute('content', cms.seo.desc)
+    if (meta) meta.setAttribute('content', cms.seo?.desc || '')
   }, [cms.seo])
 
   function updateCMS(section, data) {
     setCms(prev => ({ ...prev, [section]: { ...prev[section], ...data } }))
-  }
-
-  function updateMenuData(type, items) {
-    setCms(prev => ({
-      ...prev,
-      menuData: { ...prev.menuData, [type]: items },
-    }))
-  }
-
-  function updateList(key, items) {
-    setCms(prev => ({ ...prev, [key]: items }))
   }
 
   function showToast(msg, duration = 3200) {
@@ -49,23 +35,15 @@ export function CMSProvider({ children }) {
     setTimeout(() => setToast(null), duration)
   }
 
-  function openAdmin() {
-    setLoginModalOpen(true)
-  }
+  function openAdmin() { setLoginModalOpen(true) }
 
   return (
     <CMSContext.Provider value={{
-      cms,
-      adminPanelOpen,
-      loginModalOpen,
-      toast,
-      updateCMS,
-      updateMenuData,
-      updateList,
-      showToast,
-      openAdmin,
-      setLoginModalOpen,
-      setAdminPanelOpen,
+      cms, adminPanelOpen, loginModalOpen, toast,
+      updateCMS, showToast, openAdmin,
+      setLoginModalOpen, setAdminPanelOpen,
+      // legacy compat
+      updateMenuData: () => {}, updateList: () => {},
     }}>
       {children}
     </CMSContext.Provider>

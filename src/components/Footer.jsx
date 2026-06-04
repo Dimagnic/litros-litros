@@ -1,116 +1,82 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { getCMSSection, getSocials } from '@/services/adminService'
-import { initialCMSData } from '@/utils/cmsData'
+import { useCMS } from '@/context/CMSContext'
 
-const SOCIAL_ICONS = {
-  fb: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>,
-  ig: <><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></>,
-  tt: <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>,
-  yt: <><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></>,
+function scrollTo(id) {
+  const el = document.getElementById(id)
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' })
 }
 
 export default function Footer() {
-  const [footer,  setFooter]  = useState(initialCMSData.footer)
-  const [contact, setContact] = useState(initialCMSData.contact)
-  const [hero,    setHero]    = useState(initialCMSData.hero)
-  const [socials, setSocials] = useState(initialCMSData.socials)
-
-  useEffect(() => {
-    getCMSSection('footer').then(d => d && setFooter(d)).catch(() => {})
-    getCMSSection('contact').then(d => d && setContact(d)).catch(() => {})
-    getCMSSection('hero').then(d => d && setHero(d)).catch(() => {})
-    getSocials().then(rows => {
-      if (!rows) return
-      const obj = {}
-      rows.forEach(r => { obj[r.platform] = r.url })
-      setSocials(prev => ({ ...prev, ...obj }))
-    }).catch(() => {})
-  }, [])
-
-  const activeSocials = Object.entries(socials).filter(([, url]) => url)
+  const { cms } = useCMS()
+  const { footer, contact, socials } = cms
 
   return (
-    <footer style={{ background: 'var(--card)', borderTop: '1px solid var(--border)', padding: '3.5rem 0 2rem' }}>
+    <footer style={{ background:'#080808', borderTop:'1px solid var(--border)', padding:'3rem 0 1.5rem' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1.2fr', gap: '3rem', marginBottom: '3rem' }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))', gap:'2rem', marginBottom:'2.5rem' }}>
           {/* Brand */}
           <div>
-            <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem', marginBottom: '.75rem' }}>
-              <img src={hero.logo} alt="Logo" style={{ height: '2rem', borderRadius: '.4rem' }} />
-              <span style={{ fontSize: '1rem', fontWeight: 800, fontFamily: 'var(--font-head)', background: 'linear-gradient(135deg,#ef4444,#a855f7,#f97316)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                {footer.brand}
-              </span>
-            </Link>
-            <p style={{ fontSize: '.875rem', color: 'rgba(242,242,242,.7)', lineHeight: 1.6 }}>{footer.desc}</p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <span style={{ fontSize: '.75rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--fg)', marginBottom: '1rem', display: 'block' }}>Explorar</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem' }}>
-              {[['/menu','Menú & Bebidas'],['/karaoke','Karaoke'],['/eventos','Eventos'],['/nosotros','Nosotros'],['/contacto','Contacto']].map(([to,label]) => (
-                <Link key={to} to={to} style={{ fontSize: '.875rem', color: 'rgba(242,242,242,.7)', transition: 'color .2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(242,242,242,.7)'}
-                >
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <span style={{ fontSize: '.75rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--fg)', marginBottom: '1rem', display: 'block' }}>Contacto</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
-              {[
-                { icon: <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>, text: contact.address },
-                { icon: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>, text: contact.phone },
-                { icon: <><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>, text: contact.email },
-              ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '.6rem', fontSize: '.875rem', color: 'rgba(242,242,242,.7)' }}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                    {item.icon}
-                  </svg>
-                  <span>{item.text}</span>
-                </div>
-              ))}
-              {activeSocials.length > 0 && (
-                <div style={{ display: 'flex', gap: '.6rem', marginTop: '.4rem' }}>
-                  {activeSocials.map(([key, url]) => (
-                    <a key={key} href={url} target="_blank" rel="noopener noreferrer" style={{
-                      width: '2.2rem', height: '2.2rem', borderRadius: '.5rem',
-                      background: 'var(--card2)', border: '1px solid var(--border)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all .2s',
-                    }}
-                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,.15)'; e.currentTarget.style.borderColor = 'var(--primary)' }}
-                      onMouseLeave={e => { e.currentTarget.style.background = 'var(--card2)'; e.currentTarget.style.borderColor = 'var(--border)' }}
-                    >
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--fg)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        {SOCIAL_ICONS[key]}
-                      </svg>
-                    </a>
-                  ))}
-                </div>
+            <div style={{ fontSize:'1.2rem', fontWeight:800, fontFamily:'var(--font-head)',
+              background:'linear-gradient(135deg,#ef4444,#a855f7,#f97316)',
+              WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text',
+              marginBottom:'.75rem',
+            }}>{footer.brand}</div>
+            <p style={{ fontSize:'.85rem', color:'var(--fg-muted)', lineHeight:1.65 }}>{footer.desc}</p>
+            {/* Socials */}
+            <div style={{ display:'flex', gap:'.6rem', marginTop:'1rem' }}>
+              {socials.fb && (
+                <a href={socials.fb} target="_blank" rel="noopener noreferrer" style={socialStyle}>
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+              )}
+              {socials.ig && (
+                <a href={socials.ig} target="_blank" rel="noopener noreferrer" style={socialStyle}>
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
               )}
             </div>
           </div>
-        </div>
 
-        <div style={{ borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: '1.75rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-          <p style={{ fontSize: '.825rem', color: 'rgba(242,242,242,.45)' }}>{footer.copyright}</p>
-          <div style={{ display: 'flex', gap: '1.25rem' }}>
-            {['Política de privacidad','Términos de servicio'].map(label => (
-              <a key={label} href="#" style={{ fontSize: '.825rem', color: 'rgba(242,242,242,.45)', transition: 'color .2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'rgba(242,242,242,.45)'}
-              >{label}</a>
+          {/* Navegación */}
+          <div>
+            <h4 style={{ fontSize:'.8rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:'var(--fg-muted)', marginBottom:'1rem' }}>Navegación</h4>
+            {['inicio','musica','bebidas','alimentos','eventos','reservas'].map(id => (
+              <button key={id} onClick={() => scrollTo(id)} style={{
+                display:'block', background:'none', border:'none', cursor:'pointer',
+                color:'var(--fg-muted)', fontSize:'.875rem', padding:'.25rem 0',
+                fontFamily:'var(--font-body)', textAlign:'left', transition:'color .2s',
+                textTransform:'capitalize',
+              }}
+                onMouseEnter={e => e.currentTarget.style.color='var(--primary)'}
+                onMouseLeave={e => e.currentTarget.style.color='var(--fg-muted)'}
+              >{id}</button>
             ))}
           </div>
+
+          {/* Contacto */}
+          <div>
+            <h4 style={{ fontSize:'.8rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:'var(--fg-muted)', marginBottom:'1rem' }}>Contacto</h4>
+            <p style={{ fontSize:'.875rem', color:'var(--fg-muted)', marginBottom:'.5rem', lineHeight:1.6 }}>📍 {contact.address}</p>
+            <p style={{ fontSize:'.875rem', marginBottom:'.4rem' }}>
+              <a href={`tel:${contact.phone}`} style={{ color:'var(--fg-muted)', transition:'color .2s' }}
+                onMouseEnter={e => e.currentTarget.style.color='var(--primary)'}
+                onMouseLeave={e => e.currentTarget.style.color='var(--fg-muted)'}
+              >📞 {contact.phone}</a>
+            </p>
+            <p style={{ fontSize:'.875rem', color:'var(--fg-muted)' }}>🕐 {contact.hours}</p>
+          </div>
+        </div>
+
+        <div style={{ borderTop:'1px solid var(--border)', paddingTop:'1.25rem', textAlign:'center', fontSize:'.8rem', color:'rgba(160,160,160,.6)' }}>
+          {footer.copyright}
         </div>
       </div>
-      <style>{`@media(max-width:700px){footer .container > div:first-child{grid-template-columns:1fr !important;gap:2rem !important;}}`}</style>
     </footer>
   )
+}
+
+const socialStyle = {
+  display:'flex', alignItems:'center', justifyContent:'center',
+  width:'2rem', height:'2rem', borderRadius:'.5rem',
+  background:'var(--card2)', color:'var(--fg-muted)',
+  transition:'all .2s',
 }
