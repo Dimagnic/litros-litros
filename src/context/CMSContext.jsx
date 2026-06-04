@@ -1,26 +1,28 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { initialCMSData } from '@/utils/cmsData'
+import { getCMSSection } from '@/services/adminService'
 
 const CMSContext = createContext(null)
 
 export function CMSProvider({ children }) {
-  const [cms, setCms] = useState(() => {
-    try {
-      const saved = localStorage.getItem('ll_cms')
-      return saved ? JSON.parse(saved) : initialCMSData
-    } catch {
-      return initialCMSData
-    }
-  })
-
+  const [cms, setCms] = useState(initialCMSData)
   const [adminPanelOpen, setAdminPanelOpen] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [toast, setToast] = useState(null)
 
+  // Carga secciones CMS desde Supabase al iniciar
   useEffect(() => {
-    try { localStorage.setItem('ll_cms', JSON.stringify(cms)) } catch {}
-  }, [cms])
+    const sections = ['hero', 'cta', 'contact', 'footer', 'about', 'seo']
+    sections.forEach(section => {
+      getCMSSection(section)
+        .then(data => {
+          if (data) setCms(prev => ({ ...prev, [section]: data }))
+        })
+        .catch(() => {}) // Usa initialCMSData como fallback silencioso
+    })
+  }, [])
 
+  // Actualiza SEO en el <head> cuando cambia
   useEffect(() => {
     document.title = cms.seo.title
     const meta = document.querySelector('meta[name="description"]')
@@ -47,7 +49,6 @@ export function CMSProvider({ children }) {
     setTimeout(() => setToast(null), duration)
   }
 
-  // openAdmin ahora delega en AuthContext — Header lo llama directamente
   function openAdmin() {
     setLoginModalOpen(true)
   }
