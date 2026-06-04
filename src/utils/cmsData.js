@@ -43,7 +43,6 @@ export const initialCMSData = {
     desc: 'El mejor bar de karaoke en Puebla.',
     kw: 'bar karaoke puebla, litros y litros',
   },
-  auth: { pass: 'litros2026' },
   menuData: {
     food: [
       { id: 1, name: 'Tacos al Pastor', price: '$89.00', description: 'Tres tacos con carne marinada, piña, cilantro y cebolla', image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=400&h=300&fit=crop', category: 'Antojitos', featured: false },
