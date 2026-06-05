@@ -1,14 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
-
-const URL = import.meta.env.VITE_SUPABASE_URL
-const ANON = import.meta.env.VITE_SUPABASE_ANON_KEY
-const SERVICE = import.meta.env.VITE_SUPABASE_SERVICE_KEY
-
-// Cliente público para lectura
-const supabase = createClient(URL, ANON)
-
-// Cliente service_role para escritura — bypasea RLS completamente
-const supabaseAdmin = createClient(URL, SERVICE)
+import { supabase } from '@/services/supabase'
 
 // ── LEER sección ───────────────────────────────────────────────
 export async function getCMSSection(section) {
@@ -27,24 +17,31 @@ export async function getCMSSection(section) {
 
 // ── GUARDAR sección ────────────────────────────────────────────
 export async function saveCMSSection(section, data) {
-  const { error } = await supabaseAdmin
+  // Usar UPDATE con el usuario autenticado
+  const { error: updateError } = await supabase
     .from('cms_content')
-    .upsert(
-      { section, data, updated_at: new Date().toISOString() },
-      { onConflict: 'section' }
-    )
-  if (error) throw new Error(error.message)
+    .update({ data, updated_at: new Date().toISOString() })
+    .eq('section', section)
+
+  if (!updateError) return
+
+  // Si falla, intentar INSERT
+  const { error: insertError } = await supabase
+    .from('cms_content')
+    .insert({ section, data, updated_at: new Date().toISOString() })
+
+  if (insertError) throw new Error(insertError.message)
 }
 
 // ── SUBIR imagen ───────────────────────────────────────────────
 export async function uploadImage(file, folder = 'cms') {
   const ext  = file.name.split('.').pop()
   const name = `${folder}_${Date.now()}.${ext}`
-  const { error } = await supabaseAdmin.storage
+  const { error } = await supabase.storage
     .from('images (publico)')
     .upload(name, file, { upsert: true, contentType: file.type })
   if (error) throw new Error(error.message)
-  const { data } = supabaseAdmin.storage
+  const { data } = supabase.storage
     .from('images (publico)')
     .getPublicUrl(name)
   return data.publicUrl
