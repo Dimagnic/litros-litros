@@ -7,38 +7,44 @@ export async function getCMSSection(section) {
     .select('data')
     .eq('section', section)
     .single()
-  if (error) throw error
+  if (error) {
+    if (error.code === 'PGRST116') return null // No existe la fila
+    throw error
+  }
   return data?.data
 }
 
-// ── CMS: guardar sección (upsert) ──────────────────────────────
+// ── CMS: guardar sección ───────────────────────────────────────
 export async function saveCMSSection(section, data) {
-  // Primero intentar update
-  const { error: updateError } = await supabase
+  // Intentar UPDATE primero
+  const { error: updateError, count } = await supabase
     .from('cms_content')
     .update({ data, updated_at: new Date().toISOString() })
     .eq('section', section)
+    .select('section')
 
-  if (!updateError) return
+  // Si el UPDATE no encontró la fila, hacer INSERT
+  if (!updateError && count === 0) {
+    const { error: insertError } = await supabase
+      .from('cms_content')
+      .insert({ section, data, updated_at: new Date().toISOString() })
+    if (insertError) throw new Error('Error al crear sección: ' + insertError.message)
+    return
+  }
 
-  // Si falla el update, intentar insert
-  const { error: insertError } = await supabase
-    .from('cms_content')
-    .insert({ section, data, updated_at: new Date().toISOString() })
-
-  if (insertError) throw new Error(insertError.message)
+  if (updateError) throw new Error('Error al guardar: ' + updateError.message)
 }
 
 // ── STORAGE: subir imagen ──────────────────────────────────────
-export async function uploadImage(file, path) {
+export async function uploadImage(file, folder = 'cms') {
   const ext  = file.name.split('.').pop()
-  const name = `${path}_${Date.now()}.${ext}`
-  const { data, error } = await supabase.storage
+  const name = `${folder}_${Date.now()}.${ext}`
+  const { error: uploadError } = await supabase.storage
     .from('images (publico)')
     .upload(name, file, { upsert: true, contentType: file.type })
-  if (error) throw error
-  const { data: urlData } = supabase.storage
+  if (uploadError) throw new Error('Error al subir imagen: ' + uploadError.message)
+  const { data } = supabase.storage
     .from('images (publico)')
     .getPublicUrl(name)
-  return urlData.publicUrl
+  return data.publicUrl
 }
