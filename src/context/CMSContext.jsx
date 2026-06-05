@@ -4,11 +4,12 @@ import { getCMSSection } from '@/services/adminService'
 
 const CMSContext = createContext(null)
 
+// Todas las secciones que existen en la BBDD
 const SECTIONS = [
-  'header','hero','porqueElegirnos','horario','reservas',
-  'alimentos','bebidas','eventos','contact','footer',
-  'socials','waFlotante','seo',
-  'homeCards','platillos','espectaculos','menuPromo',
+  'header', 'hero', 'horario', 'reservas', 'bebidas',
+  'platillos', 'espectaculos', 'menuPromo',
+  'footer', 'socials', 'waFlotante', 'contact', 'seo',
+  'menuBebidas',
 ]
 
 export function CMSProvider({ children }) {
@@ -18,10 +19,23 @@ export function CMSProvider({ children }) {
   const [toast, setToast] = useState(null)
 
   useEffect(() => {
-    SECTIONS.forEach(section => {
-      getCMSSection(section)
-        .then(data => { if (data) setCms(prev => ({ ...prev, [section]: data })) })
-        .catch(() => {})
+    // Cargar todas las secciones en paralelo
+    Promise.allSettled(
+      SECTIONS.map(section =>
+        getCMSSection(section)
+          .then(data => ({ section, data }))
+          .catch(() => ({ section, data: null }))
+      )
+    ).then(results => {
+      const updates = {}
+      results.forEach(r => {
+        if (r.status === 'fulfilled' && r.value.data) {
+          updates[r.value.section] = r.value.data
+        }
+      })
+      if (Object.keys(updates).length > 0) {
+        setCms(prev => ({ ...prev, ...updates }))
+      }
     })
   }, [])
 
@@ -32,11 +46,14 @@ export function CMSProvider({ children }) {
   }, [cms.seo])
 
   function updateCMS(section, data) {
-    setCms(prev => ({ ...prev, [section]: { ...prev[section], ...data } }))
+    setCms(prev => ({ ...prev, [section]: data }))
   }
+
   function showToast(msg, duration = 3200) {
-    setToast(msg); setTimeout(() => setToast(null), duration)
+    setToast(msg)
+    setTimeout(() => setToast(null), duration)
   }
+
   function openAdmin() { setLoginModalOpen(true) }
 
   return (

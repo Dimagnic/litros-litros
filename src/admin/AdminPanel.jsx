@@ -518,37 +518,47 @@ export default function AdminPanel() {
 
   if (!adminPanelOpen || !isAdmin) return null
 
-  // Mapa de sección CMS → clave en el state local
+  // Mapa: tab del admin → sección real en Supabase (cms_content.section)
   const SECTION_MAP = {
-    header: 'header', hero: 'hero', horario: 'horario',
-    menuPromo: 'menuPromo', carta: 'bebidas', reserva: 'reservas',
-    alimentos: 'platillos', hamburguesa: 'platillos',
-    eventos: 'espectaculos', footer: 'footer',
-    socials: 'socials', waFlotante: 'waFlotante',
-    contact: 'contact', seo: 'seo',
+    header:      'header',
+    hero:        'hero',
+    horario:     'horario',
+    menuPromo:   'menuPromo',
+    carta:       'bebidas',
+    reserva:     'reservas',
+    alimentos:   'platillos',
+    hamburguesa: 'platillos',
+    eventos:     'espectaculos',
+    footer:      'footer',
+    socials:     'socials',
+    waFlotante:  'waFlotante',
+    contact:     'contact',
+    seo:         'seo',
   }
 
   function handleChange(section, key, val) {
-    const stateKey = SECTION_MAP[section] || section
-    setLocalData(prev => ({ ...prev, [stateKey]: { ...(prev[stateKey]||{}), [key]: val } }))
+    const dbKey = SECTION_MAP[section] || section
+    setLocalData(prev => ({ ...prev, [dbKey]: { ...(prev[dbKey]||{}), [key]: val } }))
   }
 
   async function handleSave(section) {
     setLoading(true)
-    const stateKey = SECTION_MAP[section] || section
+    const dbKey = SECTION_MAP[section] || section
     try {
-      const dataToSave = localData[stateKey]
-      // Para hamburguesa guardamos en platillos.hamburguesa
       if (section === 'hamburguesa') {
-        await saveCMSSection('platillos', { ...(localData.platillos||{}), hamburguesa: dataToSave })
-        updateCMS('platillos', { ...(localData.platillos||{}), hamburguesa: dataToSave })
+        // Hamburguesa vive dentro de platillos como sub-objeto
+        const platillosActual = localData.platillos || {}
+        const newPlatillos = { ...platillosActual, hamburguesa: platillosActual.hamburguesa }
+        await saveCMSSection('platillos', newPlatillos)
+        updateCMS('platillos', newPlatillos)
       } else {
-        await saveCMSSection(stateKey, dataToSave)
-        updateCMS(stateKey, dataToSave)
+        const dataToSave = localData[dbKey]
+        await saveCMSSection(dbKey, dataToSave)
+        updateCMS(dbKey, dataToSave)
       }
-      showToast(`✅ "${section}" guardado correctamente`)
+      showToast(`✅ Cambios guardados correctamente`)
     } catch (e) {
-      showToast(`❌ Error: ${e.message}`)
+      showToast(`❌ Error al guardar: ${e.message}`)
     } finally { setLoading(false) }
   }
 
