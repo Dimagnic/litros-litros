@@ -3,12 +3,28 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useCMS } from '@/context/CMSContext'
 import { useAuth } from '@/context/AuthContext'
 
-const NAV = [
-  { label:'Inicio',           path:'/'             },
-  { label:'Menú Promo',       path:'/menu-promo'   },
-  { label:'Carta',            path:'/carta'         },
-  { label:'Reserva',          path:'/reserva'       },
-  { label:'Cabina Privada',   path:'/reserva', special:true },
+const NAV_HOME = [
+  { label:'Inicio',         path:'/'           },
+  { label:'Menú Promo',     path:'/menu-promo' },
+  { label:'Carta',          path:'/carta'       },
+  { label:'Reserva',        path:'/reserva'     },
+  { label:'Cabina Privada', path:'/reserva', special:true },
+]
+
+const NAV_FOOD = [
+  { label:'Inicio',     path:'/'            },
+  { label:'Alimentos',  path:'/alimentos'   },
+  { label:'Bebidas',    path:'/carta'        },
+  { label:'Eventos',    path:'/eventos'      },
+  { label:'Reservas',   path:'/reserva', special:true },
+]
+
+const NAV_EVENTS = [
+  { label:'Inicio',      path:'/'           },
+  { label:'Eventos',     path:'/eventos'    },
+  { label:'Cumpleaños',  path:'/eventos#cumpleanos' },
+  { label:'Alimentos',   path:'/alimentos'  },
+  { label:'Reservas',    path:'/reserva', special:true },
 ]
 
 export default function Header() {
@@ -25,8 +41,29 @@ export default function Header() {
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  function go(path) { setMobileOpen(false); navigate(path); window.scrollTo(0,0) }
-  const active = (path) => location.pathname === path
+  // Seleccionar nav según la página actual
+  const path = location.pathname
+  const NAV = path === '/' || path === '/menu-promo' || path === '/carta' || path === '/reserva'
+    ? NAV_HOME
+    : path === '/eventos'
+    ? NAV_EVENTS
+    : NAV_FOOD
+
+  function go(path) {
+    setMobileOpen(false)
+    if (path.includes('#')) {
+      const [p, hash] = path.split('#')
+      navigate(p)
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior:'smooth' })
+      }, 200)
+    } else {
+      navigate(path)
+      window.scrollTo(0,0)
+    }
+  }
+
+  const active = (p) => location.pathname === p.split('#')[0]
 
   return (
     <header style={{
@@ -62,7 +99,7 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Admin */}
+        {/* Admin + mobile toggle */}
         <div style={{ display:'flex', alignItems:'center', gap:'.4rem' }}>
           <button className="menu-toggle" onClick={() => setMobileOpen(o=>!o)}
             style={{ display:'none', background:'none', border:'none', cursor:'pointer', color:'var(--fg)', padding:'.35rem' }}>
@@ -81,7 +118,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile */}
+      {/* Mobile menu */}
       {mobileOpen && (
         <div style={{ padding:'1rem', borderTop:'1px solid var(--border)', background:'var(--card)', display:'flex', flexDirection:'column', gap:'.4rem' }}>
           {NAV.map(n => (

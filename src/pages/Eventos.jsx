@@ -2,25 +2,49 @@ import { useNavigate } from 'react-router-dom'
 import { useCMS } from '@/context/CMSContext'
 
 const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
-const WA_BASE = 'https://wa.me/'
+const WA_RESERVAR  = `https://wa.me/522224302693?text=${encodeURIComponent('¡Hola! Quiero reservar')}`
+const WA_INFO      = `https://wa.me/522224302693?text=${encodeURIComponent('¡Hola! Quiero más información sobre eventos')}`
+const WA_PARTICIPAR= `https://wa.me/522294302693?text=${encodeURIComponent('¡Hola! Quiero participar en la competencia de voz')}`
+const WA_RETO      = `https://wa.me/522224302693?text=${encodeURIComponent('¡Hola! Acepto el reto vs el mesero')}`
+const WA_CUMPLE    = `https://wa.me/522224302693?text=${encodeURIComponent('¡Hola! Quiero reservar para mi cumpleaños')}`
 
-function ArrowItem({ title, desc }) {
+function Bullet({ children }) {
   return (
-    <div style={{ paddingBottom:'1.25rem', marginBottom:'1.25rem', borderBottom:'1px solid rgba(255,255,255,.06)' }}>
-      <div style={{ display:'flex', alignItems:'flex-start', gap:'.75rem', marginBottom:'.35rem' }}>
-        <span style={{ color:'var(--primary)', fontWeight:800, fontSize:'1.1rem', flexShrink:0, marginTop:'.05rem' }}>►</span>
-        <h3 style={{ fontWeight:800, fontSize:'1.05rem', fontFamily:'var(--font-head)' }}>{title}</h3>
-      </div>
-      {desc && <p style={{ color:'var(--fg-muted)', fontSize:'.9rem', lineHeight:1.65, paddingLeft:'1.6rem' }}>{desc}</p>}
+    <div style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.3rem 0' }}>
+      <span style={{ width:'6px', height:'6px', borderRadius:'50%', background:'var(--primary)', flexShrink:0, display:'inline-block' }}/>
+      <span style={{ fontSize:'.9rem', color:'var(--fg-muted)' }}>{children}</span>
     </div>
   )
 }
 
-function CheckItem({ children }) {
+function Check({ children }) {
   return (
-    <div style={{ display:'flex', alignItems:'flex-start', gap:'.65rem', padding:'.4rem 0' }}>
-      <span style={{ color:'#22c55e', fontWeight:800, flexShrink:0 }}>✓</span>
-      <span style={{ fontSize:'.95rem', lineHeight:1.55 }}>{children}</span>
+    <div style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.35rem 0' }}>
+      <span style={{ color:'#22c55e', fontWeight:700, flexShrink:0 }}>✓</span>
+      <span style={{ fontSize:'.95rem' }}>{children}</span>
+    </div>
+  )
+}
+
+function EventoCard({ icon, title, desc, bullets, children, cta, ctaUrl, color='rgba(239,68,68,.1)', borderColor='rgba(239,68,68,.25)' }) {
+  return (
+    <div style={{ background:'var(--card)', border:`1px solid ${borderColor}`, borderRadius:'var(--radius)', overflow:'hidden', marginBottom:'1.5rem' }}>
+      <div style={{ background:color, padding:'1.25rem 1.5rem', borderBottom:`1px solid ${borderColor}` }}>
+        <h2 style={{ fontFamily:'var(--font-head)', fontSize:'1.15rem', fontWeight:900 }}>{icon} {title}</h2>
+      </div>
+      <div style={{ padding:'1.5rem' }}>
+        {desc && <p style={{ color:'var(--fg-muted)', marginBottom:'1rem', lineHeight:1.65 }}>{desc}</p>}
+        {bullets && bullets.map((b, i) => <Bullet key={i}>{b}</Bullet>)}
+        {children}
+        {cta && (
+          <a href={ctaUrl} target="_blank" rel="noopener noreferrer" style={{
+            display:'inline-flex', alignItems:'center', justifyContent:'center',
+            marginTop:'1.25rem', padding:'.6rem 1.5rem', borderRadius:'var(--radius)',
+            background:'linear-gradient(135deg,#ef4444,#a855f7)', color:'#fff',
+            fontWeight:700, fontSize:'.9rem', textDecoration:'none', fontFamily:'var(--font-body)',
+          }}>{cta}</a>
+        )}
+      </div>
     </div>
   )
 }
@@ -29,96 +53,124 @@ export default function Eventos() {
   const { cms } = useCMS()
   const navigate = useNavigate()
   const ev = cms.espectaculos || {}
-  const r  = cms.reservas     || {}
+  const cu = ev['cumpleanos'] || {}
 
-  const waUrl = `${WA_BASE}${r.wa || '522224302693'}?text=${encodeURIComponent(r.waMsg || 'Hola, quiero hacer una reservación en Litros & Litros')}`
-
-  const pc  = ev['puerta-cerrada'] || {}
-  const mv  = ev['mejor-voz']      || {}
-  const k   = ev['karaoke']        || {}
-  const vs  = ev['vs-mesero']      || {}
-  const cu  = ev['cumpleanos']     || {}
-
-  const fotoUrl = pc.img || `${BASE}/3.jpeg`
+  const fotoUrl = ev['puerta-cerrada']?.img || `${BASE}/3.jpeg`
+  const checks = cu.checks?.length > 0 ? cu.checks : ['Reserva con anticipación','Mesa decorada','Bebida de bienvenida','Bebida gratis para el cumpleañero','Bebida gratis para cada mesa']
 
   return (
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
-      {/* Foto grande */}
-      <div style={{ position:'relative', height:'45vw', maxHeight:'380px', overflow:'hidden' }}>
+
+      {/* Foto header */}
+      <div style={{ position:'relative', height:'45vw', maxHeight:'360px', overflow:'hidden' }}>
         <img src={fotoUrl} alt="Eventos" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(10,10,10,.2) 0%, rgba(10,10,10,.85) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(10,10,10,.2) 0%, rgba(10,10,10,.88) 100%)' }} />
         <div style={{ position:'absolute', bottom:'2rem', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
-          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(1.8rem,5vw,3rem)', fontWeight:900, color:'#fff',
-            textShadow:'0 2px 20px rgba(0,0,0,.8)' }}>
-            EVENTOS ESPECIALES
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(1.8rem,5vw,3rem)', fontWeight:900, color:'#fff' }}>
+            🎉 EVENTOS ESPECIALES
           </h1>
         </div>
       </div>
 
-      <div className="container" style={{ padding:'2.5rem 1.5rem 5rem', maxWidth:'720px' }}>
+      <div className="container" style={{ padding:'2rem 1.5rem 5rem', maxWidth:'720px' }}>
 
-        {/* Eventos con ► */}
-        <div style={{ marginBottom:'2.5rem' }}>
-          <ArrowItem
-            title={pc.title || 'Puerta Cerrada'}
-            desc={(pc.items || ['Eventos privados con reservación anticipada']).join(' · ')}
-          />
-          <ArrowItem
-            title={mv.title || 'Competencia por la Mejor Voz'}
-            desc={(mv.items || ['Participa y gana premios']).join(' · ')}
-          />
-          <ArrowItem
-            title={k.title || 'Karaoke con Animador'}
-            desc={(k.items || ['Ambiente dinámico']).join(' · ')}
-          />
-          <div style={{ paddingBottom:'1.25rem' }}>
-            <div style={{ display:'flex', alignItems:'flex-start', gap:'.75rem', marginBottom:'.35rem' }}>
-              <span style={{ color:'var(--primary)', fontWeight:800, fontSize:'1.1rem', flexShrink:0 }}>►</span>
-              <h3 style={{ fontWeight:800, fontSize:'1.05rem', fontFamily:'var(--font-head)' }}>
-                {vs.title || 'Compite con el Mesero'}
-              </h3>
-            </div>
-            <p style={{ color:'var(--fg-muted)', fontSize:'.9rem', lineHeight:1.65, paddingLeft:'1.6rem' }}>
-              {vs.premio || '🎁 Si ganas recibes bebida gratis'}
+        {/* Subtítulo + CTA shows */}
+        <div style={{ textAlign:'center', marginBottom:'2.5rem' }}>
+          <p style={{ color:'var(--fg-muted)', fontSize:'1rem', lineHeight:1.7, marginBottom:'1.25rem' }}>
+            Diversión, música y experiencias únicas para disfrutar con amigos, familia o compañeros de trabajo.
+          </p>
+          <button className="btn btn-outline" onClick={() => { navigate('/reserva'); window.scrollTo(0,0) }}>
+            VER PRÓXIMOS SHOWS
+          </button>
+        </div>
+
+        {/* Puerta Cerrada */}
+        <EventoCard
+          icon="🎭" title="PUERTA CERRADA"
+          desc="Eventos privados con reservación anticipada."
+          bullets={['Celebraciones exclusivas','Reuniones empresariales','Eventos familiares','Ambiente personalizado']}
+          cta="MÁS INFORMACIÓN" ctaUrl={WA_INFO}
+          color="rgba(239,68,68,.08)" borderColor="rgba(239,68,68,.25)"
+        />
+
+        {/* Competencia Mejor Voz */}
+        <EventoCard
+          icon="🎤" title="COMPETENCIA POR LA MEJOR VOZ"
+          desc="Demuestra tu talento y participa para ganar premios cada semana."
+          bullets={['Participación abierta','Premios especiales','Ambiente competitivo y divertido']}
+          cta="QUIERO PARTICIPAR" ctaUrl={WA_PARTICIPAR}
+          color="rgba(234,179,8,.08)" borderColor="rgba(234,179,8,.25)"
+        />
+
+        {/* Karaoke con Animador */}
+        <EventoCard
+          icon="🎙️" title="KARAOKE CON ANIMADOR"
+          desc="Disfruta de una experiencia dinámica con animación en vivo."
+          bullets={['Interacción con los asistentes','Retos musicales','Ambiente divertido para todos']}
+          color="rgba(168,85,247,.08)" borderColor="rgba(168,85,247,.25)"
+        />
+
+        {/* Compite con el Mesero */}
+        <EventoCard
+          icon="🍻" title="COMPITE CON EL MESERO"
+          color="rgba(6,182,212,.08)" borderColor="rgba(6,182,212,.25)"
+          cta="ACEPTAR EL RETO" ctaUrl={WA_RETO}
+        >
+          <p style={{ color:'var(--fg-muted)', marginBottom:'.75rem', lineHeight:1.65 }}>
+            ¿Crees que cantas mejor? Reta a nuestro staff y demuestra tu talento.
+          </p>
+          <div style={{ background:'rgba(239,68,68,.08)', border:'1px solid rgba(239,68,68,.2)', borderRadius:'.5rem', padding:'.75rem 1rem', display:'inline-flex', alignItems:'center', gap:'.5rem' }}>
+            <span style={{ fontSize:'1.1rem' }}>🏆</span>
+            <span style={{ fontWeight:700, color:'var(--primary)', fontSize:'.9rem' }}>Si ganas, obtienes una bebida gratis.</span>
+          </div>
+        </EventoCard>
+
+        {/* Cumpleaños — id para anchor */}
+        <div id="cumpleanos" style={{ background:'linear-gradient(135deg,rgba(239,68,68,.08),rgba(168,85,247,.08))', border:'1px solid rgba(239,68,68,.3)', borderRadius:'var(--radius)', overflow:'hidden', marginBottom:'1.5rem' }}>
+          <div style={{ background:'linear-gradient(135deg,rgba(239,68,68,.15),rgba(168,85,247,.15))', padding:'1.25rem 1.5rem', borderBottom:'1px solid rgba(239,68,68,.2)' }}>
+            <h2 style={{ fontFamily:'var(--font-head)', fontSize:'1.15rem', fontWeight:900 }}>🎂 CELEBRA TU CUMPLEAÑOS</h2>
+          </div>
+          <div style={{ padding:'1.5rem' }}>
+            <p style={{ color:'var(--fg-muted)', marginBottom:'1.25rem', lineHeight:1.65 }}>
+              Haz de tu día una experiencia inolvidable.
             </p>
+            <p style={{ fontWeight:700, fontSize:'.9rem', marginBottom:'.75rem' }}>Incluye:</p>
+            {checks.map((item, i) => <Check key={i}>{item}</Check>)}
+            {cu.nota && (
+              <div style={{ marginTop:'1.1rem', padding:'.85rem 1rem', borderRadius:'.5rem', background:'rgba(168,85,247,.08)', border:'1px solid rgba(168,85,247,.2)', fontSize:'.88rem', color:'var(--fg-muted)', lineHeight:1.6 }}>
+                {cu.nota}
+              </div>
+            )}
+            <a href={WA_CUMPLE} target="_blank" rel="noopener noreferrer" style={{
+              display:'inline-flex', alignItems:'center', justifyContent:'center',
+              marginTop:'1.25rem', padding:'.6rem 1.5rem', borderRadius:'var(--radius)',
+              background:'linear-gradient(135deg,#ef4444,#a855f7)', color:'#fff',
+              fontWeight:700, fontSize:'.9rem', textDecoration:'none', fontFamily:'var(--font-body)',
+            }}>RESERVAR CUMPLEAÑOS</a>
           </div>
         </div>
 
-        {/* Separador */}
-        <div style={{ borderTop:'1px solid rgba(239,68,68,.2)', margin:'2rem 0' }} />
-
-        {/* Cumpleaños */}
-        <div style={{ marginBottom:'2.5rem' }}>
-          <h2 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(1.5rem,4vw,2rem)', fontWeight:900, marginBottom:'1.25rem',
-            background:'linear-gradient(135deg,#ef4444,#a855f7)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-            {cu.titulo || 'CUMPLEAÑOS'}
-          </h2>
-          <div style={{ display:'flex', flexDirection:'column' }}>
-            {(cu.checks || [
-              'Reserva con anticipación',
-              'Mesa decorada',
-              'Bebida de bienvenida',
-              'Bebida gratis para el cumpleañero',
-              'Bebida gratis para cada mesa',
-            ]).map((item, i) => <CheckItem key={i}>{item}</CheckItem>)}
-          </div>
-          {cu.nota && (
-            <div style={{ marginTop:'1.25rem', padding:'.9rem 1.1rem', borderRadius:'.5rem',
-              background:'rgba(168,85,247,.08)', border:'1px solid rgba(168,85,247,.2)',
-              fontSize:'.88rem', color:'var(--fg-muted)', lineHeight:1.6 }}>
-              {cu.nota}
-            </div>
-          )}
+        {/* Carta de bebidas */}
+        <div style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:'var(--radius)', padding:'1.75rem', textAlign:'center', marginBottom:'1.25rem' }}>
+          <p style={{ fontWeight:700, fontSize:'1rem', marginBottom:'.5rem' }}>🥂 ACOMPAÑA TU EVENTO</p>
+          <p style={{ color:'var(--fg-muted)', fontSize:'.9rem', marginBottom:'1.25rem' }}>
+            Conoce nuestras promociones y bebidas disponibles.
+          </p>
+          <button className="btn btn-outline" onClick={() => { navigate('/carta'); window.scrollTo(0,0) }}>
+            VER CARTA DE BEBIDAS
+          </button>
         </div>
 
-        {/* Botón Reservar Ahora */}
-        <a href={waUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary"
-          style={{ width:'100%', justifyContent:'center', textDecoration:'none', fontSize:'1rem' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          {ev['cumpleanos']?.cta || 'RESERVAR AHORA'}
-        </a>
+        {/* Contacto */}
+        <div style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:'var(--radius)', padding:'1.5rem', textAlign:'center' }}>
+          <p style={{ fontWeight:700, marginBottom:'.4rem' }}>📍 CONTACTO Y UBICACIÓN</p>
+          <p style={{ color:'var(--fg-muted)', fontSize:'.9rem', marginBottom:'1rem' }}>
+            Reserva tu evento o solicita información personalizada.
+          </p>
+          <a href={WA_RESERVAR} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textDecoration:'none', fontSize:'.9rem' }}>
+            💬 Escribir por WhatsApp
+          </a>
+        </div>
       </div>
     </div>
   )
