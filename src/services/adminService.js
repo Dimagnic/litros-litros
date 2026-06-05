@@ -1,49 +1,50 @@
-import { supabase } from '@/services/supabase'
+import { createClient } from '@supabase/supabase-js'
 
-// ── CMS: leer sección ──────────────────────────────────────────
+const URL = import.meta.env.VITE_SUPABASE_URL
+const ANON = import.meta.env.VITE_SUPABASE_ANON_KEY
+const SERVICE = import.meta.env.VITE_SUPABASE_SERVICE_KEY
+
+// Cliente público para lectura
+const supabase = createClient(URL, ANON)
+
+// Cliente service_role para escritura — bypasea RLS completamente
+const supabaseAdmin = createClient(URL, SERVICE)
+
+// ── LEER sección ───────────────────────────────────────────────
 export async function getCMSSection(section) {
-  const { data, error } = await supabase
-    .from('cms_content')
-    .select('data')
-    .eq('section', section)
-    .single()
-  if (error) {
-    if (error.code === 'PGRST116') return null // No existe la fila
-    throw error
-  }
-  return data?.data
-}
-
-// ── CMS: guardar sección ───────────────────────────────────────
-export async function saveCMSSection(section, data) {
-  // Intentar UPDATE primero
-  const { error: updateError, count } = await supabase
-    .from('cms_content')
-    .update({ data, updated_at: new Date().toISOString() })
-    .eq('section', section)
-    .select('section')
-
-  // Si el UPDATE no encontró la fila, hacer INSERT
-  if (!updateError && count === 0) {
-    const { error: insertError } = await supabase
+  try {
+    const { data, error } = await supabase
       .from('cms_content')
-      .insert({ section, data, updated_at: new Date().toISOString() })
-    if (insertError) throw new Error('Error al crear sección: ' + insertError.message)
-    return
+      .select('data')
+      .eq('section', section)
+      .single()
+    if (error) return null
+    return data?.data ?? null
+  } catch {
+    return null
   }
-
-  if (updateError) throw new Error('Error al guardar: ' + updateError.message)
 }
 
-// ── STORAGE: subir imagen ──────────────────────────────────────
+// ── GUARDAR sección ────────────────────────────────────────────
+export async function saveCMSSection(section, data) {
+  const { error } = await supabaseAdmin
+    .from('cms_content')
+    .upsert(
+      { section, data, updated_at: new Date().toISOString() },
+      { onConflict: 'section' }
+    )
+  if (error) throw new Error(error.message)
+}
+
+// ── SUBIR imagen ───────────────────────────────────────────────
 export async function uploadImage(file, folder = 'cms') {
   const ext  = file.name.split('.').pop()
   const name = `${folder}_${Date.now()}.${ext}`
-  const { error: uploadError } = await supabase.storage
+  const { error } = await supabaseAdmin.storage
     .from('images (publico)')
     .upload(name, file, { upsert: true, contentType: file.type })
-  if (uploadError) throw new Error('Error al subir imagen: ' + uploadError.message)
-  const { data } = supabase.storage
+  if (error) throw new Error(error.message)
+  const { data } = supabaseAdmin.storage
     .from('images (publico)')
     .getPublicUrl(name)
   return data.publicUrl
