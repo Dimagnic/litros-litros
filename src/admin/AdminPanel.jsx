@@ -544,9 +544,15 @@ export default function AdminPanel() {
   async function handleSave(section) {
     setLoading(true)
     const dbKey = SECTION_MAP[section] || section
+
+    // Timeout de seguridad — nunca queda congelado más de 8 segundos
+    const timeout = setTimeout(() => {
+      setLoading(false)
+      showToast('⚠️ Tiempo de espera agotado — revisa tu conexión')
+    }, 8000)
+
     try {
       if (section === 'hamburguesa') {
-        // Hamburguesa vive dentro de platillos como sub-objeto
         const platillosActual = localData.platillos || {}
         const newPlatillos = { ...platillosActual, hamburguesa: platillosActual.hamburguesa }
         await saveCMSSection('platillos', newPlatillos)
@@ -558,8 +564,11 @@ export default function AdminPanel() {
       }
       showToast(`✅ Cambios guardados correctamente`)
     } catch (e) {
-      showToast(`❌ Error al guardar: ${e.message}`)
-    } finally { setLoading(false) }
+      showToast(`❌ Error: ${e.message}`)
+    } finally {
+      clearTimeout(timeout)
+      setLoading(false)
+    }
   }
 
   const d  = localData

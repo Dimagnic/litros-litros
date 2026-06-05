@@ -13,10 +13,20 @@ export async function getCMSSection(section) {
 
 // ── CMS: guardar sección (upsert) ──────────────────────────────
 export async function saveCMSSection(section, data) {
-  const { error } = await supabase
+  // Primero intentar update
+  const { error: updateError } = await supabase
     .from('cms_content')
-    .upsert({ section, data, updated_at: new Date().toISOString() }, { onConflict: 'section' })
-  if (error) throw error
+    .update({ data, updated_at: new Date().toISOString() })
+    .eq('section', section)
+
+  if (!updateError) return
+
+  // Si falla el update, intentar insert
+  const { error: insertError } = await supabase
+    .from('cms_content')
+    .insert({ section, data, updated_at: new Date().toISOString() })
+
+  if (insertError) throw new Error(insertError.message)
 }
 
 // ── STORAGE: subir imagen ──────────────────────────────────────
