@@ -4,11 +4,11 @@ import { useCMS } from '@/context/CMSContext'
 import { useAuth } from '@/context/AuthContext'
 
 const NAV = [
-  { label:'Inicio',           path:'/'           },
-  { label:'Menú Promo',       path:'/menu-promo' },
-  { label:'Carta',            path:'/carta'      },
-  { label:'Reserva',          path:'/reserva'    },
-  { label:'Cabinas Privadas', path:'/reserva', special:true },
+  { label:'Inicio',           path:'/'             },
+  { label:'Menú Promo',       path:'/menu-promo'   },
+  { label:'Carta',            path:'/carta'         },
+  { label:'Reserva',          path:'/reserva'       },
+  { label:'Cabina Privada',   path:'/reserva', special:true },
 ]
 
 export default function Header() {
@@ -31,12 +31,13 @@ export default function Header() {
   return (
     <header style={{
       position:'sticky', top:0, zIndex:50,
-      background: scrolled ? 'rgba(10,10,10,.97)' : 'rgba(10,10,10,.8)',
+      background: scrolled ? 'rgba(10,10,10,.97)' : 'rgba(10,10,10,.85)',
       backdropFilter:'blur(16px)',
       borderBottom:`1px solid ${scrolled ? 'rgba(239,68,68,.2)' : 'transparent'}`,
       transition:'all .3s',
     }}>
       <div className="container" style={{ display:'flex', alignItems:'center', justifyContent:'space-between', height:'4rem' }}>
+
         {/* Logo */}
         <button onClick={() => go('/')} style={{ display:'flex', alignItems:'center', gap:'.6rem', background:'none', border:'none', cursor:'pointer' }}>
           <img src={cms.hero?.logo} alt="Logo" style={{ height:'2.2rem', borderRadius:'.4rem', objectFit:'cover' }} />
@@ -48,11 +49,11 @@ export default function Header() {
         </button>
 
         {/* Desktop nav */}
-        <nav className="desk-nav" style={{ display:'flex', alignItems:'center', gap:'.1rem' }}>
+        <nav className="desk-nav" style={{ display:'flex', alignItems:'center', gap:'.05rem' }}>
           {NAV.map(n => (
             <button key={n.label} onClick={() => go(n.path)} style={{
-              padding:'.4rem .85rem', borderRadius:'.5rem',
-              fontSize:'.82rem', fontWeight: active(n.path) ? 700 : 500,
+              padding:'.4rem .8rem', borderRadius:'.5rem',
+              fontSize:'.8rem', fontWeight: active(n.path) ? 700 : 500,
               color: n.special ? 'var(--primary)' : active(n.path) ? 'var(--primary)' : 'rgba(242,242,242,.75)',
               background: active(n.path) && !n.special ? 'rgba(239,68,68,.1)' : 'transparent',
               border: n.special ? '1px solid rgba(239,68,68,.4)' : 'none',
@@ -61,7 +62,7 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Right */}
+        {/* Admin */}
         <div style={{ display:'flex', alignItems:'center', gap:'.4rem' }}>
           <button className="menu-toggle" onClick={() => setMobileOpen(o=>!o)}
             style={{ display:'none', background:'none', border:'none', cursor:'pointer', color:'var(--fg)', padding:'.35rem' }}>
@@ -74,12 +75,13 @@ export default function Header() {
             border:`1px solid ${isAdmin ? 'var(--primary)' : 'rgba(239,68,68,.3)'}`,
             color: isAdmin ? 'var(--primary)' : 'rgba(242,242,242,.4)',
             borderRadius:'.5rem', padding:'.32rem .65rem', fontSize:'.75rem', fontWeight:600,
-            cursor:'pointer', display:'flex', alignItems:'center', gap:'.3rem', transition:'all .2s', fontFamily:'var(--font-body)',
+            cursor:'pointer', display:'flex', alignItems:'center', gap:'.3rem', fontFamily:'var(--font-body)',
           }}>🔒 {isAdmin ? 'Panel' : 'Admin'}</button>
           {isAdmin && <button onClick={signOut} style={{ background:'none', border:'1px solid rgba(255,255,255,.1)', color:'rgba(242,242,242,.4)', borderRadius:'.5rem', padding:'.32rem .6rem', fontSize:'.75rem', cursor:'pointer', fontFamily:'var(--font-body)' }}>Salir</button>}
         </div>
       </div>
 
+      {/* Mobile */}
       {mobileOpen && (
         <div style={{ padding:'1rem', borderTop:'1px solid var(--border)', background:'var(--card)', display:'flex', flexDirection:'column', gap:'.4rem' }}>
           {NAV.map(n => (
