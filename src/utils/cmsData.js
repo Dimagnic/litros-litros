@@ -239,50 +239,50 @@ export const initialCMSData = {
   // ── HOME — Cards de secciones ────────────────────────────────
   homeCards: {
     alimentos: [
-      { id:'alitas',       icon:'🍗', title:'Alitas',          desc:'Marinadas con sabor a elegir · Aderezo incluido',                     img:`${BASE}/3.jpeg` },
-      { id:'nachos',       icon:'🧀', title:'Nachos',          desc:'Base crujiente + variantes especiales',                               img:`${BASE}/4.jpeg` },
-      { id:'hotdog',       icon:'🌭', title:'Hot Dog',         desc:'Pan caliente · Salchicha italiana · Receta completa',                 img:`${BASE}/6.jpeg` },
-      { id:'papas',        icon:'🍟', title:'Papas Francesas', desc:'Papa ondulada · Queso amarillo · Catsup',                            img:`${BASE}/7.jpeg` },
+      { id:'alitas',       icon:'🍗', title:'Alitas',          desc:'Marinadas con sabor a elegir · Aderezo incluido',                     img:`${BASE}/alitas.jpeg` },
+      { id:'nachos',       icon:'🧀', title:'Nachos',          desc:'Base crujiente + variantes especiales',                               img:`${BASE}/nachos.jpeg` },
+      { id:'hotdog',       icon:'🌭', title:'Hot Dog',         desc:'Pan caliente · Salchicha italiana · Receta completa',                 img:`${BASE}/hotdog.jpeg` },
+      { id:'papas',        icon:'🍟', title:'Papas Francesas', desc:'Papa ondulada · Queso amarillo · Catsup',                            img:`${BASE}/papas.jpeg` },
     ],
-    hamburguesa: { id:'hamburguesa', icon:'🍔', title:'Hamburguesa', desc:'Carne de res frita · Queso amarillo · Tocino · y más',         img:`${BASE}/7.jpeg` },
+    hamburguesa: { id:'hamburguesa', icon:'🍔', title:'Hamburguesa', desc:'Carne de res frita · Queso amarillo · Tocino · y más',         img:`${BASE}/hamburguesa.jpeg` },
     espectaculos: [
       { id:'puerta-cerrada', icon:'🚪', title:'Puerta Cerrada',       desc:'Eventos privados con reservación anticipada',                  img:`${BASE}/2.jpeg` },
       { id:'mejor-voz',      icon:'🏆', title:'Competencia de Voz',   desc:'Participa y gana premios · Demuestra tu talento',             img:`${BASE}/open_mind.jpeg` },
-      { id:'karaoke',        icon:'🎤', title:'Karaoke con Animador',  desc:'Show completo · Dúos bienvenidos · Toda la noche',            img:`${BASE}/1.jpeg` },
-      { id:'vs-mesero',      icon:'⚔️', title:'Compite con Mesero',   desc:'¿Puedes ganarle? El ganador recibe bebida gratis',            img:`${BASE}/3.jpeg` },
+      { id:'karaoke',        icon:'🎤', title:'Karaoke con Animador',  desc:'Show completo · Dúos bienvenidos · Toda la noche',            img:`${BASE}/karaoke.jpeg` },
+      { id:'vs-mesero',      icon:'⚔️', title:'Compite con Mesero',   desc:'¿Puedes ganarle? El ganador recibe bebida gratis',            img:`${BASE}/vs_mesero.jpeg` },
     ],
-    cumpleanos: { id:'cumpleanos', icon:'🎂', title:'Especial Cumpleaños', desc:'Mesa decorada · Bebida de bienvenida · Bebida gratis',    img:`${BASE}/2.jpeg` },
+    cumpleanos: { id:'cumpleanos', icon:'🎂', title:'Especial Cumpleaños', desc:'Mesa decorada · Bebida de bienvenida · Bebida gratis',    img:`${BASE}/cumpleanos.jpeg` },
   },
 
   // ── PLATILLOS DETALLE ─────────────────────────────────────────
   platillos: {
     alitas: {
-      icon:'🍗', title:'Alitas', img:`${BASE}/3.jpeg`,
+      icon:'🍗', title:'Alitas', img:`${BASE}/alitas.jpeg`,
       desc:'Marinadas al momento con el sabor que tú elijas. Aderezo incluido.',
       ingredientes:['Alitas marinadas al momento','Sabor a elegir','Aderezo incluido'],
       especiales:[], opcionales:[], extras:[], aderezos:[],
     },
     nachos: {
-      icon:'🧀', title:'Nachos', img:`${BASE}/4.jpeg`,
+      icon:'🧀', title:'Nachos', img:`${BASE}/nachos.jpeg`,
       desc:'Totopos crujientes con chile y queso amarillo. Elige tu variante especial.',
       ingredientes:['Totopos crujientes','Chiles','Queso amarillo'],
       especiales:['Carne al Pastor','Carne Asada','Salseado (Salsa Verde)'],
       opcionales:[], extras:[], aderezos:[],
     },
     hotdog: {
-      icon:'🌭', title:'Hot Dog', img:`${BASE}/6.jpeg`,
+      icon:'🌭', title:'Hot Dog', img:`${BASE}/hotdog.jpeg`,
       desc:'Pan caliente con salchicha italiana y todos los ingredientes que lo hacen único.',
       ingredientes:['Pan caliente','Salchicha italiana','Tocino','Queso amarillo','Frijoles','Chiles','Catsup','Mayonesa','Mostaza'],
       especiales:[], opcionales:[], extras:[], aderezos:[],
     },
     papas: {
-      icon:'🍟', title:'Papas Francesas', img:`${BASE}/7.jpeg`,
+      icon:'🍟', title:'Papas Francesas', img:`${BASE}/papas.jpeg`,
       desc:'Papa ondulada, poco aceite, servida con queso amarillo y catsup.',
       ingredientes:['Papa ondulada','Poco aceite','Queso amarillo'],
       aderezos:['Catsup'], especiales:[], opcionales:[], extras:[],
     },
     hamburguesa: {
-      icon:'🍔', title:'Hamburguesa', img:`${BASE}/7.jpeg`,
+      icon:'🍔', title:'Hamburguesa', img:`${BASE}/hamburguesa.jpeg`,
       desc:'Nuestra hamburguesa es preparada con ingredientes frescos y de calidad.',
       ingredientes:['Carne de res frita','Queso amarillo','Frijoles','Mantequilla','Tocino','Catsup','Mostaza'],
       opcionales:['Mayonesa'],
@@ -306,19 +306,19 @@ export const initialCMSData = {
       premio:'', nota:'', cta:'Quiero participar',
     },
     'karaoke': {
-      icon:'🎤', title:'Karaoke con Animador', img:`${BASE}/1.jpeg`,
+      icon:'🎤', title:'Karaoke con Animador', img:`${BASE}/karaoke.jpeg`,
       desc:'Nuestro animador hace que cada canción sea una experiencia única. El escenario es tuyo y los dúos son bienvenidos.',
       items:['Animador profesional toda la noche','Dúos y grupos bienvenidos','Todos los géneros disponibles','Canciones a petición sin costo'],
       premio:'', nota:'', cta:'Reservar mi noche de karaoke',
     },
     'vs-mesero': {
-      icon:'⚔️', title:'Compite con Nuestro Mesero', img:`${BASE}/3.jpeg`,
+      icon:'⚔️', title:'Compite con Nuestro Mesero', img:`${BASE}/vs_mesero.jpeg`,
       desc:'¿Crees que puedes superar a nuestro mesero en el karaoke? Acepta el reto y si ganas, ¡la bebida corre por cuenta de la casa!',
       items:['Reta a nuestro mesero estrella','El público decide quién gana','El ganador recibe una bebida gratis','Se vale animar, gritar y apostar'],
       premio:'🎁 El que gana recibe una bebida gratis de la casa', nota:'', cta:'Acepto el reto',
     },
     'cumpleanos': {
-      icon:'🎂', title:'Especial Cumpleaños', img:`${BASE}/2.jpeg`,
+      icon:'🎂', title:'Especial Cumpleaños', img:`${BASE}/cumpleanos.jpeg`,
       desc:'Celebra tu día especial con nosotros y recibe un trato único que no olvidarás. Reserva con anticipación para asegurar tu lugar.',
       items:[],
       checks:['Reserva con anticipación','Adornamos tu mesa especialmente para ti','1 Bebida de bienvenida incluida','La casa le da al cumpleañero una bebida igual de cada mesa que esté en el lugar'],
