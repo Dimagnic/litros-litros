@@ -3,28 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useCMS } from '@/context/CMSContext'
 import { useAuth } from '@/context/AuthContext'
 
-const NAV_HOME = [
-  { label:'Inicio',         path:'/'           },
-  { label:'Menú Promo',     path:'/menu-promo' },
-  { label:'Carta',          path:'/carta'       },
-  { label:'Reserva',        path:'/reserva'     },
-  { label:'Cabina Privada', path:'/reserva', special:true },
-]
-
-const NAV_FOOD = [
-  { label:'Inicio',     path:'/'            },
-  { label:'Alimentos',  path:'/alimentos'   },
-  { label:'Bebidas',    path:'/carta'        },
-  { label:'Eventos',    path:'/eventos'      },
-  { label:'Reservas',   path:'/reserva', special:true },
-]
-
-const NAV_EVENTS = [
-  { label:'Inicio',      path:'/'           },
-  { label:'Eventos',     path:'/eventos'    },
-  { label:'Cumpleaños',  path:'/eventos#cumpleanos' },
-  { label:'Alimentos',   path:'/alimentos'  },
-  { label:'Reservas',    path:'/reserva', special:true },
+const NAV = [
+  { label:'Inicio',            path:'/'            },
+  { label:'Alimentos',         path:'/alimentos'   },
+  { label:'Hamburguesas',      path:'/hamburguesa' },
+  { label:'Eventos Especiales',path:'/eventos'     },
 ]
 
 export default function Header() {
@@ -32,75 +15,60 @@ export default function Header() {
   const { isAdmin, signOut } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-  const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20)
+    const fn = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', fn, { passive:true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  // Seleccionar nav según la página actual
-  const path = location.pathname
-  const NAV = path === '/' || path === '/menu-promo' || path === '/carta' || path === '/reserva'
-    ? NAV_HOME
-    : path === '/eventos'
-    ? NAV_EVENTS
-    : NAV_FOOD
-
-  function go(path) {
-    setMobileOpen(false)
-    if (path.includes('#')) {
-      const [p, hash] = path.split('#')
-      navigate(p)
-      setTimeout(() => {
-        document.getElementById(hash)?.scrollIntoView({ behavior:'smooth' })
-      }, 200)
-    } else {
-      navigate(path)
-      window.scrollTo(0,0)
-    }
-  }
-
-  const active = (p) => location.pathname === p.split('#')[0]
+  function go(path) { setMobileOpen(false); navigate(path); window.scrollTo(0,0) }
+  const active = (path) => location.pathname === path
 
   return (
     <header style={{
-      position:'sticky', top:0, zIndex:50,
-      background: scrolled ? 'rgba(10,10,10,.97)' : 'rgba(10,10,10,.85)',
-      backdropFilter:'blur(16px)',
-      borderBottom:`1px solid ${scrolled ? 'rgba(239,68,68,.2)' : 'transparent'}`,
+      position:'sticky', top:0, zIndex:100,
+      height:'80px',
+      background: scrolled ? 'rgba(17,24,39,.98)' : 'rgba(17,24,39,.92)',
+      backdropFilter:'blur(20px)',
+      borderBottom:`1px solid ${scrolled ? 'rgba(41,90,158,.4)' : 'rgba(41,90,158,.15)'}`,
       transition:'all .3s',
     }}>
-      <div className="container" style={{ display:'flex', alignItems:'center', justifyContent:'space-between', height:'4rem' }}>
+      <div className="container" style={{ height:'100%', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
 
         {/* Logo */}
-        <button onClick={() => go('/')} style={{ display:'flex', alignItems:'center', gap:'.6rem', background:'none', border:'none', cursor:'pointer' }}>
-          <img src={cms.hero?.logo} alt="Logo" style={{ height:'2.2rem', borderRadius:'.4rem', objectFit:'cover' }} />
-          <span style={{ fontSize:'1rem', fontWeight:800, fontFamily:'var(--font-head)',
-            background:'linear-gradient(135deg,#ef4444,#a855f7,#f97316)',
-            WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-            Litros & Litros
-          </span>
+        <button onClick={() => go('/')} style={{ display:'flex', alignItems:'center', gap:'.75rem', background:'none', border:'none', cursor:'pointer' }}>
+          <img src={cms.hero?.logo} alt="Logo" style={{ height:'2.6rem', borderRadius:'.5rem', objectFit:'cover' }} />
+          <div style={{ textAlign:'left' }}>
+            <div style={{ fontSize:'1rem', fontWeight:800, fontFamily:'var(--font-head)', color:'#fff', lineHeight:1.1 }}>
+              Litros & Litros
+            </div>
+            <div style={{ fontSize:'.65rem', color:'rgba(234,234,234,.55)', letterSpacing:'.06em', textTransform:'uppercase' }}>
+              Karaoke Bar
+            </div>
+          </div>
         </button>
 
         {/* Desktop nav */}
-        <nav className="desk-nav" style={{ display:'flex', alignItems:'center', gap:'.05rem' }}>
+        <nav className="desk-nav" style={{ display:'flex', alignItems:'center', gap:'.25rem' }}>
           {NAV.map(n => (
-            <button key={n.label} onClick={() => go(n.path)} style={{
-              padding:'.4rem .8rem', borderRadius:'.5rem',
-              fontSize:'.8rem', fontWeight: active(n.path) ? 700 : 500,
-              color: n.special ? 'var(--primary)' : active(n.path) ? 'var(--primary)' : 'rgba(242,242,242,.75)',
-              background: active(n.path) && !n.special ? 'rgba(239,68,68,.1)' : 'transparent',
-              border: n.special ? '1px solid rgba(239,68,68,.4)' : 'none',
-              cursor:'pointer', transition:'all .2s', fontFamily:'var(--font-body)',
-            }}>{n.label}</button>
+            <button key={n.path} onClick={() => go(n.path)} style={{
+              padding:'.5rem 1rem', borderRadius:'.5rem',
+              fontSize:'.88rem', fontWeight: active(n.path) ? 700 : 500,
+              color: active(n.path) ? '#fff' : 'rgba(234,234,234,.7)',
+              background: active(n.path) ? 'var(--primary)' : 'transparent',
+              border:'none', cursor:'pointer', transition:'all .2s', fontFamily:'var(--font-body)',
+            }}
+              onMouseEnter={e => { if(!active(n.path)) e.currentTarget.style.background='rgba(41,90,158,.15)'; e.currentTarget.style.color='#fff' }}
+              onMouseLeave={e => { if(!active(n.path)) { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='rgba(234,234,234,.7)' }}}
+            >{n.label}</button>
           ))}
         </nav>
 
-        {/* Admin + mobile toggle */}
-        <div style={{ display:'flex', alignItems:'center', gap:'.4rem' }}>
+        {/* Right: admin + mobile toggle */}
+        <div style={{ display:'flex', alignItems:'center', gap:'.5rem' }}>
           <button className="menu-toggle" onClick={() => setMobileOpen(o=>!o)}
             style={{ display:'none', background:'none', border:'none', cursor:'pointer', color:'var(--fg)', padding:'.35rem' }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,30 +76,31 @@ export default function Header() {
             </svg>
           </button>
           <button onClick={() => isAdmin ? setAdminPanelOpen(true) : openAdmin()} style={{
-            background: isAdmin ? 'rgba(239,68,68,.12)' : 'none',
-            border:`1px solid ${isAdmin ? 'var(--primary)' : 'rgba(239,68,68,.3)'}`,
-            color: isAdmin ? 'var(--primary)' : 'rgba(242,242,242,.4)',
-            borderRadius:'.5rem', padding:'.32rem .65rem', fontSize:'.75rem', fontWeight:600,
-            cursor:'pointer', display:'flex', alignItems:'center', gap:'.3rem', fontFamily:'var(--font-body)',
+            background: isAdmin ? 'rgba(41,90,158,.2)' : 'none',
+            border:`1px solid rgba(41,90,158,.4)`,
+            color: isAdmin ? '#fff' : 'rgba(234,234,234,.4)',
+            borderRadius:'.5rem', padding:'.35rem .7rem',
+            fontSize:'.75rem', fontWeight:600, cursor:'pointer',
+            display:'flex', alignItems:'center', gap:'.3rem', fontFamily:'var(--font-body)',
           }}>🔒 {isAdmin ? 'Panel' : 'Admin'}</button>
-          {isAdmin && <button onClick={signOut} style={{ background:'none', border:'1px solid rgba(255,255,255,.1)', color:'rgba(242,242,242,.4)', borderRadius:'.5rem', padding:'.32rem .6rem', fontSize:'.75rem', cursor:'pointer', fontFamily:'var(--font-body)' }}>Salir</button>}
+          {isAdmin && <button onClick={signOut} style={{ background:'none', border:'1px solid rgba(255,255,255,.1)', color:'rgba(234,234,234,.4)', borderRadius:'.5rem', padding:'.35rem .6rem', fontSize:'.75rem', cursor:'pointer' }}>Salir</button>}
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div style={{ padding:'1rem', borderTop:'1px solid var(--border)', background:'var(--card)', display:'flex', flexDirection:'column', gap:'.4rem' }}>
+        <div style={{ padding:'1rem', borderTop:'1px solid var(--border)', background:'#111827', display:'flex', flexDirection:'column', gap:'.35rem' }}>
           {NAV.map(n => (
-            <button key={n.label} onClick={() => go(n.path)} style={{
-              padding:'.7rem 1rem', borderRadius:'.5rem', fontSize:'.95rem', fontWeight:500,
-              color: n.special ? 'var(--primary)' : active(n.path) ? 'var(--primary)' : 'var(--fg-muted)',
-              background: active(n.path) && !n.special ? 'rgba(239,68,68,.1)' : 'transparent',
-              border:'none', cursor:'pointer', textAlign:'left', fontFamily:'var(--font-body)',
+            <button key={n.path} onClick={() => go(n.path)} style={{
+              padding:'.75rem 1rem', borderRadius:'.5rem', fontSize:'.95rem', fontWeight: active(n.path) ? 700 : 500,
+              color: active(n.path) ? '#fff' : 'rgba(234,234,234,.75)',
+              background: active(n.path) ? 'var(--primary)' : 'transparent',
+              border:'none', cursor:'pointer', textAlign:'left',
             }}>{n.label}</button>
           ))}
         </div>
       )}
-      <style>{`@media(max-width:768px){.desk-nav{display:none !important;}.menu-toggle{display:flex !important;align-items:center;justify-content:center;}}`}</style>
+      <style>{`@media(max-width:768px){.desk-nav{display:none !important;}.menu-toggle{display:flex !important;align-items:center;}}`}</style>
     </header>
   )
 }

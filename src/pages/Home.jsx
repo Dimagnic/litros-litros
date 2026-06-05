@@ -3,135 +3,121 @@ import { useCMS } from '@/context/CMSContext'
 
 const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
 
-const SERVICIOS = [
-  { icon:'🍹', label:'CALIDAD DE\nBEBIDAS'         },
-  { icon:'🎙️', label:'CABINA\nPRIVADA'            },
-  { icon:'🎵', label:'MÚSICA'                      },
-  { icon:'🎤', label:'SHOWS\nPRIVADOS'             },
-  { icon:'🎂', label:'FIESTAS Y\nCUMPLEAÑOS'       },
-]
-
 export default function Home() {
   const { cms } = useCMS()
   const navigate = useNavigate()
-  const h  = cms.hero            || {}
-  const ho = cms.horario         || {}
+  const h  = cms.hero    || {}
+  const ho = cms.horario || {}
 
   function go(path) { navigate(path); window.scrollTo(0,0) }
 
   return (
     <>
       {/* ── HERO ── */}
-      <section style={{ minHeight:'100dvh', position:'relative', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden' }}>
+      <section style={{ minHeight:'100dvh', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden', padding:'2rem 0' }}>
         <div style={{ position:'absolute', inset:0, zIndex:0 }}>
           <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-          <div style={{ position:'absolute', inset:0, background:'rgba(10,10,10,.72)' }} />
-          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(239,68,68,.12) 0%, transparent 65%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.78)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 30%, rgba(41,90,158,.18) 0%, transparent 65%)' }} />
         </div>
 
-        <div style={{ position:'relative', zIndex:2, maxWidth:'48rem', padding:'2rem 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'1.1rem' }}>
-          {/* Logo */}
+        <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'2rem 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'1.25rem' }}>
+
+          {/* Logo grande */}
           <img src={h.logo} alt="Litros & Litros" className="neon-glow"
-            style={{ width:'9rem', height:'9rem', borderRadius:'1.25rem', objectFit:'cover' }} />
+            style={{ width:'8rem', height:'8rem', borderRadius:'1.1rem', objectFit:'cover' }} />
 
           {/* Título */}
-          <h1 className="gradient-text neon-text" style={{ fontSize:'clamp(2.2rem,6vw,4rem)', fontWeight:900, letterSpacing:'-.02em', lineHeight:1.08 }}>
-            {h.title || 'Litros & Litros'}
+          <h1 style={{ fontSize:'clamp(2.5rem,7vw,4.5rem)', fontWeight:900, color:'#fff', letterSpacing:'-.02em', lineHeight:1.05 }}>
+            Litros & Litros
           </h1>
 
-          {/* Frase destacada */}
-          <div style={{
-            background:'rgba(0,0,0,.45)', backdropFilter:'blur(8px)',
-            border:'1px solid rgba(239,68,68,.3)', borderRadius:'var(--radius)',
-            padding:'1.1rem 1.4rem', maxWidth:'38rem',
-          }}>
-            <p style={{ fontSize:'clamp(.95rem,2vw,1.1rem)', color:'rgba(242,242,242,.95)', lineHeight:1.7, fontStyle:'italic', margin:0 }}>
-              🎤 {h.frase || 'EL LUGAR DONDE SE OYE LA MÚSICA, EL SERVICIO Y LAS AMISTADES PARA PASAR UN EXCELENTE MOMENTO'}
-            </p>
-          </div>
+          {/* Frase */}
+          <p style={{ fontSize:'clamp(1rem,2.2vw,1.15rem)', color:'rgba(234,234,234,.9)', lineHeight:1.75, maxWidth:'34rem',
+            borderLeft:'3px solid var(--primary)', paddingLeft:'1.1rem', textAlign:'left',
+            background:'rgba(17,24,39,.5)', borderRadius:'0 .5rem .5rem 0', padding:'.9rem 1.1rem' }}>
+            "{h.frase || 'EL LUGAR DONDE SE OYE LA MÚSICA, EL SERVICIO Y LAS AMISTADES PARA PASAR UN EXCELENTE MOMENTO'}"
+          </p>
 
           {/* 3 botones apilados */}
-          <div style={{ display:'flex', flexDirection:'column', alignItems:'stretch', gap:'.75rem', width:'100%', maxWidth:'22rem' }}>
-            <button className="btn btn-primary" style={{ justifyContent:'center', fontSize:'1rem' }} onClick={() => go('/menu-promo')}>
-              {h.btn1 || 'VER MENÚ PROMO'}
-            </button>
-            <button className="btn btn-outline" style={{ justifyContent:'center', fontSize:'1rem' }} onClick={() => go('/carta')}>
-              {h.btn2 || 'VER CARTA'}
-            </button>
-            <button className="btn btn-outline" style={{ justifyContent:'center', fontSize:'1rem', borderColor:'rgba(168,85,247,.5)' }} onClick={() => go('/reserva')}>
-              {h.btn3 || 'RESERVAR'}
-            </button>
+          <div style={{ display:'flex', flexDirection:'column', gap:'.85rem', width:'100%', maxWidth:'22rem' }}>
+            <button className="btn btn-primary" onClick={() => go('/menu-promo')}>VER MENÚ PROMO</button>
+            <button className="btn btn-outline" onClick={() => go('/carta')}>VER CARTA</button>
+            <button className="btn btn-outline" onClick={() => go('/reserva')}>RESERVAR</button>
+          </div>
+
+          {/* Accesos directos en línea */}
+          <div style={{ display:'flex', alignItems:'center', gap:'1.5rem', flexWrap:'wrap', justifyContent:'center' }}>
+            <button onClick={() => go('/alimentos')} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(234,234,234,.6)', fontSize:'.9rem', fontFamily:'var(--font-body)', transition:'color .2s' }}
+              onMouseEnter={e => e.currentTarget.style.color='var(--primary-l)'}
+              onMouseLeave={e => e.currentTarget.style.color='rgba(234,234,234,.6)'}
+            >◄ Carta de Alimentos</button>
+            <span style={{ color:'rgba(255,255,255,.2)', fontSize:'.8rem' }}>|</span>
+            <button onClick={() => go('/carta')} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(234,234,234,.6)', fontSize:'.9rem', fontFamily:'var(--font-body)', transition:'color .2s' }}
+              onMouseEnter={e => e.currentTarget.style.color='var(--primary-l)'}
+              onMouseLeave={e => e.currentTarget.style.color='rgba(234,234,234,.6)'}
+            >Carta de Bebidas ►</button>
           </div>
         </div>
       </section>
 
       {/* ── HORARIO ── */}
-      <section style={{ padding:'3.5rem 0', background:'rgba(255,255,255,.02)' }}>
+      <section style={{ padding:'3.5rem 0', background:'rgba(13,21,32,.8)' }}>
         <div className="container">
-          <div style={{
-            border:'1px solid rgba(239,68,68,.3)', borderRadius:'var(--radius)',
-            padding:'2.5rem 3rem', maxWidth:'580px', margin:'0 auto',
-            background:'rgba(239,68,68,.04)', textAlign:'center',
-          }}>
-            <h2 style={{ fontSize:'1.3rem', fontWeight:800, color:'var(--primary)', marginBottom:'1.5rem', fontFamily:'var(--font-head)', textTransform:'uppercase', letterSpacing:'.06em' }}>
-              🕒 {ho.titulo || 'Horario'}
+          <div style={{ maxWidth:'580px', margin:'0 auto', border:'1px solid rgba(41,90,158,.35)', borderRadius:'var(--radius-lg)', padding:'2.5rem', background:'rgba(26,37,55,.6)', textAlign:'center' }}>
+            <h2 style={{ fontSize:'1.4rem', fontWeight:800, color:'var(--primary-l)', letterSpacing:'.08em', marginBottom:'1.5rem', textTransform:'uppercase' }}>
+              HORARIO
             </h2>
-            <p style={{ fontSize:'1.25rem', fontWeight:700, color:'var(--fg)', marginBottom:'.75rem' }}>
+            <p style={{ fontSize:'1.3rem', fontWeight:700, color:'#fff', marginBottom:'.65rem' }}>
               {ho.horas || 'De 6:00 PM a 3:00 AM'}
             </p>
-            <p style={{ color:'rgba(239,68,68,.9)', fontWeight:700, fontSize:'1rem', marginBottom:'.5rem' }}>
+            <p style={{ fontSize:'1rem', color:'rgba(41,158,100,.85)', fontWeight:600, marginBottom:'.5rem' }}>
               {ho.descanso || 'Lunes Descansamos'}
             </p>
-            <p style={{ color:'var(--fg-muted)', fontSize:'1rem' }}>
+            <p style={{ fontSize:'.95rem', color:'rgba(234,234,234,.6)' }}>
               🎶 {ho.dias || 'Karaoke todos los demás días'}
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── NUESTROS SERVICIOS ── */}
-      <section style={{ padding:'3.5rem 0' }}>
+      {/* ── ¿POR QUÉ ELEGIRNOS? ── */}
+      <section style={{ padding:'4rem 0' }}>
         <div className="container" style={{ textAlign:'center' }}>
-          <h2 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(1.6rem,4vw,2.2rem)', fontWeight:900, marginBottom:'.5rem',
-            background:'linear-gradient(135deg,#ef4444,#a855f7)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-            NUESTROS SERVICIOS
-          </h2>
-          <div style={{ width:'3rem', height:'3px', background:'linear-gradient(135deg,#ef4444,#a855f7)', margin:'0 auto 2.5rem', borderRadius:'2px' }} />
+          <h2 className="section-title" style={{ marginBottom:'.5rem' }}>¿POR QUÉ ELEGIRNOS?</h2>
+          <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
+          <p style={{ color:'rgba(234,234,234,.65)', fontSize:'1rem', marginBottom:'2.5rem' }}>
+            Somos un lugar seguro y amigable con experiencia.
+          </p>
 
-          <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'1.25rem' }}>
-            {SERVICIOS.map((s, i) => (
+          {/* 3 bloques */}
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1.25rem', maxWidth:'640px', margin:'0 auto 2rem' }}>
+            {[
+              { icon:'🎵', label:'MÚSICA'  },
+              { icon:'🎭', label:'SHOWS'   },
+              { icon:'🏠', label:'CABINA'  },
+            ].map((s, i) => (
               <div key={i} style={{
                 background:'var(--card)', border:'1px solid var(--border)',
-                borderRadius:'var(--radius)', padding:'1.75rem 2rem',
-                display:'flex', flexDirection:'column', alignItems:'center', gap:'.75rem',
-                minWidth:'140px', transition:'all .3s',
+                borderRadius:'var(--radius-lg)', padding:'1.75rem 1rem',
+                display:'flex', flexDirection:'column', alignItems:'center', gap:'.65rem',
+                transition:'all .3s',
               }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(239,68,68,.4)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 8px 25px rgba(239,68,68,.15)' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(41,90,158,.6)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(41,90,158,.2)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='' }}
               >
-                <span style={{ fontSize:'2.2rem' }}>{s.icon}</span>
-                <span style={{ fontWeight:800, fontSize:'.85rem', fontFamily:'var(--font-head)', textAlign:'center', whiteSpace:'pre-line', lineHeight:1.35 }}>
-                  {s.label}
-                </span>
+                <span style={{ fontSize:'2rem' }}>{s.icon}</span>
+                <span style={{ fontWeight:800, fontSize:'.9rem', color:'#fff', letterSpacing:'.04em' }}>{s.label}</span>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── ¿LISTO PARA CANTAR? ── */}
-      <section style={{ padding:'3.5rem 0', background:'radial-gradient(ellipse at center, rgba(168,85,247,.08) 0%, transparent 65%)' }}>
-        <div className="container" style={{ textAlign:'center', maxWidth:'600px' }}>
-          <h2 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(1.5rem,4vw,2rem)', fontWeight:900, marginBottom:'1rem',
-            background:'linear-gradient(135deg,#ef4444,#a855f7)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-            ¿LISTO PARA CANTAR?
-          </h2>
-          <p style={{ color:'var(--fg-muted)', fontSize:'1rem', lineHeight:1.7, marginBottom:'2rem' }}>
-            Reserva tu mesa y disfruta de una noche inolvidable con amigos, pareja o familia.
-          </p>
-          <button className="btn btn-primary" style={{ fontSize:'1.05rem', padding:'.9rem 2.5rem' }} onClick={() => go('/reserva')}>
-            RESERVAR AHORA
-          </button>
+          <div style={{ maxWidth:'36rem', margin:'0 auto', background:'var(--card)', border:'1px solid var(--border)', borderRadius:'var(--radius-lg)', padding:'1.5rem' }}>
+            <p style={{ color:'rgba(234,234,234,.75)', lineHeight:1.75 }}>
+              Todos los géneros.<br/>
+              Puedes pedir hasta <strong style={{ color:'#fff' }}>3 canciones</strong> sin costo adicional.
+            </p>
+          </div>
         </div>
       </section>
     </>

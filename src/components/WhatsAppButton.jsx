@@ -1,18 +1,16 @@
 import { useCMS } from '@/context/CMSContext'
-
 export default function WhatsAppButton() {
   const { cms } = useCMS()
   const wa = cms.waFlotante || {}
   if (wa.visible === false) return null
-  const url = `https://wa.me/${wa.numero}?text=${encodeURIComponent(wa.mensaje || '')}`
+  const url = `https://wa.me/${wa.numero || '522224302693'}?text=${encodeURIComponent(wa.mensaje || '¡Hola! Quiero reservar')}`
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-      style={{
-        position:'fixed', bottom:'1.75rem', right:'1.75rem', zIndex:100,
-        width:'3.25rem', height:'3.25rem', borderRadius:'50%',
+      style={{ position:'fixed', bottom:'1.75rem', right:'1.75rem', zIndex:200,
+        width:'3.5rem', height:'3.5rem', borderRadius:'50%',
         background:'linear-gradient(135deg,#25D366,#128C7E)',
         display:'flex', alignItems:'center', justifyContent:'center',
-        boxShadow:'0 4px 20px rgba(37,211,102,.4)', transition:'transform .2s',
+        boxShadow:'0 4px 20px rgba(37,211,102,.5)', transition:'transform .25s',
       }}
       onMouseEnter={e => e.currentTarget.style.transform='scale(1.12)'}
       onMouseLeave={e => e.currentTarget.style.transform='scale(1)'}
