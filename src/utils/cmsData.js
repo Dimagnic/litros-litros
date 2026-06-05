@@ -235,4 +235,112 @@ export const initialCMSData = {
 
   // legacy compat
   musica: { title:'Música', sub:'', features:[] },
+
+  // ── HOME — Cards de secciones ────────────────────────────────
+  homeCards: {
+    alimentos: [
+      { id:'alitas',       icon:'🍗', title:'Alitas',          desc:'Marinadas con sabor a elegir · Aderezo incluido',                     img:`${BASE}/3.jpeg` },
+      { id:'nachos',       icon:'🧀', title:'Nachos',          desc:'Base crujiente + variantes especiales',                               img:`${BASE}/4.jpeg` },
+      { id:'hotdog',       icon:'🌭', title:'Hot Dog',         desc:'Pan caliente · Salchicha italiana · Receta completa',                 img:`${BASE}/6.jpeg` },
+      { id:'papas',        icon:'🍟', title:'Papas Francesas', desc:'Papa ondulada · Queso amarillo · Catsup',                            img:`${BASE}/7.jpeg` },
+    ],
+    hamburguesa: { id:'hamburguesa', icon:'🍔', title:'Hamburguesa', desc:'Carne de res frita · Queso amarillo · Tocino · y más',         img:`${BASE}/7.jpeg` },
+    espectaculos: [
+      { id:'puerta-cerrada', icon:'🚪', title:'Puerta Cerrada',       desc:'Eventos privados con reservación anticipada',                  img:`${BASE}/2.jpeg` },
+      { id:'mejor-voz',      icon:'🏆', title:'Competencia de Voz',   desc:'Participa y gana premios · Demuestra tu talento',             img:`${BASE}/open_mind.jpeg` },
+      { id:'karaoke',        icon:'🎤', title:'Karaoke con Animador',  desc:'Show completo · Dúos bienvenidos · Toda la noche',            img:`${BASE}/1.jpeg` },
+      { id:'vs-mesero',      icon:'⚔️', title:'Compite con Mesero',   desc:'¿Puedes ganarle? El ganador recibe bebida gratis',            img:`${BASE}/3.jpeg` },
+    ],
+    cumpleanos: { id:'cumpleanos', icon:'🎂', title:'Especial Cumpleaños', desc:'Mesa decorada · Bebida de bienvenida · Bebida gratis',    img:`${BASE}/2.jpeg` },
+  },
+
+  // ── PLATILLOS DETALLE ─────────────────────────────────────────
+  platillos: {
+    alitas: {
+      icon:'🍗', title:'Alitas', img:`${BASE}/3.jpeg`,
+      desc:'Marinadas al momento con el sabor que tú elijas. Aderezo incluido.',
+      ingredientes:['Alitas marinadas al momento','Sabor a elegir','Aderezo incluido'],
+      especiales:[], opcionales:[], extras:[], aderezos:[],
+    },
+    nachos: {
+      icon:'🧀', title:'Nachos', img:`${BASE}/4.jpeg`,
+      desc:'Totopos crujientes con chile y queso amarillo. Elige tu variante especial.',
+      ingredientes:['Totopos crujientes','Chiles','Queso amarillo'],
+      especiales:['Carne al Pastor','Carne Asada','Salseado (Salsa Verde)'],
+      opcionales:[], extras:[], aderezos:[],
+    },
+    hotdog: {
+      icon:'🌭', title:'Hot Dog', img:`${BASE}/6.jpeg`,
+      desc:'Pan caliente con salchicha italiana y todos los ingredientes que lo hacen único.',
+      ingredientes:['Pan caliente','Salchicha italiana','Tocino','Queso amarillo','Frijoles','Chiles','Catsup','Mayonesa','Mostaza'],
+      especiales:[], opcionales:[], extras:[], aderezos:[],
+    },
+    papas: {
+      icon:'🍟', title:'Papas Francesas', img:`${BASE}/7.jpeg`,
+      desc:'Papa ondulada, poco aceite, servida con queso amarillo y catsup.',
+      ingredientes:['Papa ondulada','Poco aceite','Queso amarillo'],
+      aderezos:['Catsup'], especiales:[], opcionales:[], extras:[],
+    },
+    hamburguesa: {
+      icon:'🍔', title:'Hamburguesa', img:`${BASE}/7.jpeg`,
+      desc:'Nuestra hamburguesa es preparada con ingredientes frescos y de calidad.',
+      ingredientes:['Carne de res frita','Queso amarillo','Frijoles','Mantequilla','Tocino','Catsup','Mostaza'],
+      opcionales:['Mayonesa'],
+      extras:['Papas onduladas','Aderezo de la casa'],
+      especiales:[], aderezos:[],
+    },
+  },
+
+  // ── ESPECTÁCULOS DETALLE ──────────────────────────────────────
+  espectaculos: {
+    'puerta-cerrada': {
+      icon:'🚪', title:'Shows de Puerta Cerrada', img:`${BASE}/2.jpeg`,
+      desc:'Una experiencia exclusiva e íntima para tu grupo. El show de puerta cerrada es el evento privado más especial de Litros & Litros.',
+      items:['Evento privado con reservación anticipada','Ambiente exclusivo solo para tu grupo','Experiencia única e irrepetible','Disponible para grupos y empresas'],
+      premio:'', nota:'', cta:'Reservar mi evento privado',
+    },
+    'mejor-voz': {
+      icon:'🏆', title:'Competencia por la Mejor Voz', img:`${BASE}/open_mind.jpeg`,
+      desc:'Demuestra que tienes el talento. Compite contra otros cantantes y gana el título de la mejor voz de la noche.',
+      items:['Compite contra otros participantes','El jurado es el público presente','Premios para el ganador cada noche','Abierto a todos los géneros musicales'],
+      premio:'', nota:'', cta:'Quiero participar',
+    },
+    'karaoke': {
+      icon:'🎤', title:'Karaoke con Animador', img:`${BASE}/1.jpeg`,
+      desc:'Nuestro animador hace que cada canción sea una experiencia única. El escenario es tuyo y los dúos son bienvenidos.',
+      items:['Animador profesional toda la noche','Dúos y grupos bienvenidos','Todos los géneros disponibles','Canciones a petición sin costo'],
+      premio:'', nota:'', cta:'Reservar mi noche de karaoke',
+    },
+    'vs-mesero': {
+      icon:'⚔️', title:'Compite con Nuestro Mesero', img:`${BASE}/3.jpeg`,
+      desc:'¿Crees que puedes superar a nuestro mesero en el karaoke? Acepta el reto y si ganas, ¡la bebida corre por cuenta de la casa!',
+      items:['Reta a nuestro mesero estrella','El público decide quién gana','El ganador recibe una bebida gratis','Se vale animar, gritar y apostar'],
+      premio:'🎁 El que gana recibe una bebida gratis de la casa', nota:'', cta:'Acepto el reto',
+    },
+    'cumpleanos': {
+      icon:'🎂', title:'Especial Cumpleaños', img:`${BASE}/2.jpeg`,
+      desc:'Celebra tu día especial con nosotros y recibe un trato único que no olvidarás. Reserva con anticipación para asegurar tu lugar.',
+      items:[],
+      checks:['Reserva con anticipación','Adornamos tu mesa especialmente para ti','1 Bebida de bienvenida incluida','La casa le da al cumpleañero una bebida igual de cada mesa que esté en el lugar'],
+      nota:'💡 Entre más mesas vengan a celebrar contigo, ¡más bebidas recibe el cumpleañero!',
+      premio:'', cta:'Reservar mi cumpleaños',
+    },
+  },
+
+  // ── MENÚ PROMO ────────────────────────────────────────────────
+  menuPromo: {
+    titulo:   'Promociones',
+    subtitulo:'Las mejores promos para que disfrutes al máximo tu noche',
+    fotoUrl:  `${BASE}/promociones.jpeg`,
+    cards: [
+      { emoji:'🍺', title:'Cervezas',    desc:'3 x $75  ·  10 x $260  ·  MicheLitro $98' },
+      { emoji:'🪣', title:'Naturales',   desc:'Ron, Tequila, Vodka o Gin · 3 Litros x $175' },
+      { emoji:'🥤', title:'Escarchados', desc:'Sandía, Mango, Tamarindo y más · 3L x $190' },
+      { emoji:'🍶', title:'Caguamón',    desc:'Xxlager, Carta Blanca, Victoria · 2 x $190' },
+      { emoji:'🌮', title:'Nachos',      desc:'Árabe $100 · Pastor $100' },
+      { emoji:'🍗', title:'Alitas (7)',  desc:'$78' },
+      { emoji:'🌭', title:'Hot Dog',     desc:'$48' },
+    ],
+    nota:'BLVD 5 DE MAYO #4610 · +222 430 26 93',
+  },
 }

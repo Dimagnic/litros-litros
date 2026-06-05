@@ -89,17 +89,17 @@ function ListEditor({ items, onChange, fields }) {
 // ── TABS ──────────────────────────────────────────────────────
 const TABS = [
   { id:'hero',            label:'🏠 Inicio'       },
-  { id:'porqueElegirnos', label:'⭐ ¿Por qué?'    },
-  { id:'horario',         label:'🕐 Horario'       },
-  { id:'reservas',        label:'🏠 Cabinas'       },
-  { id:'alimentos',       label:'🍔 Alimentos'     },
-  { id:'bebidas',         label:'🍹 Bebidas'       },
-  { id:'eventos',         label:'🎉 Eventos'       },
-  { id:'footer',          label:'📄 Footer'        },
-  { id:'socials',         label:'📲 Redes'         },
-  { id:'waFlotante',      label:'💬 WhatsApp'      },
-  { id:'contact',         label:'📍 Contacto'      },
-  { id:'seo',             label:'🔍 SEO'           },
+  { id:'homeCards',       label:'🃏 Cards Home'   },
+  { id:'platillos',       label:'🍔 Platillos'    },
+  { id:'espectaculos',    label:'🎭 Espectáculos' },
+  { id:'menuPromo',       label:'🎉 Promos'       },
+  { id:'bebidas',         label:'🍹 Bebidas'      },
+  { id:'reservas',        label:'🏠 Cabinas'      },
+  { id:'footer',          label:'📄 Footer'       },
+  { id:'socials',         label:'📲 Redes'        },
+  { id:'waFlotante',      label:'💬 WhatsApp'     },
+  { id:'contact',         label:'📍 Contacto'     },
+  { id:'seo',             label:'🔍 SEO'          },
 ]
 
 // ── EDITORES ──────────────────────────────────────────────────
@@ -366,6 +366,157 @@ function SeoEditor({ d, onChange, onSave, loading }) {
   )
 }
 
+// ── NUEVOS EDITORES ───────────────────────────────────────────
+
+function HomeCardsEditor({ d, onChange, onSave, loading }) {
+  function updateCard(key, i, field, val) {
+    const arr = [...(d[key] || [])]
+    arr[i] = { ...arr[i], [field]: val }
+    onChange(key, arr)
+  }
+  return (
+    <>
+      <Card title="🍔 Alimentos — Cards del inicio">
+        {(d.alimentos || []).map((c, i) => (
+          <div key={i} style={{ background:'#1a1a1a', borderRadius:'.5rem', padding:'1rem', marginBottom:'.75rem' }}>
+            <div style={{ display:'flex', gap:'.5rem' }}>
+              <div style={{ width:'4rem' }}><Field label="Ícono" value={c.icon} onChange={v => updateCard('alimentos',i,'icon',v)} /></div>
+              <div style={{ flex:1 }}><Field label="Título" value={c.title} onChange={v => updateCard('alimentos',i,'title',v)} /></div>
+            </div>
+            <Field label="Descripción corta" value={c.desc} onChange={v => updateCard('alimentos',i,'desc',v)} textarea />
+            <Field label="URL Foto" value={c.img} onChange={v => updateCard('alimentos',i,'img',v)} />
+          </div>
+        ))}
+      </Card>
+      <Card title="🍔 Hamburguesa — Card del inicio">
+        <div style={{ display:'flex', gap:'.5rem' }}>
+          <div style={{ width:'4rem' }}><Field label="Ícono" value={d.hamburguesa?.icon} onChange={v => onChange('hamburguesa',{...d.hamburguesa,icon:v})} /></div>
+          <div style={{ flex:1 }}><Field label="Título" value={d.hamburguesa?.title} onChange={v => onChange('hamburguesa',{...d.hamburguesa,title:v})} /></div>
+        </div>
+        <Field label="Descripción" value={d.hamburguesa?.desc} onChange={v => onChange('hamburguesa',{...d.hamburguesa,desc:v})} textarea />
+        <Field label="URL Foto" value={d.hamburguesa?.img} onChange={v => onChange('hamburguesa',{...d.hamburguesa,img:v})} />
+      </Card>
+      <Card title="🎭 Espectáculos — Cards del inicio">
+        {(d.espectaculos || []).map((c, i) => (
+          <div key={i} style={{ background:'#1a1a1a', borderRadius:'.5rem', padding:'1rem', marginBottom:'.75rem' }}>
+            <div style={{ display:'flex', gap:'.5rem' }}>
+              <div style={{ width:'4rem' }}><Field label="Ícono" value={c.icon} onChange={v => updateCard('espectaculos',i,'icon',v)} /></div>
+              <div style={{ flex:1 }}><Field label="Título" value={c.title} onChange={v => updateCard('espectaculos',i,'title',v)} /></div>
+            </div>
+            <Field label="Descripción corta" value={c.desc} onChange={v => updateCard('espectaculos',i,'desc',v)} textarea />
+            <Field label="URL Foto" value={c.img} onChange={v => updateCard('espectaculos',i,'img',v)} />
+          </div>
+        ))}
+      </Card>
+      <Card title="🎂 Cumpleaños — Card del inicio">
+        <div style={{ display:'flex', gap:'.5rem' }}>
+          <div style={{ width:'4rem' }}><Field label="Ícono" value={d.cumpleanos?.icon} onChange={v => onChange('cumpleanos',{...d.cumpleanos,icon:v})} /></div>
+          <div style={{ flex:1 }}><Field label="Título" value={d.cumpleanos?.title} onChange={v => onChange('cumpleanos',{...d.cumpleanos,title:v})} /></div>
+        </div>
+        <Field label="Descripción" value={d.cumpleanos?.desc} onChange={v => onChange('cumpleanos',{...d.cumpleanos,desc:v})} textarea />
+        <Field label="URL Foto" value={d.cumpleanos?.img} onChange={v => onChange('cumpleanos',{...d.cumpleanos,img:v})} />
+      </Card>
+      <SaveBtn onClick={onSave} loading={loading} />
+    </>
+  )
+}
+
+function PlatillosEditor({ d, onChange, onSave, loading }) {
+  const keys = ['alitas','nachos','hotdog','papas','hamburguesa']
+  const labels = { alitas:'🍗 Alitas', nachos:'🧀 Nachos', hotdog:'🌭 Hot Dog', papas:'🍟 Papas Francesas', hamburguesa:'🍔 Hamburguesa' }
+
+  function updateArr(key, field, val) {
+    onChange(key, { ...d[key], [field]: val.split('\n').filter(Boolean) })
+  }
+  function updateField(key, field, val) {
+    onChange(key, { ...d[key], [field]: val })
+  }
+
+  return (
+    <>
+      {keys.map(key => (
+        <Card key={key} title={labels[key]}>
+          <div style={{ display:'flex', gap:'.5rem' }}>
+            <div style={{ width:'4rem' }}><Field label="Ícono" value={d[key]?.icon} onChange={v => updateField(key,'icon',v)} /></div>
+            <div style={{ flex:1 }}><Field label="Nombre" value={d[key]?.title} onChange={v => updateField(key,'title',v)} /></div>
+          </div>
+          <Field label="Descripción" value={d[key]?.desc} onChange={v => updateField(key,'desc',v)} textarea />
+          <Field label="URL Foto" value={d[key]?.img} onChange={v => updateField(key,'img',v)} />
+          <Field label="Ingredientes (uno por línea)" textarea value={(d[key]?.ingredientes||[]).join('\n')} onChange={v => updateArr(key,'ingredientes',v)} />
+          <Field label="Especiales con (uno por línea)" textarea value={(d[key]?.especiales||[]).join('\n')} onChange={v => updateArr(key,'especiales',v)} />
+          <Field label="Opcionales (uno por línea)" textarea value={(d[key]?.opcionales||[]).join('\n')} onChange={v => updateArr(key,'opcionales',v)} />
+          <Field label="Incluye / Extras (uno por línea)" textarea value={(d[key]?.extras||[]).join('\n')} onChange={v => updateArr(key,'extras',v)} />
+          <Field label="Aderezos (uno por línea)" textarea value={(d[key]?.aderezos||[]).join('\n')} onChange={v => updateArr(key,'aderezos',v)} />
+        </Card>
+      ))}
+      <SaveBtn onClick={onSave} loading={loading} />
+    </>
+  )
+}
+
+function EspectaculosEditor({ d, onChange, onSave, loading }) {
+  const keys = ['puerta-cerrada','mejor-voz','karaoke','vs-mesero','cumpleanos']
+  const labels = { 'puerta-cerrada':'🚪 Puerta Cerrada','mejor-voz':'🏆 Mejor Voz','karaoke':'🎤 Karaoke','vs-mesero':'⚔️ vs Mesero','cumpleanos':'🎂 Cumpleaños' }
+
+  function updateArr(key, field, val) {
+    onChange(key, { ...(d[key]||{}), [field]: val.split('\n').filter(Boolean) })
+  }
+  function updateField(key, field, val) {
+    onChange(key, { ...(d[key]||{}), [field]: val })
+  }
+
+  return (
+    <>
+      {keys.map(key => (
+        <Card key={key} title={labels[key]}>
+          <div style={{ display:'flex', gap:'.5rem' }}>
+            <div style={{ width:'4rem' }}><Field label="Ícono" value={d[key]?.icon} onChange={v => updateField(key,'icon',v)} /></div>
+            <div style={{ flex:1 }}><Field label="Título" value={d[key]?.title} onChange={v => updateField(key,'title',v)} /></div>
+          </div>
+          <Field label="Descripción" value={d[key]?.desc} onChange={v => updateField(key,'desc',v)} textarea />
+          <Field label="URL Foto" value={d[key]?.img} onChange={v => updateField(key,'img',v)} />
+          <Field label="Items 〜 (uno por línea)" textarea value={(d[key]?.items||[]).join('\n')} onChange={v => updateArr(key,'items',v)} hint="Para puerta cerrada, mejor voz, karaoke, vs mesero" />
+          {key==='cumpleanos' && <Field label="Checks ✓ (uno por línea)" textarea value={(d[key]?.checks||[]).join('\n')} onChange={v => updateArr(key,'checks',v)} />}
+          <Field label="Premio destacado (opcional)" value={d[key]?.premio} onChange={v => updateField(key,'premio',v)} />
+          <Field label="Nota informativa (opcional)" value={d[key]?.nota} onChange={v => updateField(key,'nota',v)} textarea />
+          <Field label="Texto del botón CTA" value={d[key]?.cta} onChange={v => updateField(key,'cta',v)} />
+        </Card>
+      ))}
+      <SaveBtn onClick={onSave} loading={loading} />
+    </>
+  )
+}
+
+function MenuPromoEditor({ d, onChange, onSave, loading }) {
+  function updateCard(i, field, val) {
+    const cards = [...(d.cards||[])]
+    cards[i] = { ...cards[i], [field]: val }
+    onChange('cards', cards)
+  }
+  return (
+    <>
+      <Card title="Encabezado">
+        <Field label="Título" value={d.titulo} onChange={v => onChange('titulo',v)} />
+        <Field label="Subtítulo" value={d.subtitulo} onChange={v => onChange('subtitulo',v)} textarea />
+        <Field label="URL Foto flyer promos" value={d.fotoUrl} onChange={v => onChange('fotoUrl',v)} hint="Imagen principal del flyer de promociones" />
+        <Field label="Nota al pie" value={d.nota} onChange={v => onChange('nota',v)} />
+      </Card>
+      <Card title="Cards de promos">
+        {(d.cards||[]).map((c, i) => (
+          <div key={i} style={{ background:'#1a1a1a', borderRadius:'.5rem', padding:'1rem', marginBottom:'.75rem', display:'flex', gap:'.75rem' }}>
+            <div style={{ width:'5rem' }}><Field label="Emoji" value={c.emoji} onChange={v => updateCard(i,'emoji',v)} /></div>
+            <div style={{ flex:1 }}>
+              <Field label="Título" value={c.title} onChange={v => updateCard(i,'title',v)} />
+              <Field label="Precio / descripción" value={c.desc} onChange={v => updateCard(i,'desc',v)} />
+            </div>
+          </div>
+        ))}
+      </Card>
+      <SaveBtn onClick={onSave} loading={loading} />
+    </>
+  )
+}
+
 // ── ADMIN PANEL ───────────────────────────────────────────────
 export default function AdminPanel() {
   const { adminPanelOpen, setAdminPanelOpen, showToast, cms, updateCMS } = useCMS()
@@ -454,18 +605,18 @@ export default function AdminPanel() {
           {/* Content */}
           <div className="adm-content">
             <div className="adm-inner">
-            {d.hero            && activeTab==='hero'            && <HeroEditor      d={d.hero}            onChange={oc('hero')}            onSave={os('hero')}            loading={loading} />}
-            {d.porqueElegirnos && activeTab==='porqueElegirnos' && <PorqueEditor    d={d.porqueElegirnos} onChange={oc('porqueElegirnos')} onSave={os('porqueElegirnos')} loading={loading} />}
-            {d.horario         && activeTab==='horario'         && <HorarioEditor   d={d.horario}         onChange={oc('horario')}         onSave={os('horario')}         loading={loading} />}
-            {d.reservas        && activeTab==='reservas'        && <ReservasEditor  d={d.reservas}        onChange={oc('reservas')}        onSave={os('reservas')}        loading={loading} />}
-            {d.alimentos       && activeTab==='alimentos'       && <AlimentosEditor d={d.alimentos}       onChange={oc('alimentos')}       onSave={os('alimentos')}       loading={loading} />}
-            {d.bebidas         && activeTab==='bebidas'         && <BebidasEditor   d={d.bebidas}         onChange={oc('bebidas')}         onSave={os('bebidas')}         loading={loading} />}
-            {d.eventos         && activeTab==='eventos'         && <EventosEditor   d={d.eventos}         onChange={oc('eventos')}         onSave={os('eventos')}         loading={loading} />}
-            {d.footer          && activeTab==='footer'          && <FooterEditor    d={d.footer}          onChange={oc('footer')}          onSave={os('footer')}          loading={loading} />}
-            {d.socials         && activeTab==='socials'         && <SocialsEditor   d={d.socials}         onChange={oc('socials')}         onSave={os('socials')}         loading={loading} />}
-            {d.waFlotante      && activeTab==='waFlotante'      && <WAEditor        d={d.waFlotante}      onChange={oc('waFlotante')}      onSave={os('waFlotante')}      loading={loading} />}
-            {d.contact         && activeTab==='contact'         && <ContactEditor   d={d.contact}         onChange={oc('contact')}         onSave={os('contact')}         loading={loading} />}
-            {d.seo             && activeTab==='seo'             && <SeoEditor       d={d.seo}             onChange={oc('seo')}             onSave={os('seo')}             loading={loading} />}
+            {d.hero            && activeTab==='hero'            && <HeroEditor         d={d.hero}            onChange={oc('hero')}            onSave={os('hero')}            loading={loading} />}
+            {d.homeCards       && activeTab==='homeCards'       && <HomeCardsEditor    d={d.homeCards}       onChange={(k,v) => handleChange('homeCards',k,v)} onSave={os('homeCards')} loading={loading} />}
+            {d.platillos       && activeTab==='platillos'       && <PlatillosEditor    d={d.platillos}       onChange={(k,v) => handleChange('platillos',k,v)} onSave={os('platillos')} loading={loading} />}
+            {d.espectaculos    && activeTab==='espectaculos'    && <EspectaculosEditor d={d.espectaculos}    onChange={(k,v) => handleChange('espectaculos',k,v)} onSave={os('espectaculos')} loading={loading} />}
+            {d.menuPromo       && activeTab==='menuPromo'       && <MenuPromoEditor    d={d.menuPromo}       onChange={oc('menuPromo')}       onSave={os('menuPromo')}       loading={loading} />}
+            {d.bebidas         && activeTab==='bebidas'         && <BebidasEditor      d={d.bebidas}         onChange={oc('bebidas')}         onSave={os('bebidas')}         loading={loading} />}
+            {d.reservas        && activeTab==='reservas'        && <ReservasEditor     d={d.reservas}        onChange={oc('reservas')}        onSave={os('reservas')}        loading={loading} />}
+            {d.footer          && activeTab==='footer'          && <FooterEditor       d={d.footer}          onChange={oc('footer')}          onSave={os('footer')}          loading={loading} />}
+            {d.socials         && activeTab==='socials'         && <SocialsEditor      d={d.socials}         onChange={oc('socials')}         onSave={os('socials')}         loading={loading} />}
+            {d.waFlotante      && activeTab==='waFlotante'      && <WAEditor           d={d.waFlotante}      onChange={oc('waFlotante')}      onSave={os('waFlotante')}      loading={loading} />}
+            {d.contact         && activeTab==='contact'         && <ContactEditor      d={d.contact}         onChange={oc('contact')}         onSave={os('contact')}         loading={loading} />}
+            {d.seo             && activeTab==='seo'             && <SeoEditor          d={d.seo}             onChange={oc('seo')}             onSave={os('seo')}             loading={loading} />}
             </div>
           </div>
 
