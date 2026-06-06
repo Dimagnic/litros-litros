@@ -3,7 +3,7 @@ import { useCMS } from '@/context/CMSContext'
 import { useAuth } from '@/context/AuthContext'
 
 export default function LoginModal() {
-  const { loginModalOpen, setLoginModalOpen, setAdminPanelOpen } = useCMS()
+  const { loginModalOpen, setLoginModalOpen, setAdminPanelOpen, cms } = useCMS()
   const { signIn } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -30,8 +30,11 @@ export default function LoginModal() {
     <div style={{ position:'fixed', inset:0, zIndex:300, background:'rgba(0,0,0,.85)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem' }}
       onClick={e => e.target === e.currentTarget && setLoginModalOpen(false)}>
       <div style={{ background:'#111827', border:'1px solid rgba(41,90,158,.3)', borderRadius:'1rem', padding:'2.5rem', width:'100%', maxWidth:'400px', textAlign:'center' }}>
-        <img src="https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/karaoke.jpeg"
-          alt="Logo" style={{ width:'4rem', height:'4rem', borderRadius:'.75rem', objectFit:'cover', margin:'0 auto .75rem' }} />
+        {cms?.hero?.logo
+          ? <img src={cms.hero.logo} alt="Logo" style={{ width:'5rem', height:'5rem', borderRadius:'1rem', objectFit:'cover', margin:'0 auto .75rem', display:'block' }} />
+          : <img src="https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/karaoke.jpeg"
+              alt="Logo" style={{ width:'5rem', height:'5rem', borderRadius:'1rem', objectFit:'cover', margin:'0 auto .75rem', display:'block' }} />
+        }
         <h2 style={{ color:'#295A9E', fontWeight:800, fontSize:'1.3rem', marginBottom:'.25rem' }}>Panel Admin</h2>
         <p style={{ color:'rgba(234,234,234,.5)', fontSize:'.85rem', marginBottom:'2rem' }}>Litros & Litros CMS</p>
         <form onSubmit={handleLogin} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
