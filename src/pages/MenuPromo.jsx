@@ -1,144 +1,78 @@
-import { useState, useRef } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCMS } from '@/context/CMSContext'
 
 const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
+const BUCKET = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
 
+const PROMOS = [
+  { cat:'🍺 Cervezas', items:[
+    { name:'3 Cervezas', precio:'$75', detalle:'Carta Blanca' },
+    { name:'10 Cervezas', precio:'$260', detalle:'355 ml c/u' },
+    { name:'MicheLitro', precio:'$98', detalle:'Especial de la casa' },
+  ]},
+  { cat:'🪣 Naturales', items:[
+    { name:'Ron, Tequila, Vodka o Gin', precio:'$175', detalle:'3 Litros c/ Mezclado — Cubotas' },
+  ]},
+  { cat:'🥤 Escarchados', items:[
+    { name:'Sandía · Mango · Tamarindo', precio:'$190', detalle:'3 Litros' },
+    { name:'Limón · Piña · Frutos Rojos', precio:'$190', detalle:'3 Litros' },
+  ]},
+  { cat:'🍶 Caguamón', items:[
+    { name:'Xxlager · Carta Blanca · Victoria', precio:'$190', detalle:'2 × 1.2 L' },
+  ]},
+  { cat:'🌮 Alimentos', items:[
+    { name:'Nachos Árabe', precio:'$100', detalle:'Especial' },
+    { name:'Nachos Pastor', precio:'$100', detalle:'Especial' },
+    { name:'Hot Dog', precio:'$48', detalle:'Especial' },
+    { name:'Alitas (7)', precio:'$78', detalle:'Con aderezo' },
+  ]},
+]
 
 function ImageModal({ src, alt, onClose }) {
-  const [zoom, setZoom] = useState(1)
-  const [dragging, setDragging] = useState(false)
-  const [pos, setPos] = useState({ x:0, y:0 })
-  const [startPos, setStartPos] = useState({ x:0, y:0 })
-  const [startScroll, setStartScroll] = useState({ x:0, y:0 })
-  const containerRef = React.useRef(null)
+  const [scale, setScale] = useState(1)
+  const ref = React.useRef(null)
+  const dragging = React.useRef(false)
+  const last = React.useRef({ x:0, y:0 })
 
-  function handleMouseDown(e) {
-    if (zoom <= 1) return
-    e.preventDefault()
-    setDragging(true)
-    setStartPos({ x: e.clientX, y: e.clientY })
-    setStartScroll({ x: containerRef.current.scrollLeft, y: containerRef.current.scrollTop })
+  function zoomIn()  { setScale(s => Math.min(parseFloat((s+0.5).toFixed(1)), 5)) }
+  function zoomOut() {
+    setScale(s => {
+      const n = parseFloat((s-0.5).toFixed(1))
+      if (n <= 1 && ref.current) { ref.current.scrollLeft=0; ref.current.scrollTop=0 }
+      return Math.max(n, 1)
+    })
   }
-
-  function handleMouseMove(e) {
-    if (!dragging) return
-    const dx = e.clientX - startPos.x
-    const dy = e.clientY - startPos.y
-    containerRef.current.scrollLeft = startScroll.x - dx
-    containerRef.current.scrollTop  = startScroll.y - dy
-  }
-
-  function handleMouseUp() { setDragging(false) }
-
-  // Touch support
-  function handleTouchStart(e) {
-    if (zoom <= 1) return
-    const t = e.touches[0]
-    setDragging(true)
-    setStartPos({ x: t.clientX, y: t.clientY })
-    setStartScroll({ x: containerRef.current.scrollLeft, y: containerRef.current.scrollTop })
-  }
-
-  function handleTouchMove(e) {
-    if (!dragging) return
-    const t = e.touches[0]
-    const dx = t.clientX - startPos.x
-    const dy = t.clientY - startPos.y
-    containerRef.current.scrollLeft = startScroll.x - dx
-    containerRef.current.scrollTop  = startScroll.y - dy
-  }
-
-  function handleClose() { setZoom(1); setPos({ x:0, y:0 }); onClose() }
+  function close() { setScale(1); onClose() }
+  function onMD(e) { if(scale<=1) return; e.preventDefault(); dragging.current=true; last.current={x:e.clientX,y:e.clientY} }
+  function onMM(e) { if(!dragging.current||!ref.current) return; ref.current.scrollLeft-=(e.clientX-last.current.x); ref.current.scrollTop-=(e.clientY-last.current.y); last.current={x:e.clientX,y:e.clientY} }
+  function onMU()  { dragging.current=false }
+  function onTS(e) { if(scale<=1) return; const t=e.touches[0]; dragging.current=true; last.current={x:t.clientX,y:t.clientY} }
+  function onTM(e) { if(!dragging.current||!ref.current) return; const t=e.touches[0]; ref.current.scrollLeft-=(t.clientX-last.current.x); ref.current.scrollTop-=(t.clientY-last.current.y); last.current={x:t.clientX,y:t.clientY} }
 
   return (
-    <div onClick={handleClose} style={{
-      position:'fixed', inset:0, zIndex:500,
-      background:'rgba(0,0,0,.93)',
-      display:'flex', alignItems:'center', justifyContent:'center',
-      padding:'1rem',
-    }}>
-      <div onClick={e => e.stopPropagation()} style={{ position:'relative', maxWidth:'900px', width:'100%', maxHeight:'90dvh' }}>
-
-        {/* Controles zoom */}
-        <div style={{ position:'absolute', top:'-2.75rem', left:0, display:'flex', gap:'.4rem', alignItems:'center' }}>
-          <button onClick={() => setZoom(z => Math.min(z+1,10))} disabled={zoom>=10}
-            style={{ background:'rgba(41,90,158,.25)', border:'1px solid rgba(41,90,158,.5)', color:'#fff', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'1rem', cursor: zoom>=10?'not-allowed':'pointer', opacity: zoom>=10?.35:1, fontWeight:700, transition:'opacity .2s' }}>🔍+</button>
-          <button onClick={() => setZoom(z => Math.max(z-1,1))} disabled={zoom<=1}
-            style={{ background:'rgba(41,90,158,.25)', border:'1px solid rgba(41,90,158,.5)', color:'#fff', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'1rem', cursor: zoom<=1?'not-allowed':'pointer', opacity: zoom<=1?.35:1, fontWeight:700, transition:'opacity .2s' }}>🔍-</button>
-          <span style={{ background:'rgba(0,0,0,.6)', color:'rgba(255,255,255,.7)', borderRadius:'.5rem', padding:'.35rem .7rem', fontSize:'.78rem', fontWeight:600 }}>{zoom}x</span>
-          {zoom > 1 && <span style={{ color:'rgba(255,255,255,.4)', fontSize:'.72rem' }}>— arrastra para moverte</span>}
+    <div onClick={close} style={{ position:'fixed',inset:0,zIndex:500,background:'rgba(0,0,0,.88)',display:'flex',alignItems:'center',justifyContent:'center',padding:'3.5rem 1rem 1rem' }}>
+      <div onClick={e=>e.stopPropagation()} style={{ position:'relative',width:'min(500px,92vw)',display:'flex',flexDirection:'column',gap:'.75rem' }}>
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',background:'rgba(17,24,39,.95)',border:'1px solid rgba(41,90,158,.4)',borderRadius:'.75rem',padding:'.5rem 1rem' }}>
+          <div style={{ display:'flex',alignItems:'center',gap:'.5rem' }}>
+            <button onClick={zoomOut} disabled={scale<=1} style={{ background:'rgba(41,90,158,.2)',border:'1px solid rgba(41,90,158,.4)',color:'#fff',borderRadius:'.4rem',width:'2.2rem',height:'2.2rem',fontSize:'1.2rem',cursor:scale<=1?'not-allowed':'pointer',opacity:scale<=1?.3:1,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center' }}>−</button>
+            <span style={{ color:'#fff',fontSize:'.85rem',fontWeight:600,minWidth:'3rem',textAlign:'center' }}>{scale.toFixed(1)}x</span>
+            <button onClick={zoomIn} disabled={scale>=5} style={{ background:'rgba(41,90,158,.2)',border:'1px solid rgba(41,90,158,.4)',color:'#fff',borderRadius:'.4rem',width:'2.2rem',height:'2.2rem',fontSize:'1.2rem',cursor:scale>=5?'not-allowed':'pointer',opacity:scale>=5?.3:1,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center' }}>+</button>
+            {scale>1 && <span style={{ color:'rgba(255,255,255,.4)',fontSize:'.7rem',marginLeft:'.25rem' }}>arrastra</span>}
+          </div>
+          <button onClick={close} style={{ background:'rgba(220,38,38,.15)',border:'1px solid rgba(220,38,38,.3)',color:'#f87171',borderRadius:'.4rem',padding:'.3rem .75rem',fontSize:'.82rem',fontWeight:600,cursor:'pointer' }}>✕</button>
         </div>
-
-        {/* Botón cerrar */}
-        <button onClick={handleClose} style={{
-          position:'absolute', top:'-2.75rem', right:0,
-          background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)',
-          color:'#fff', borderRadius:'.5rem', padding:'.4rem .9rem',
-          fontSize:'.85rem', fontWeight:600, cursor:'pointer', fontFamily:'var(--font-body)',
-        }}>✕ Cerrar</button>
-
-        {/* Contenedor imagen con scroll y drag */}
-        <div
-          ref={containerRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleMouseUp}
-          style={{
-            overflow: zoom > 1 ? 'auto' : 'hidden',
-            maxHeight:'90dvh',
-            borderRadius:'var(--radius-lg)',
-            cursor: dragging ? 'grabbing' : zoom > 1 ? 'grab' : 'default',
-            userSelect:'none',
-            scrollbarWidth:'thin',
-          }}
-        >
-          <img
-            src={src}
-            alt={alt}
-            draggable={false}
-            style={{
-              width: zoom === 1 ? '100%' : `${zoom * 100}%`,
-              display:'block',
-              transition: dragging ? 'none' : 'width .25s ease',
-              userSelect:'none',
-              pointerEvents:'none',
-            }}
-          />
+        <div ref={ref}
+          onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
+          onTouchStart={onTS} onTouchMove={onTM} onTouchEnd={onMU}
+          style={{ overflow:'auto',borderRadius:'.75rem',maxHeight:'78vh',cursor:scale>1?'grab':'default',background:'#000',scrollbarWidth:'thin' }}>
+          <img src={src} alt={alt} draggable={false}
+            style={{ display:'block',width:`${scale*100}%`,minWidth:'100%',transition:'width .2s ease',userSelect:'none',pointerEvents:'none' }} />
         </div>
       </div>
     </div>
   )
 }
-
-const PROMOS = [
-  { cat:'🍺 Cervezas',    color:'#295A9E', items:[
-    { name:'3 Cervezas',        precio:'$75',  detalle:'Carta Blanca' },
-    { name:'10 Cervezas',       precio:'$260', detalle:'355 ml c/u' },
-    { name:'MicheLitro',        precio:'$98',  detalle:'Especial de la casa' },
-  ]},
-  { cat:'🪣 Naturales',   color:'#1B3F6B', items:[
-    { name:'Ron, Tequila, Vodka o Gin', precio:'$175', detalle:'3 Litros c/ Mezclado — Cubotas' },
-  ]},
-  { cat:'🥤 Escarchados', color:'#164e8c', items:[
-    { name:'Sandía · Mango · Tamarindo', precio:'$190', detalle:'3 Litros' },
-    { name:'Limón · Piña · Frutos Rojos', precio:'$190', detalle:'3 Litros' },
-  ]},
-  { cat:'🍶 Caguamón',    color:'#1a3a6b', items:[
-    { name:'Xxlager · Carta Blanca · Victoria', precio:'$190', detalle:'2 × 1.2 L' },
-  ]},
-  { cat:'🌮 Alimentos',   color:'#0f3060', items:[
-    { name:'Nachos Árabe',   precio:'$100', detalle:'Especial' },
-    { name:'Nachos Pastor',  precio:'$100', detalle:'Especial' },
-    { name:'Hot Dog',        precio:'$48',  detalle:'Especial' },
-    { name:'Alitas (7)',     precio:'$78',  detalle:'Con aderezo' },
-  ]},
-]
 
 export default function MenuPromo() {
   const { cms } = useCMS()
@@ -149,8 +83,8 @@ export default function MenuPromo() {
 
   return (
     <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
-      {/* Hero con imagen de fondo */}
-      <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
+      {/* Hero */}
+      <div style={{ position:'relative', height:'calc(100dvh - 80px)', overflow:'hidden', background:'#0a0f19', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <img src={mp.fotoUrl || `${BASE}/promociones.jpeg`} alt="Promos"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(11,18,40,.45) 0%, rgba(11,18,40,.92) 100%)' }} />
@@ -159,11 +93,9 @@ export default function MenuPromo() {
         <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'clamp(2rem, 5vh, 4rem) 1.5rem' }}>
           <div style={{ fontSize:'2.5rem', marginBottom:'.5rem' }}>🎉</div>
           <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', marginBottom:'.75rem' }}>
-            MENÚ PROMO
+            {mp.titulo || 'MENÚ PROMO'}
           </h1>
-          <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem' }}>
-            Las mejores promociones para tu noche
-          </p>
+          <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem' }}>{mp.subtitulo || 'Las mejores promociones para tu noche'}</p>
         </div>
       </div>
 
@@ -175,14 +107,11 @@ export default function MenuPromo() {
             padding:'.55rem 1.25rem', borderRadius:'999px', fontSize:'.88rem', fontWeight:700,
             background:'linear-gradient(135deg,#295A9E,#1B3F6B)', color:'#fff',
             border:'none', cursor:'pointer', fontFamily:'var(--font-body)',
-            boxShadow:'0 4px 16px rgba(41,90,158,.4)', transition:'all .2s',
-          }}
-            onMouseEnter={e => e.currentTarget.style.opacity='.85'}
-            onMouseLeave={e => e.currentTarget.style.opacity='1'}
-          >📋 Carta Promo</button>
+            boxShadow:'0 4px 16px rgba(41,90,158,.4)',
+          }}>📋 Carta Promo</button>
         </div>
 
-        {/* Tabs categorías */}
+        {/* Tabs */}
         <div style={{ display:'flex', flexWrap:'nowrap', overflowX:'auto', WebkitOverflowScrolling:'touch', gap:'.5rem', justifyContent:'flex-start', marginBottom:'2rem', paddingBottom:'.25rem' }}>
           {PROMOS.map((p, i) => (
             <button key={i} onClick={() => setActiveTab(i)} style={{
@@ -190,19 +119,19 @@ export default function MenuPromo() {
               background: activeTab === i ? 'var(--primary)' : 'var(--card)',
               color: activeTab === i ? '#fff' : 'rgba(234,234,234,.65)',
               border: activeTab === i ? 'none' : '1px solid var(--border)',
-              cursor:'pointer', transition:'all .2s', fontFamily:'var(--font-body)',
+              cursor:'pointer', transition:'all .2s', fontFamily:'var(--font-body)', whiteSpace:'nowrap',
             }}>{p.cat}</button>
           ))}
         </div>
 
-        {/* Cards de la categoría activa */}
+        {/* Cards */}
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'1.25rem' }}>
           {PROMOS[activeTab].items.map((item, i) => (
-            <div key={i} className="animate-fade-in" style={{
+            <div key={i} style={{
               background:'var(--card)', border:'1px solid var(--border-s)',
               borderRadius:'var(--radius-lg)', padding:'1.75rem',
               display:'flex', flexDirection:'column', gap:'.75rem',
-              transition:'all .3s', animationDelay:`${i * .08}s`,
+              transition:'all .3s',
             }}
               onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.boxShadow='0 10px 35px rgba(41,90,158,.25)'; e.currentTarget.style.borderColor='rgba(41,90,158,.7)' }}
               onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow=''; e.currentTarget.style.borderColor='var(--border-s)' }}
@@ -214,21 +143,15 @@ export default function MenuPromo() {
           ))}
         </div>
 
-        {/* Nota y CTA */}
-        <div style={{ textAlign:'center', marginTop:'3rem' }}>
-          <p style={{ color:'rgba(234,234,234,.35)', fontSize:'.8rem', marginBottom:'1.5rem' }}>
-            BLVD 5 DE MAYO #4610 · +222 430 26 93 · *Precios sujetos a cambio sin previo aviso*
-          </p>
-          <button className="btn btn-primary" onClick={() => { navigate('/reserva'); window.scrollTo(0,0) }}>
-            RESERVAR AHORA
-          </button>
-        </div>
+        <p style={{ textAlign:'center', marginTop:'3rem', fontSize:'.8rem', color:'rgba(234,234,234,.35)' }}>
+          {mp.nota || 'BLVD 5 DE MAYO #4610 · +222 430 26 93 · *Precios sujetos a cambio*'}
+        </p>
       </div>
 
       {/* Modal Carta Promo */}
       {showPromo && (
         <ImageModal
-          src="https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/menu_promo.jpeg"
+          src={`${BUCKET}/menu_promo.jpeg`}
           alt="Carta Promo Litros & Litros"
           onClose={() => setShowPromo(false)}
         />

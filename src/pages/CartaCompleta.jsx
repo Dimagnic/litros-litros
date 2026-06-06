@@ -4,21 +4,8 @@ import { useCMS } from '@/context/CMSContext'
 
 const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
 
-function ImageModal({ src, alt, onClose }) {
-  const [zoom, setZoom] = useState(1)
-  const [dragging, setDragging] = useState(false)
-  const [pos, setPos] = useState({ x:0, y:0 })
-  const [startPos, setStartPos] = useState({ x:0, y:0 })
-  const [startScroll, setStartScroll] = useState({ x:0, y:0 })
-  const containerRef = React.useRef(null)
 
-  function handleMouseDown(e) {
-    if (zoom <= 1) return
-    e.preventDefault()
-    setDragging(true)
-    setStartPos({ x: e.clientX, y: e.clientY })
-    setStartScroll({ x: containerRef.current.scrollLeft, y: containerRef.current.scrollTop })
-  }
+
 
   function handleMouseMove(e) {
     if (!dragging) return
@@ -108,6 +95,53 @@ function ImageModal({ src, alt, onClose }) {
               pointerEvents:'none',
             }}
           />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+
+function ImageModal({ src, alt, onClose }) {
+  const [scale, setScale] = React.useState(1)
+  const ref = React.useRef(null)
+  const dragging = React.useRef(false)
+  const last = React.useRef({ x:0, y:0 })
+
+  function zoomIn()  { setScale(s => Math.min(parseFloat((s+0.5).toFixed(1)), 5)) }
+  function zoomOut() {
+    setScale(s => {
+      const n = parseFloat((s-0.5).toFixed(1))
+      if (n <= 1 && ref.current) { ref.current.scrollLeft=0; ref.current.scrollTop=0 }
+      return Math.max(n, 1)
+    })
+  }
+  function close() { setScale(1); onClose() }
+  function onMD(e) { if(scale<=1) return; e.preventDefault(); dragging.current=true; last.current={x:e.clientX,y:e.clientY} }
+  function onMM(e) { if(!dragging.current||!ref.current) return; ref.current.scrollLeft-=(e.clientX-last.current.x); ref.current.scrollTop-=(e.clientY-last.current.y); last.current={x:e.clientX,y:e.clientY} }
+  function onMU()  { dragging.current=false }
+  function onTS(e) { if(scale<=1) return; const t=e.touches[0]; dragging.current=true; last.current={x:t.clientX,y:t.clientY} }
+  function onTM(e) { if(!dragging.current||!ref.current) return; const t=e.touches[0]; ref.current.scrollLeft-=(t.clientX-last.current.x); ref.current.scrollTop-=(t.clientY-last.current.y); last.current={x:t.clientX,y:t.clientY} }
+
+  return (
+    <div onClick={close} style={{ position:'fixed',inset:0,zIndex:500,background:'rgba(0,0,0,.88)',display:'flex',alignItems:'center',justifyContent:'center',padding:'3.5rem 1rem 1rem' }}>
+      <div onClick={e=>e.stopPropagation()} style={{ position:'relative',width:'min(500px,92vw)',display:'flex',flexDirection:'column',gap:'.75rem' }}>
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',background:'rgba(17,24,39,.95)',border:'1px solid rgba(41,90,158,.4)',borderRadius:'.75rem',padding:'.5rem 1rem' }}>
+          <div style={{ display:'flex',alignItems:'center',gap:'.5rem' }}>
+            <button onClick={zoomOut} disabled={scale<=1} style={{ background:'rgba(41,90,158,.2)',border:'1px solid rgba(41,90,158,.4)',color:'#fff',borderRadius:'.4rem',width:'2.2rem',height:'2.2rem',fontSize:'1.2rem',cursor:scale<=1?'not-allowed':'pointer',opacity:scale<=1?.3:1,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center' }}>−</button>
+            <span style={{ color:'#fff',fontSize:'.85rem',fontWeight:600,minWidth:'3rem',textAlign:'center' }}>{scale.toFixed(1)}x</span>
+            <button onClick={zoomIn} disabled={scale>=5} style={{ background:'rgba(41,90,158,.2)',border:'1px solid rgba(41,90,158,.4)',color:'#fff',borderRadius:'.4rem',width:'2.2rem',height:'2.2rem',fontSize:'1.2rem',cursor:scale>=5?'not-allowed':'pointer',opacity:scale>=5?.3:1,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center' }}>+</button>
+            {scale>1 && <span style={{ color:'rgba(255,255,255,.4)',fontSize:'.7rem',marginLeft:'.25rem' }}>arrastra</span>}
+          </div>
+          <button onClick={close} style={{ background:'rgba(220,38,38,.15)',border:'1px solid rgba(220,38,38,.3)',color:'#f87171',borderRadius:'.4rem',padding:'.3rem .75rem',fontSize:'.82rem',fontWeight:600,cursor:'pointer' }}>✕</button>
+        </div>
+        <div ref={ref}
+          onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
+          onTouchStart={onTS} onTouchMove={onTM} onTouchEnd={onMU}
+          style={{ overflow:'auto',borderRadius:'.75rem',maxHeight:'78vh',cursor:scale>1?'grab':'default',background:'#000',scrollbarWidth:'thin' }}>
+          <img src={src} alt={alt} draggable={false}
+            style={{ display:'block',width:`${scale*100}%`,minWidth:'100%',transition:'width .2s ease',userSelect:'none',pointerEvents:'none' }} />
         </div>
       </div>
     </div>
