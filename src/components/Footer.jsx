@@ -101,14 +101,17 @@ export default function Footer() {
           {/* Síguenos — texto con links */}
           <div>
             <h4 style={labelStyle}>Síguenos</h4>
-            <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
+            <div style={{ display:'flex', flexDirection:'column', gap:'.5rem' }}>
               {redesActivas.map(({ key, label, Ico, color }) => (
                 <a key={key} href={s[key]} target="_blank" rel="noopener noreferrer"
-                  style={{ ...linkStyle, display:'flex', alignItems:'center', gap:'.5rem', transition:'color .2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color=color}
-                  onMouseLeave={e => e.currentTarget.style.color='rgba(234,234,234,.55)'}
+                  style={{ display:'flex', alignItems:'center', gap:'.65rem', textDecoration:'none', transition:'all .2s', color:color, opacity:.85 }}
+                  onMouseEnter={e => { e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='translateX(3px)' }}
+                  onMouseLeave={e => { e.currentTarget.style.opacity='.85'; e.currentTarget.style.transform='' }}
                 >
-                  <Ico /> {label}
+                  <span style={{ display:'flex', alignItems:'center', justifyContent:'center', width:'2rem', height:'2rem', borderRadius:'.5rem', background:`${color}18`, border:`1px solid ${color}40`, flexShrink:0 }}>
+                    <Ico />
+                  </span>
+                  <span style={{ fontSize:'.875rem', fontWeight:600 }}>{label}</span>
                 </a>
               ))}
             </div>
