@@ -19,7 +19,7 @@ export default function CartaCompleta() {
       {/* Hero */}
       <div style={{ position:'relative', height:'45vh', minHeight:'280px', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
         <img src={`${BASE}/menu_litros.jpeg`} alt="Carta"
-          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
+          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.80)' }} />
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(41,90,158,.2) 0%, transparent 65%)' }} />
         <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'2rem 1.5rem' }}>

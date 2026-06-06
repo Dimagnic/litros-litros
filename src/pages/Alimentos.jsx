@@ -5,7 +5,7 @@ const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/
 function Platillo({ img, titulo, children }) {
   return (
     <div style={{ marginBottom:'4rem' }}>
-      <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', height:'320px', position:'relative' }}>
+      <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', height:'clamp(220px, 45vw, 420px)', position:'relative' }}>
         <img src={img} alt={titulo} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, transparent 50%, rgba(17,24,39,.9) 100%)' }} />
         <h2 style={{ position:'absolute', bottom:'1.25rem', left:'1.5rem',
