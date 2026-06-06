@@ -34,7 +34,7 @@ export default function Reserva() {
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.78)' }} />
         <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'2rem 1.5rem' }}>
           <div style={{ fontSize:'2.5rem', marginBottom:'.5rem' }}>🏠</div>
-          <h1 style={{ fontSize:'clamp(2rem,5vw,3rem)', fontWeight:900, color:'#fff', letterSpacing:'-.02em', marginBottom:'.75rem' }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', marginBottom:'.75rem' }}>
             RESERVA TU MESA
           </h1>
           <p style={{ color:'rgba(234,234,234,.8)', fontSize:'1rem', maxWidth:'32rem', margin:'0 auto', lineHeight:1.65 }}>
@@ -62,7 +62,7 @@ export default function Reserva() {
 
         {/* Formulario */}
         <div style={{ background:'var(--card)', border:'1px solid var(--border-s)', borderRadius:'var(--radius-lg)', padding:'2rem' }}>
-          <h2 style={{ fontSize:'1.1rem', fontWeight:700, color:'#fff', marginBottom:'1.5rem', textAlign:'center' }}>
+          <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-bold)', color:'#fff', marginBottom:'1.5rem', textAlign:'center' }}>
             📋 Datos de tu Reservación
           </h2>
 

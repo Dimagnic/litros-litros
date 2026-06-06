@@ -159,3 +159,113 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   padding-bottom: .25rem;
 }
 .tabs-scroll::-webkit-scrollbar { display: none; }
+
+/* ══════════════════════════════════════════════
+   SISTEMA TIPOGRÁFICO CENTRALIZADO
+   Cambiar aquí afecta todo el sitio
+   ══════════════════════════════════════════════ */
+
+:root {
+  /* Tamaños */
+  --text-hero:    clamp(2rem, 6vw, 3.75rem);   /* H1 hero principal (Inicio) */
+  --text-h1:      clamp(1.85rem, 5vw, 3rem);   /* H1 páginas internas */
+  --text-h2:      clamp(1.4rem, 3.5vw, 2rem);  /* H2 secciones */
+  --text-h3:      clamp(1.1rem, 2.5vw, 1.35rem); /* H3 tarjetas/subsecciones */
+  --text-body:    clamp(.9rem, 1.8vw, 1rem);   /* Texto descriptivo */
+  --text-small:   .85rem;                       /* Texto secundario */
+  --text-caption: .75rem;                       /* Etiquetas, hints */
+
+  /* Pesos */
+  --fw-black:  900;
+  --fw-bold:   700;
+  --fw-medium: 500;
+  --fw-normal: 400;
+
+  /* Espaciado letras */
+  --ls-tight:  -.02em;
+  --ls-normal: 0;
+  --ls-wide:   .04em;
+  --ls-wider:  .08em;
+
+  /* Altura de línea */
+  --lh-tight:  1.1;
+  --lh-normal: 1.6;
+  --lh-loose:  1.75;
+}
+
+/* ── Clases tipográficas reutilizables ── */
+.t-hero {
+  font-family: var(--font-head);
+  font-size: var(--text-hero);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  color: #fff;
+}
+
+.t-h1 {
+  font-family: var(--font-head);
+  font-size: var(--text-h1);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.t-h2 {
+  font-family: var(--font-head);
+  font-size: var(--text-h2);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-tight);
+  color: #fff;
+}
+
+.t-h3 {
+  font-family: var(--font-head);
+  font-size: var(--text-h3);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-normal);
+  color: #fff;
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-loose);
+  color: var(--fg-muted);
+}
+
+.t-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* Título de sección con acento */
+.t-section-title {
+  font-family: var(--font-head);
+  font-size: var(--text-h2);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-tight);
+  color: #fff;
+  text-align: center;
+  margin-bottom: .5rem;
+}
+
+/* Subtítulo de sección */
+.t-section-sub {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--fg-dim);
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto 2rem;
+  line-height: var(--lh-loose);
+}

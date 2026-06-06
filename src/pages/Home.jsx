@@ -165,7 +165,7 @@ export default function Home() {
         <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'2rem 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'1.25rem' }}>
           <img src={h.logo} alt="Litros & Litros" className="neon-glow"
             style={{ width:'8rem', height:'8rem', borderRadius:'1.1rem', objectFit:'cover' }} />
-          <h1 style={{ fontSize:'clamp(2rem,6vw,4rem)', fontWeight:900, color:'#fff', letterSpacing:'-.02em', lineHeight:1.05 }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-hero)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', lineHeight:'var(--lh-tight)', color:'#fff' }}>
             Litros & Litros
           </h1>
           <p style={{ fontSize:'clamp(1rem,2.2vw,1.15rem)', color:'rgba(234,234,234,.9)', lineHeight:1.75, maxWidth:'34rem',
@@ -213,7 +213,7 @@ export default function Home() {
       <section style={{ padding:'3.5rem 0', background:'rgba(13,21,32,.8)' }}>
         <div className="container">
           <div style={{ maxWidth:'580px', margin:'0 auto', border:'1px solid rgba(41,90,158,.35)', borderRadius:'var(--radius-lg)', padding:'2.5rem', background:'rgba(26,37,55,.6)', textAlign:'center' }}>
-            <h2 style={{ fontSize:'1.4rem', fontWeight:800, color:'var(--primary-l)', letterSpacing:'.08em', marginBottom:'1.5rem', textTransform:'uppercase' }}>
+            <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-black)', color:'var(--primary-l)', letterSpacing:'var(--ls-wider)', marginBottom:'1.5rem', textTransform:'uppercase' }}>
               HORARIO
             </h2>
             <p style={{ fontSize:'1.3rem', fontWeight:700, color:'#fff', marginBottom:'.65rem' }}>
@@ -232,9 +232,9 @@ export default function Home() {
       {/* ── ¿POR QUÉ ELEGIRNOS? ── */}
       <section style={{ padding:'4rem 0' }}>
         <div className="container" style={{ textAlign:'center' }}>
-          <h2 className="section-title" style={{ marginBottom:'.5rem' }}>¿POR QUÉ ELEGIRNOS?</h2>
+          <h2 className="t-section-title" style={{ marginBottom:'.5rem' }}>¿POR QUÉ ELEGIRNOS?</h2>
           <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
-          <p style={{ color:'rgba(234,234,234,.65)', fontSize:'1rem', marginBottom:'2.5rem' }}>
+          <p style={{ color:'var(--fg-dim)', fontSize:'var(--text-body)', marginBottom:'2.5rem' }}>
             Somos un lugar seguro y amigable con experiencia.
           </p>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem', maxWidth:'640px', margin:'0 auto 2rem' }}>

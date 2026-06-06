@@ -20,7 +20,7 @@ export default function Hamburguesa() {
           style={{ width:'100%', height:'100%', position:'absolute', inset:0, objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.15) 0%, rgba(17,24,39,.82) 100%)' }} />
         <div style={{ position:'absolute', bottom:'2rem', left:0, right:0, textAlign:'center' }}>
-          <h1 style={{ fontSize:'clamp(2.5rem,7vw,4.5rem)', fontWeight:900, color:'#fff', letterSpacing:'.04em', textTransform:'uppercase' }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
             HAMBURGUESAS
           </h1>
         </div>
@@ -30,7 +30,7 @@ export default function Hamburguesa() {
 
         {/* Ingredientes */}
         <div style={{ background:'var(--card)', border:'1px solid var(--border-s)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'1.25rem' }}>
-          <h3 style={{ fontSize:'.85rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
+          <h3 style={{ fontFamily:'var(--font-body)', fontSize:'var(--text-caption)', fontWeight:'var(--fw-bold)', textTransform:'uppercase', letterSpacing:'var(--ls-wider)', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
             Ingredientes
           </h3>
           <div style={{ display:'flex', flexDirection:'column', gap:'.15rem' }}>
@@ -48,7 +48,7 @@ export default function Hamburguesa() {
 
         {/* Incluye */}
         <div style={{ background:'var(--card)', border:'1px solid rgba(41,90,158,.35)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
-          <h3 style={{ fontSize:'.85rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
+          <h3 style={{ fontFamily:'var(--font-body)', fontSize:'var(--text-caption)', fontWeight:'var(--fw-bold)', textTransform:'uppercase', letterSpacing:'var(--ls-wider)', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
             Incluye
           </h3>
           {extras.map((e, i) => (

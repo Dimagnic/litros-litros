@@ -24,7 +24,7 @@ export default function CartaCompleta() {
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(41,90,158,.2) 0%, transparent 65%)' }} />
         <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'2rem 1.5rem' }}>
           <div style={{ fontSize:'2.5rem', marginBottom:'.5rem' }}>🍹</div>
-          <h1 style={{ fontSize:'clamp(2rem,5vw,3.5rem)', fontWeight:900, color:'#fff', letterSpacing:'-.02em', marginBottom:'.5rem' }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', marginBottom:'.5rem' }}>
             CARTA DE BEBIDAS
           </h1>
           <p style={{ color:'rgba(234,234,234,.7)', fontSize:'.95rem' }}>

@@ -9,7 +9,7 @@ function HeroImg({ src, titulo }) {
         style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
       <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.2) 0%, rgba(17,24,39,.88) 100%)' }} />
       <div style={{ position:'absolute', bottom:'2rem', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
-        <h1 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(2rem,5vw,3rem)', fontWeight:900, color:'#fff', letterSpacing:'.06em', textTransform:'uppercase' }}>
+        <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
           {titulo}
         </h1>
       </div>
@@ -24,7 +24,7 @@ function Platillo({ img, titulo, children }) {
         <img src={img} alt={titulo} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, transparent 50%, rgba(17,24,39,.9) 100%)' }} />
         <h2 style={{ position:'absolute', bottom:'1.25rem', left:'1.5rem',
-          fontSize:'clamp(1.75rem,4vw,2.25rem)', fontWeight:900, color:'#fff', letterSpacing:'.04em' }}>
+          fontFamily:'var(--font-head)', fontSize:'var(--text-h2)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff' }}>
           {titulo}
         </h2>
       </div>

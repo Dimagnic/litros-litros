@@ -34,7 +34,7 @@ export default function Eventos() {
           style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.3) 0%, rgba(17,24,39,.9) 100%)' }} />
         <div style={{ position:'absolute', bottom:'2rem', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
-          <h1 style={{ fontSize:'clamp(2rem,5vw,3.5rem)', fontWeight:900, color:'#fff', letterSpacing:'.04em', textTransform:'uppercase' }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
             EVENTOS ESPECIALES
           </h1>
         </div>
@@ -50,7 +50,7 @@ export default function Eventos() {
               <div key={item.key} style={{ display:'flex', gap:'1rem', padding:'1rem 0', borderBottom: i < ITEMS.length-1 ? '1px solid rgba(41,90,158,.12)' : 'none' }}>
                 <span style={{ color:'var(--primary-l)', fontWeight:900, fontSize:'1.2rem', flexShrink:0, marginTop:'.05rem' }}>►</span>
                 <div>
-                  <h3 style={{ fontWeight:800, fontSize:'1.05rem', color:'#fff', marginBottom:'.25rem' }}>
+                  <h3 style={{ fontFamily:'var(--font-head)', fontWeight:'var(--fw-bold)', fontSize:'var(--text-h3)', color:'#fff', marginBottom:'.25rem' }}>
                     {data.title || item.titulo}
                   </h3>
                   <p style={{ color:'rgba(234,234,234,.6)', fontSize:'.9rem', lineHeight:1.6 }}>
@@ -72,7 +72,7 @@ export default function Eventos() {
 
         {/* CUMPLEAÑOS */}
         <div style={{ background:'var(--card)', border:'1px solid rgba(41,90,158,.4)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
-          <h2 style={{ fontSize:'1.75rem', fontWeight:900, color:'#fff', letterSpacing:'.04em', marginBottom:'1.5rem', textAlign:'center' }}>
+          <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h2)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', marginBottom:'1.5rem', textAlign:'center' }}>
             CUMPLEAÑOS
           </h2>
           <div style={{ display:'flex', flexDirection:'column', gap:'.15rem' }}>

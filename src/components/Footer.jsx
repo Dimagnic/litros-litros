@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Marca */}
           <div>
-            <div style={{ fontSize:'1.1rem', fontWeight:800, color:'#fff', fontFamily:'var(--font-head)', marginBottom:'.5rem' }}>
+            <div style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-black)', color:'#fff', marginBottom:'.5rem' }}>
               {f.brand || 'Litros & Litros'}
             </div>
             <p style={{ fontSize:'.85rem', color:'rgba(234,234,234,.5)', lineHeight:1.65, marginBottom:'1rem' }}>
