@@ -98,22 +98,36 @@ export default function Footer() {
             <span style={{ ...linkStyle, display:'block' }}>⚖️ Aviso Legal</span>
           </div>
 
-          {/* Síguenos — texto con links */}
+          {/* Síguenos — íconos estilo app */}
           <div>
             <h4 style={labelStyle}>Síguenos</h4>
-            <div style={{ display:'flex', flexDirection:'column', gap:'.5rem' }}>
-              {redesActivas.map(({ key, label, Ico, color }) => (
-                <a key={key} href={s[key]} target="_blank" rel="noopener noreferrer"
-                  style={{ display:'flex', alignItems:'center', gap:'.65rem', textDecoration:'none', transition:'all .2s', color:color, opacity:.85 }}
-                  onMouseEnter={e => { e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='translateX(3px)' }}
-                  onMouseLeave={e => { e.currentTarget.style.opacity='.85'; e.currentTarget.style.transform='' }}
-                >
-                  <span style={{ display:'flex', alignItems:'center', justifyContent:'center', width:'2rem', height:'2rem', borderRadius:'.5rem', background:`${color}18`, border:`1px solid ${color}40`, flexShrink:0 }}>
-                    <Ico />
-                  </span>
-                  <span style={{ fontSize:'.875rem', fontWeight:600 }}>{label}</span>
-                </a>
-              ))}
+            <div style={{ display:'flex', flexDirection:'column', gap:'.65rem' }}>
+              {redesActivas.map(({ key, label, Ico, color }) => {
+                const bg = key === 'ig'
+                  ? 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)'
+                  : key === 'fb' ? '#1877F2'
+                  : key === 'tt' ? '#010101'
+                  : key === 'yt' ? '#FF0000'
+                  : '#25D366'
+                return (
+                  <a key={key} href={s[key]} target="_blank" rel="noopener noreferrer"
+                    style={{ display:'flex', alignItems:'center', gap:'.75rem', textDecoration:'none', transition:'all .2s' }}
+                    onMouseEnter={e => { e.currentTarget.style.transform='translateX(4px)'; e.currentTarget.style.opacity='.9' }}
+                    onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.opacity='1' }}
+                  >
+                    <span style={{
+                      display:'flex', alignItems:'center', justifyContent:'center',
+                      width:'2.4rem', height:'2.4rem', borderRadius:'.65rem',
+                      background: bg, flexShrink:0,
+                      boxShadow:`0 3px 12px ${color}50`,
+                      color:'#fff',
+                    }}>
+                      <Ico />
+                    </span>
+                    <span style={{ fontSize:'.9rem', fontWeight:600, color:'rgba(234,234,234,.85)' }}>{label}</span>
+                  </a>
+                )
+              })}
             </div>
           </div>
         </div>
