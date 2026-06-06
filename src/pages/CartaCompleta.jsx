@@ -9,6 +9,7 @@ export default function CartaCompleta() {
   const [activeCat, setActiveCat] = useState('Ron')
   const [view, setView] = useState('digital')
   const [showMenu, setShowMenu] = useState(false)
+  const [zoom, setZoom] = useState(1)
 
   const menu = (cms.menuBebidas || [])
   const beb  = cms.bebidas || {}
@@ -118,7 +119,7 @@ export default function CartaCompleta() {
       {/* Modal Menú Impreso */}
       {showMenu && (
         <div
-          onClick={() => setShowMenu(false)}
+          onClick={() => { setShowMenu(false); setZoom(1) }}
           style={{
             position:'fixed', inset:0, zIndex:500,
             background:'rgba(0,0,0,.92)',
@@ -129,7 +130,7 @@ export default function CartaCompleta() {
         >
           <div onClick={e => e.stopPropagation()} style={{ position:'relative', maxWidth:'900px', width:'100%', maxHeight:'90dvh' }}>
             {/* Botón cerrar */}
-            <button onClick={() => setShowMenu(false)} style={{
+            <button onClick={() => { setShowMenu(false); setZoom(1) }} style={{
               position:'absolute', top:'-2.5rem', right:0,
               background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)',
               color:'#fff', borderRadius:'.5rem', padding:'.4rem .9rem',
@@ -137,16 +138,44 @@ export default function CartaCompleta() {
               fontFamily:'var(--font-body)',
             }}>✕ Cerrar</button>
 
-            {/* Imagen del menú impreso */}
-            <img
-              src="https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/menu_impreso.png"
-              alt="Menú Litros & Litros"
-              style={{
-                width:'100%', maxHeight:'90dvh',
-                objectFit:'contain', borderRadius:'var(--radius-lg)',
-                display:'block',
+            {/* Controles de zoom */}
+            <div style={{ position:'absolute', top:'-2.5rem', left:0, display:'flex', gap:'.5rem' }}>
+              <button
+                onClick={() => setZoom(z => Math.min(z + 1, 3))}
+                disabled={zoom >= 3}
+                style={{ background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)', color:'#fff', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'1rem', cursor: zoom >= 3 ? 'not-allowed' : 'pointer', opacity: zoom >= 3 ? .4 : 1, fontWeight:700 }}
+                title="Acercar">🔍+</button>
+              <button
+                onClick={() => setZoom(z => Math.max(z - 1, 1))}
+                disabled={zoom <= 1}
+                style={{ background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)', color:'#fff', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'1rem', cursor: zoom <= 1 ? 'not-allowed' : 'pointer', opacity: zoom <= 1 ? .4 : 1, fontWeight:700 }}
+                title="Alejar">🔍-</button>
+              <span style={{ background:'rgba(0,0,0,.5)', color:'rgba(255,255,255,.6)', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'.8rem', display:'flex', alignItems:'center' }}>
+                {zoom}x
+              </span>
+            </div>
+
+            {/* Imagen del menú impreso con zoom */}
+            <div style={{ overflow: zoom > 1 ? 'auto' : 'hidden', maxHeight:'90dvh', borderRadius:'var(--radius-lg)', cursor: zoom < 3 ? 'zoom-in' : zoom > 1 ? 'zoom-out' : 'default' }}
+              onClick={() => {
+                if (zoom < 3) setZoom(z => z + 1)
+                else setZoom(1)
               }}
-            />
+            >
+              <img
+                src="https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/menu_impreso.png"
+                alt="Menú Litros & Litros"
+                style={{
+                  width: zoom === 1 ? '100%' : `${zoom * 100}%`,
+                  display:'block',
+                  transform:'scale(1)',
+                  transformOrigin:'top left',
+                  transition:'width .3s ease',
+                  userSelect:'none',
+                }}
+                draggable={false}
+              />
+            </div>
           </div>
         </div>
       )}
