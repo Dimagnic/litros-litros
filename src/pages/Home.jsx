@@ -163,7 +163,7 @@ export default function Home() {
           <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(5,10,25,.6) 100%)' }} />
         </div>
 
-        <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.75rem, 2vh, 1.25rem)' }}>
+        <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem clamp(2.5rem, 6vh, 4rem)', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.65rem, 1.8vh, 1.1rem)' }}>
           <img src={h.logo} alt="Litros & Litros" className="neon-glow"
             style={{ width:'6rem', height:'6rem', borderRadius:'1rem', objectFit:'cover', marginTop:'clamp(2rem, 5vh, 4rem)' }} />
           <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-hero)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', lineHeight:'var(--lh-tight)', color:'#fff' }}>
