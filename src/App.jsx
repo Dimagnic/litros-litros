@@ -21,7 +21,7 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter>
           <Header />
-          <main>
+          <main style={{ paddingTop:'80px' }}>
             <Routes>
               <Route path="/"            element={<Home />} />
               <Route path="/alimentos"   element={<Alimentos />} />

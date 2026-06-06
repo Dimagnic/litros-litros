@@ -29,7 +29,7 @@ export default function Header() {
 
   return (
     <header style={{
-      position:'sticky', top:0, zIndex:100, height:'80px',
+      position:'fixed', top:0, left:0, right:0, zIndex:100, height:'80px',
       background: scrolled ? 'rgba(17,24,39,.98)' : 'rgba(17,24,39,.92)',
       backdropFilter:'blur(20px)',
       borderBottom:`1px solid ${scrolled ? 'rgba(41,90,158,.4)' : 'rgba(41,90,158,.15)'}`,
