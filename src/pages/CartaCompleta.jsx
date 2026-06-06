@@ -16,7 +16,7 @@ export default function CartaCompleta() {
   const isPrecio = ['Coctelería','Cerveza','Refrescos','Snacks'].includes(activeCat)
 
   return (
-    <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
       {/* Hero */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
         <img src={beb.bgImg || `${BASE}/menu_litros.jpeg`} alt="Carta"

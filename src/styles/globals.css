@@ -314,3 +314,50 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   max-height: 100%;
   overflow: hidden;
 }
+
+/* ══════════════════════════════════════════════
+   PALETA DE SECCIONES — diferenciación visual
+   Alterna entre 3 tonos de azul profundo
+   ══════════════════════════════════════════════ */
+:root {
+  --section-a: #0d1520;          /* Azul muy oscuro — casi negro azulado */
+  --section-b: #111d30;          /* Azul oscuro medio */
+  --section-c: #0a1628;          /* Azul petróleo profundo */
+  --section-border: rgba(41,90,158,.12);
+}
+
+/* Sección A — la más oscura */
+.sec-a {
+  background: var(--section-a);
+  border-top: 1px solid var(--section-border);
+  border-bottom: 1px solid var(--section-border);
+}
+
+/* Sección B — tono medio */
+.sec-b {
+  background: var(--section-b);
+  border-top: 1px solid rgba(41,90,158,.18);
+  border-bottom: 1px solid rgba(41,90,158,.18);
+  position: relative;
+}
+.sec-b::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(41,90,158,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Sección C — petróleo profundo */
+.sec-c {
+  background: var(--section-c);
+  border-top: 1px solid rgba(27,63,107,.3);
+  border-bottom: 1px solid rgba(27,63,107,.3);
+}
+
+/* Divisor visual entre secciones */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(41,90,158,.4), transparent);
+  margin: 0;
+}

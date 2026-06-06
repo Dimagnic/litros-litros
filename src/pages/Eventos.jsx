@@ -26,7 +26,7 @@ export default function Eventos() {
   ]
 
   return (
-    <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
 
       {/* Imagen principal */}
       <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>

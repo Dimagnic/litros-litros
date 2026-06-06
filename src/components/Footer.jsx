@@ -57,7 +57,7 @@ export default function Footer() {
   const redesActivas = REDES.filter(r => s[r.key] && s[r.key].trim() !== '')
 
   return (
-    <footer style={{ background:'#0d1520', borderTop:'1px solid rgba(41,90,158,.2)', padding:'2.5rem 0 1.5rem' }}>
+    <footer className="sec-c" style={{ background:'#0d1520', borderTop:'1px solid rgba(41,90,158,.2)', padding:'2.5rem 0 1.5rem' }}>
       <div className="container">
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))', gap:'1.5rem', marginBottom:'2rem' }}>
 

@@ -32,7 +32,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
   }, [paused, total])
 
   return (
-    <section style={{ padding:'4rem 0', overflow:'hidden' }}>
+    <section style={{ padding:'4rem 0', overflow:'hidden', background:'#111d30', borderTop:'1px solid rgba(41,90,158,.12)', borderBottom:'1px solid rgba(41,90,158,.12)' }}>
       <div className="container" style={{ textAlign:'center', marginBottom:'2rem' }}>
         <h2 className="section-title">{titulo || 'GALERÍA'}</h2>
         <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
@@ -199,7 +199,7 @@ export default function Home() {
       </div>
 
       {/* ── HORARIO ── */}
-      <section style={{ padding:'3.5rem 0', background:'rgba(13,21,32,.8)' }}>
+      <section style={{ padding:'3.5rem 0', background:'#0a1628', borderTop:'1px solid rgba(27,63,107,.3)', borderBottom:'1px solid rgba(27,63,107,.3)' }}>
         <div className="container">
           <div style={{ maxWidth:'580px', margin:'0 auto', border:'1px solid rgba(41,90,158,.35)', borderRadius:'var(--radius-lg)', padding:'2.5rem', background:'rgba(26,37,55,.6)', textAlign:'center' }}>
             <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-black)', color:'var(--primary-l)', letterSpacing:'var(--ls-wider)', marginBottom:'1.5rem', textTransform:'uppercase' }}>
@@ -219,7 +219,7 @@ export default function Home() {
       </section>
 
       {/* ── ¿POR QUÉ ELEGIRNOS? ── */}
-      <section style={{ padding:'4rem 0' }}>
+      <section style={{ padding:'4rem 0', background:'#0d1520', borderTop:'1px solid rgba(41,90,158,.12)' }}>
         <div className="container" style={{ textAlign:'center' }}>
           <h2 className="t-section-title" style={{ marginBottom:'.5rem' }}>¿POR QUÉ ELEGIRNOS?</h2>
           <div className="section-accent" style={{ margin:'0 auto .75rem' }} />

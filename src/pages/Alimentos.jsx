@@ -61,7 +61,7 @@ export default function Alimentos() {
   const heroTitulo = al.tituloPrincipal || 'ALIMENTOS'
 
   return (
-    <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
 
       {/* ── IMAGEN PRINCIPAL (editable desde CMS) ── */}
       <HeroImg src={heroImg} titulo={heroTitulo} />

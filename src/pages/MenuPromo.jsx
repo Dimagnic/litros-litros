@@ -35,7 +35,7 @@ export default function MenuPromo() {
   const mp = cms.menuPromo || {}
 
   return (
-    <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
       {/* Hero con imagen de fondo */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
         <img src={mp.fotoUrl || `${BASE}/promociones.jpeg`} alt="Promos"
