@@ -24,34 +24,34 @@ export default function LoginModal() {
     } finally { setLoading(false) }
   }
 
-  const inp = { width:'100%', background:'#1a2537', border:'1px solid rgba(41,90,158,.3)', borderRadius:'.6rem', padding:'.7rem 1rem', color:'#fff', fontSize:'1rem', outline:'none', fontFamily:'var(--font-body)' }
+  const inp = { width:'100%', background:'rgba(10,0,20,.7)', border:'1px solid rgba(160,32,160,.3)', borderRadius:'.6rem', padding:'.7rem 1rem', color:'#fff', fontSize:'1rem', outline:'none', fontFamily:'var(--font-body)' }
 
   return (
-    <div style={{ position:'fixed', inset:0, zIndex:300, background:'rgba(0,0,0,.85)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem' }}
+    <div style={{ position:'fixed', inset:0, zIndex:300, background:'linear-gradient(135deg, rgba(20,0,40,.92) 0%, rgba(40,0,20,.92) 100%)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem' }}
       onClick={e => e.target === e.currentTarget && setLoginModalOpen(false)}>
-      <div style={{ background:'#111827', border:'1px solid rgba(41,90,158,.3)', borderRadius:'1rem', padding:'2.5rem', width:'100%', maxWidth:'400px', textAlign:'center' }}>
+      <div style={{ background:'linear-gradient(160deg, #1a0a2e 0%, #2d0a1a 50%, #1a0820 100%)', border:'1px solid rgba(180,30,80,.4)', borderRadius:'1rem', padding:'2.5rem', width:'100%', maxWidth:'400px', textAlign:'center', boxShadow:'0 0 60px rgba(180,30,80,.2), 0 0 120px rgba(120,0,60,.1)' }}>
         {cms?.hero?.logo
           ? <img src={cms.hero.logo} alt="Logo" style={{ width:'5rem', height:'5rem', borderRadius:'1rem', objectFit:'cover', margin:'0 auto .75rem', display:'block' }} />
           : <img src="https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/karaoke.jpeg"
               alt="Logo" style={{ width:'5rem', height:'5rem', borderRadius:'1rem', objectFit:'cover', margin:'0 auto .75rem', display:'block' }} />
         }
-        <h2 style={{ color:'#295A9E', fontWeight:800, fontSize:'1.3rem', marginBottom:'.25rem' }}>Panel Admin</h2>
+        <h2 style={{ background:'linear-gradient(135deg, #e8304a, #a020a0)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', fontWeight:800, fontSize:'1.3rem', marginBottom:'.25rem' }}>Panel Admin</h2>
         <p style={{ color:'rgba(234,234,234,.5)', fontSize:'.85rem', marginBottom:'2rem' }}>Litros & Litros CMS</p>
         <form onSubmit={handleLogin} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
           <div style={{ textAlign:'left' }}>
-            <label style={{ display:'block', fontSize:'.72rem', fontWeight:700, color:'rgba(234,234,234,.4)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.3rem' }}>Correo electrónico</label>
+            <label style={{ display:'block', fontSize:'.72rem', fontWeight:700, color:'rgba(200,150,220,.6)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.3rem' }}>Correo electrónico</label>
             <input type="email" style={inp} value={email} onChange={e => setEmail(e.target.value)} required autoFocus />
           </div>
           <div style={{ textAlign:'left' }}>
-            <label style={{ display:'block', fontSize:'.72rem', fontWeight:700, color:'rgba(234,234,234,.4)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.3rem' }}>Contraseña</label>
+            <label style={{ display:'block', fontSize:'.72rem', fontWeight:700, color:'rgba(200,150,220,.6)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.3rem' }}>Contraseña</label>
             <input type="password" style={inp} value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
           {error && <p style={{ color:'#f87171', fontSize:'.85rem' }}>{error}</p>}
-          <button type="submit" disabled={loading} style={{ background:'#295A9E', color:'#fff', border:'none', borderRadius:'.6rem', padding:'.8rem', fontSize:'1rem', fontWeight:700, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? .7 : 1, fontFamily:'var(--font-body)' }}>
+          <button type="submit" disabled={loading} style={{ background: loading ? '#5a0a3a' : 'linear-gradient(135deg, #c0203a, #8a10a0)', color:'#fff', border:'none', borderRadius:'.6rem', padding:'.8rem', fontSize:'1rem', fontWeight:700, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? .7 : 1, fontFamily:'var(--font-body)', boxShadow: loading ? 'none' : '0 4px 20px rgba(180,30,80,.4)' }}>
             {loading ? 'Iniciando sesión...' : 'Ingresar al panel'}
           </button>
         </form>
-        <button onClick={() => setLoginModalOpen(false)} style={{ marginTop:'1rem', background:'none', border:'none', color:'rgba(234,234,234,.3)', cursor:'pointer', fontSize:'.85rem' }}>✕ Cancelar</button>
+        <button onClick={() => setLoginModalOpen(false)} style={{ marginTop:'1rem', background:'none', border:'none', color:'rgba(200,100,180,.4)', cursor:'pointer', fontSize:'.85rem' }}>✕ Cancelar</button>
       </div>
     </div>
   )
