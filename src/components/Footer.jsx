@@ -69,26 +69,6 @@ export default function Footer() {
             <p style={{ fontSize:'.85rem', color:'rgba(234,234,234,.5)', lineHeight:1.65, marginBottom:'1rem' }}>
               {f.desc || 'Karaoke Bar en Puebla'}
             </p>
-            {/* Íconos de redes en la columna de marca */}
-            {redesActivas.length > 0 && (
-              <div style={{ display:'flex', gap:'.5rem', flexWrap:'wrap' }}>
-                {redesActivas.map(({ key, label, Ico, color }) => (
-                  <a key={key} href={s[key]} target="_blank" rel="noopener noreferrer"
-                    title={label}
-                    style={{
-                      width:'2.1rem', height:'2.1rem', borderRadius:'.5rem',
-                      background:'rgba(41,90,158,.15)', border:'1px solid rgba(41,90,158,.3)',
-                      display:'flex', alignItems:'center', justifyContent:'center',
-                      color:'rgba(234,234,234,.6)', transition:'all .2s',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.background=color+'22'; e.currentTarget.style.borderColor=color+'66'; e.currentTarget.style.color=color }}
-                    onMouseLeave={e => { e.currentTarget.style.background='rgba(41,90,158,.15)'; e.currentTarget.style.borderColor='rgba(41,90,158,.3)'; e.currentTarget.style.color='rgba(234,234,234,.6)' }}
-                  >
-                    <Ico />
-                  </a>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Contacto y Ubicación */}
