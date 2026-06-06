@@ -29,7 +29,7 @@ export default function Eventos() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
 
       {/* Imagen principal */}
-      <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', minHeight:'clamp(280px, 55vw, 560px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', minHeight:'clamp(220px, 45vh, 420px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <img src={ev['puerta-cerrada']?.img || `${BASE}/open_mind.jpeg`} alt="Eventos"
           style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.3) 0%, rgba(17,24,39,.9) 100%)' }} />

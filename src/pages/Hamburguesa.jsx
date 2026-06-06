@@ -15,7 +15,7 @@ export default function Hamburguesa() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
 
       {/* Imagen grande */}
-      <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', minHeight:'clamp(300px, 60vw, 600px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', minHeight:'clamp(220px, 45vh, 420px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <img src={p.img || `${BASE}/hamburguesa.jpeg`} alt="Hamburguesa"
           style={{ width:'100%', height:'100%', position:'absolute', inset:0, objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.15) 0%, rgba(17,24,39,.82) 100%)' }} />

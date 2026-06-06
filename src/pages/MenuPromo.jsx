@@ -37,7 +37,7 @@ export default function MenuPromo() {
   return (
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
       {/* Hero con imagen de fondo */}
-      <div style={{ position:'relative', minHeight:'40vh', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
+      <div style={{ position:'relative', height:'clamp(200px, 40vh, 380px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
         <img src={mp.fotoUrl || `${BASE}/promociones.jpeg`} alt="Promos"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.82)' }} />
