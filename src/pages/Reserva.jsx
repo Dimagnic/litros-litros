@@ -29,7 +29,7 @@ export default function Reserva() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
       {/* Hero */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
-        <img src={`${BASE}/2.jpeg`} alt="Reserva"
+        <img src={r.fotoUrl || `${BASE}/2.jpeg`} alt="Reserva"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.78)' }} />
         <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'clamp(2rem, 5vh, 4rem) 1.5rem' }}>
@@ -38,7 +38,7 @@ export default function Reserva() {
             RESERVA TU MESA
           </h1>
           <p style={{ color:'rgba(234,234,234,.8)', fontSize:'1rem', maxWidth:'32rem', margin:'0 auto', lineHeight:1.65 }}>
-            Bienvenido a Litros & Litros Karaoke Bar. Completa los datos y te contactamos por WhatsApp para confirmar tu reservación.
+            {r.bienvenida || 'Bienvenido a Litros & Litros Karaoke Bar. Completa los datos y te contactamos por WhatsApp para confirmar tu reservación.'}
           </p>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default function Reserva() {
         {/* Info rápida */}
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(150px,1fr))', gap:'1rem', marginBottom:'2.5rem' }}>
           {[
-            { icon:'🕐', label:'Horario', val:'6:00 PM – 3:00 AM' },
+            { icon:'🕐', label:'Horario', val: r.horario || '6:00 PM – 3:00 AM' },
             { icon:'📅', label:'Días',    val:'Mar a Dom' },
             { icon:'📞', label:'Tel',     val:'+52 222 430 2693' },
           ].map((i, idx) => (
