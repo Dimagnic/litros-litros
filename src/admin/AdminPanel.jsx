@@ -125,7 +125,7 @@ export default function AdminPanel() {
 
   if (!adminPanelOpen || !isAdmin) return null
 
-  const DB_KEY = { hero:'hero', horario:'horario', menuPromo:'menuPromo', carta:'bebidas', reservas:'reservas', alimentos:'platillos', hamburguesa:'platillos', eventos:'espectaculos', footer:'footer', socials:'socials', waFlotante:'waFlotante', contact:'contact', seo:'seo' }
+  const DB_KEY = { hero:'hero', horario:'horario', menuPromo:'menuPromo', carta:'bebidas', reservas:'reservas', alimentos:'alimentos', hamburguesa:'platillos', eventos:'espectaculos', footer:'footer', socials:'socials', waFlotante:'waFlotante', contact:'contact', seo:'seo' }
 
   function ch(section, key, val) {
     const k = DB_KEY[section] || section
@@ -251,6 +251,30 @@ export default function AdminPanel() {
 
           {/* ALIMENTOS */}
           {tab==='alimentos' && <>
+            <Card title="📸 Imagen principal y título de la sección">
+              <ImageUploader label="Imagen principal de Alimentos"
+                value={d.alimentos?.imgPrincipal}
+                onChange={v => setD(prev => ({...prev, alimentos:{...prev.alimentos, imgPrincipal:v}}))}
+                folder="alimentos" />
+              <Field label="Título principal"
+                value={d.alimentos?.tituloPrincipal || 'ALIMENTOS'}
+                onChange={v => setD(prev => ({...prev, alimentos:{...prev.alimentos, tituloPrincipal:v}}))} />
+            </Card>
+            <Card title="💾 Guardar imagen y título">
+              <SaveBtn onClick={async () => {
+                setLoading(true)
+                const timeout = setTimeout(() => { setLoading(false); showToast('⚠️ Timeout') }, 10000)
+                try {
+                  await saveCMSSection('alimentos', d.alimentos)
+                  updateCMS('alimentos', d.alimentos)
+                  showToast('✅ Alimentos guardado')
+                } catch(e) { showToast('❌ ' + e.message) }
+                finally { clearTimeout(timeout); setLoading(false) }
+              }} loading={loading} />
+            </Card>
+            <div style={{ borderTop:`1px solid ${C.bdr}`, margin:'1.5rem 0', paddingTop:'1.5rem' }}>
+              <p style={{ fontSize:'.82rem', color:C.fgd, marginBottom:'1.25rem' }}>Imágenes individuales de cada platillo:</p>
+            </div>
             {['alitas','nachos','hotdog','papas'].map(k => (
               <Card key={k} title={`🍽 ${k.charAt(0).toUpperCase()+k.slice(1)}`}>
                 <ImageUploader label="Foto" value={plt[k]?.img} onChange={v => { const p = {...d.platillos||{}, [k]:{...(d.platillos?.[k]||{}),img:v}}; setD(prev=>({...prev,platillos:p})) }} folder={k} />

@@ -74,6 +74,11 @@ export const initialCMSData = {
     },
   },
 
+  alimentos: {
+    tituloPrincipal: 'ALIMENTOS',
+    imgPrincipal:    `${OLD}/alitas.jpeg`,
+  },
+
   espectaculos: {
     'puerta-cerrada': {
       img:   `${OLD}/2.jpeg`,

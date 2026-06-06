@@ -2,6 +2,21 @@ import { useCMS } from '@/context/CMSContext'
 
 const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
 
+function HeroImg({ src, titulo }) {
+  return (
+    <div style={{ position:'relative', height:'clamp(260px, 50vw, 520px)', overflow:'hidden' }}>
+      <img src={src} alt={titulo}
+        style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
+      <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.2) 0%, rgba(17,24,39,.88) 100%)' }} />
+      <div style={{ position:'absolute', bottom:'2rem', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
+        <h1 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(2rem,5vw,3rem)', fontWeight:900, color:'#fff', letterSpacing:'.06em', textTransform:'uppercase' }}>
+          {titulo}
+        </h1>
+      </div>
+    </div>
+  )
+}
+
 function Platillo({ img, titulo, children }) {
   return (
     <div style={{ marginBottom:'4rem' }}>
@@ -38,19 +53,18 @@ function Especial({ children }) {
 
 export default function Alimentos() {
   const { cms } = useCMS()
-  const p = cms.platillos || {}
+  const p  = cms.platillos  || {}
+  const al = cms.alimentos  || {}
+
+  // Imagen y título principal desde CMS, con fallbacks
+  const heroImg    = al.imgPrincipal || `${BASE}/alitas.jpeg`
+  const heroTitulo = al.tituloPrincipal || 'ALIMENTOS'
 
   return (
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
-      {/* Título de sección */}
-      <div style={{ padding:'3rem 0 1rem', textAlign:'center', background:'rgba(13,21,32,.5)', borderBottom:'1px solid rgba(41,90,158,.15)' }}>
-        <div className="container">
-          <h1 style={{ fontSize:'clamp(2rem,5vw,3rem)', fontWeight:900, color:'#fff', letterSpacing:'.06em', textTransform:'uppercase', marginBottom:'.5rem' }}>
-            ALIMENTOS
-          </h1>
-          <div style={{ width:'3rem', height:'3px', background:'var(--primary)', borderRadius:'2px', margin:'0 auto' }} />
-        </div>
-      </div>
+
+      {/* ── IMAGEN PRINCIPAL (editable desde CMS) ── */}
+      <HeroImg src={heroImg} titulo={heroTitulo} />
 
       <div className="container" style={{ padding:'3rem 1.5rem 5rem', maxWidth:'760px' }}>
 
@@ -64,7 +78,7 @@ export default function Alimentos() {
         {/* NACHOS */}
         <Platillo img={p.nachos?.img || `${BASE}/nachos.jpeg`} titulo="NACHOS">
           <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem', marginBottom:'1rem', lineHeight:1.75 }}>
-            Totopo crujiente con chile y queso amarillo
+            {p.nachos?.desc || 'Totopo crujiente con chile y queso amarillo'}
           </p>
           <p style={{ fontSize:'.85rem', fontWeight:700, color:'var(--primary-l)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.65rem' }}>Especiales:</p>
           {(p.nachos?.especiales?.length > 0 ? p.nachos.especiales : ['Carne Pastor','Carne Asada','Salsa Verde']).map((e, i) => (
@@ -84,10 +98,7 @@ export default function Alimentos() {
         {/* PAPAS FRANCESAS */}
         <Platillo img={p.papas?.img || `${BASE}/papas.jpeg`} titulo="PAPAS FRANCESAS">
           <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem', lineHeight:1.9 }}>
-            Papa ondulada<br/>
-            Sin exceso de aceite<br/>
-            Con queso amarillo<br/>
-            Aderezo y catsup
+            {p.papas?.desc || 'Papa ondulada · Sin exceso de aceite · Con queso amarillo · Aderezo y catsup'}
           </p>
         </Platillo>
       </div>
