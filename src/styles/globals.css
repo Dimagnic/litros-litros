@@ -133,3 +133,29 @@ section { padding: 4rem 0; }
   section { padding: 3rem 0; }
   .btn { padding: .7rem 1.5rem; font-size: .9rem; }
 }
+
+/* ── RESPONSIVE GLOBAL FIXES ── */
+@media(max-width:480px) {
+  .container { padding: 0 1rem; }
+  section { padding: 2.5rem 0; }
+  .btn { padding: .65rem 1.25rem; font-size: .88rem; }
+  .section-title { font-size: 1.6rem !important; }
+}
+
+@media(max-width:360px) {
+  .btn { padding: .6rem 1rem; font-size: .82rem; }
+}
+
+/* Evitar scroll horizontal en toda la app */
+html, body { overflow-x: hidden; max-width: 100vw; }
+
+/* Tabs con scroll horizontal suave */
+.tabs-scroll {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: .5rem;
+  padding-bottom: .25rem;
+}
+.tabs-scroll::-webkit-scrollbar { display: none; }

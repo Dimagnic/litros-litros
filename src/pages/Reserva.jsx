@@ -81,7 +81,7 @@ export default function Reserva() {
                 {['1','2','3','4','5','6','7','8','9','10+'].map(n => <option key={n} value={n}>{n} {n==='1' ? 'persona' : 'personas'}</option>)}
               </select>
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem' }}>
               <div>
                 <label style={labelSt}>Fecha</label>
                 <input type="date" style={inputStyle} value={fecha} onChange={e => setFecha(e.target.value)}

@@ -34,7 +34,7 @@ export default function Header() {
           <img src={cms.hero?.logo} alt="Logo" style={{ height:'2.6rem', borderRadius:'.5rem', objectFit:'cover' }} />
           <div>
             <div style={{ fontSize:'1rem', fontWeight:800, fontFamily:'var(--font-head)', color:'#fff', lineHeight:1.1 }}>Litros & Litros</div>
-            <div style={{ fontSize:'.65rem', color:'rgba(234,234,234,.55)', letterSpacing:'.06em', textTransform:'uppercase' }}>Karaoke Bar</div>
+            <div style={{ fontSize:'.65rem', color:'rgba(234,234,234,.55)', letterSpacing:'.06em', textTransform:'uppercase', display:'block' }}>Karaoke Bar</div>
           </div>
         </button>
 
@@ -67,7 +67,7 @@ export default function Header() {
           ))}
         </div>
       )}
-      <style>{`@media(max-width:768px){.desk-nav{display:none !important;}.menu-toggle{display:flex !important;align-items:center;}}`}</style>
+      <style>{`@media(max-width:768px){.desk-nav{display:none !important;}.menu-toggle{display:flex !important;align-items:center;}}@media(max-width:400px){.hdr-sub{display:none!important;}}`}</style>
     </header>
   )
 }

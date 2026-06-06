@@ -56,7 +56,7 @@ export default function CartaCompleta() {
         {view === 'digital' && (
           <>
             {/* Tabs categorías */}
-            <div style={{ display:'flex', flexWrap:'wrap', gap:'.5rem', justifyContent:'center', marginBottom:'2rem' }}>
+            <div style={{ display:'flex', flexWrap:'nowrap', gap:'.5rem', justifyContent:'flex-start', marginBottom:'1.5rem', overflowX:'auto', WebkitOverflowScrolling:'touch', paddingBottom:'.25rem' }}>
               {cats.map(c => (
                 <button key={c} onClick={() => setActiveCat(c)} style={{
                   padding:'.45rem 1rem', borderRadius:'999px', fontSize:'.82rem', fontWeight:600,
@@ -69,7 +69,7 @@ export default function CartaCompleta() {
             </div>
 
             {/* Grid bebidas */}
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:'1rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))', gap:'1rem' }}>
               {items.map(item => (
                 <div key={item.id} style={{
                   background:'var(--card)', border:'1px solid var(--border-s)',

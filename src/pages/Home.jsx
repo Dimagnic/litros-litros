@@ -51,7 +51,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
         <div style={{
           position:'relative', borderRadius:'var(--radius-lg)', overflow:'hidden',
           background:'rgba(10,15,25,.95)',
-          height:'clamp(260px, 55vw, 580px)',
+          height:'clamp(220px, 42vh, 520px)',
         }}>
           {imgs.map((src, i) => (
             <img key={i} src={src} alt={`Galería ${i+1}`}
@@ -165,7 +165,7 @@ export default function Home() {
         <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'2rem 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'1.25rem' }}>
           <img src={h.logo} alt="Litros & Litros" className="neon-glow"
             style={{ width:'8rem', height:'8rem', borderRadius:'1.1rem', objectFit:'cover' }} />
-          <h1 style={{ fontSize:'clamp(2.5rem,7vw,4.5rem)', fontWeight:900, color:'#fff', letterSpacing:'-.02em', lineHeight:1.05 }}>
+          <h1 style={{ fontSize:'clamp(2rem,6vw,4rem)', fontWeight:900, color:'#fff', letterSpacing:'-.02em', lineHeight:1.05 }}>
             Litros & Litros
           </h1>
           <p style={{ fontSize:'clamp(1rem,2.2vw,1.15rem)', color:'rgba(234,234,234,.9)', lineHeight:1.75, maxWidth:'34rem',
@@ -175,7 +175,7 @@ export default function Home() {
           </p>
 
           {/* 4 botones — Galería entre Ver Carta y Reservar */}
-          <div style={{ display:'flex', flexDirection:'column', gap:'.85rem', width:'100%', maxWidth:'22rem' }}>
+          <div style={{ display:'flex', flexDirection:'column', gap:'.85rem', width:'100%', maxWidth:'min(22rem, 90vw)' }}>
             <button className="btn btn-primary" onClick={() => go('/menu-promo')}>
               🎉 {h.btn1 || 'VER MENÚ PROMO'}
             </button>
@@ -237,7 +237,7 @@ export default function Home() {
           <p style={{ color:'rgba(234,234,234,.65)', fontSize:'1rem', marginBottom:'2.5rem' }}>
             Somos un lugar seguro y amigable con experiencia.
           </p>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1.25rem', maxWidth:'640px', margin:'0 auto 2rem' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'1rem', maxWidth:'640px', margin:'0 auto 2rem' }}>
             {[
               { icon:'🎵', label:'MÚSICA' },
               { icon:'🎭', label:'SHOWS'  },

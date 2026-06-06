@@ -55,7 +55,7 @@ export default function MenuPromo() {
 
       <div className="container" style={{ padding:'2.5rem 1.5rem 5rem' }}>
         {/* Tabs categorías */}
-        <div style={{ display:'flex', flexWrap:'wrap', gap:'.5rem', justifyContent:'center', marginBottom:'2.5rem' }}>
+        <div style={{ display:'flex', flexWrap:'nowrap', overflowX:'auto', WebkitOverflowScrolling:'touch', gap:'.5rem', justifyContent:'flex-start', marginBottom:'2rem', paddingBottom:'.25rem' }}>
           {PROMOS.map((p, i) => (
             <button key={i} onClick={() => setActiveTab(i)} style={{
               padding:'.5rem 1.1rem', borderRadius:'999px', fontSize:'.85rem', fontWeight:600,
@@ -68,7 +68,7 @@ export default function MenuPromo() {
         </div>
 
         {/* Cards de la categoría activa */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(260px,1fr))', gap:'1.25rem' }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'1.25rem' }}>
           {PROMOS[activeTab].items.map((item, i) => (
             <div key={i} className="animate-fade-in" style={{
               background:'var(--card)', border:'1px solid var(--border-s)',
