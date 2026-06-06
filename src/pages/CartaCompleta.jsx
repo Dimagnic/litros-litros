@@ -10,6 +10,7 @@ export default function CartaCompleta() {
   const [view, setView] = useState('digital') // 'digital' | 'visual'
 
   const menu = (cms.menuBebidas || [])
+  const beb  = cms.bebidas || {}
   const cats  = CAT_ORDER.filter(c => menu.some(b => b.cat === c))
   const items  = menu.filter(b => b.cat === activeCat)
   const isPrecio = ['Coctelería','Cerveza','Refrescos','Snacks'].includes(activeCat)
@@ -18,7 +19,7 @@ export default function CartaCompleta() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
       {/* Hero */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
-        <img src={`${BASE}/menu_litros.jpeg`} alt="Carta"
+        <img src={beb.bgImg || `${BASE}/menu_litros.jpeg`} alt="Carta"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.80)' }} />
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(41,90,158,.2) 0%, transparent 65%)' }} />

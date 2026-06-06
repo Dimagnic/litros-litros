@@ -230,10 +230,14 @@ export default function AdminPanel() {
 
           {/* CARTA BEBIDAS */}
           {tab==='carta' && <>
-            <Card title="Encabezado Carta de Bebidas">
-              <Field label="Título" value={beb.titulo} onChange={v => ch('carta','titulo',v)} />
-              <Field label="Promo cumpleaños" value={beb.promo} onChange={v => ch('carta','promo',v)} />
-              <Field label="Nota al pie" value={beb.nota} onChange={v => ch('carta','nota',v)} />
+            <Card title="Hero — Imagen principal">
+              <ImageUploader label="Foto de fondo de la Carta" value={beb.bgImg} onChange={v => ch('carta','bgImg',v)} folder="carta" />
+              <Field label="Título principal" value={beb.titulo || 'CARTA DE BEBIDAS'} onChange={v => ch('carta','titulo',v)} />
+              <Field label="Subtítulo" value={beb.subtitulo} onChange={v => ch('carta','subtitulo',v)} placeholder="La mejor selección de bebidas" />
+            </Card>
+            <Card title="Contenido adicional">
+              <Field label="Promo cumpleaños" value={beb.promo} onChange={v => ch('carta','promo',v)} placeholder="🎂 Bebida de bienvenida gratis en tu cumpleaños" />
+              <Field label="Nota al pie" value={beb.nota} onChange={v => ch('carta','nota',v)} placeholder="*Propina opcional no incluida*" />
             </Card>
             <SaveBtn onClick={() => save('carta')} loading={loading} />
           </>}
