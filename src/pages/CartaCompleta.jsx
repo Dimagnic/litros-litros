@@ -7,7 +7,8 @@ const CAT_ORDER = ['Ron','Vodka','Tequila','Brandy','Whisky','Mezcal','Digestivo
 export default function CartaCompleta() {
   const { cms } = useCMS()
   const [activeCat, setActiveCat] = useState('Ron')
-  const [view, setView] = useState('digital') // 'digital' | 'visual'
+  const [view, setView] = useState('digital')
+  const [showMenu, setShowMenu] = useState(false)
 
   const menu = (cms.menuBebidas || [])
   const beb  = cms.bebidas || {}
@@ -38,15 +39,19 @@ export default function CartaCompleta() {
       <div className="container" style={{ padding:'2.5rem 1.5rem 5rem' }}>
         {/* Toggle digital / visual */}
         <div style={{ display:'flex', justifyContent:'center', gap:'.75rem', marginBottom:'2rem' }}>
-          {[['digital','📱 Carta Digital'],['visual','📄 Menú Impreso']].map(([k, label]) => (
-            <button key={k} onClick={() => setView(k)} style={{
+          <button onClick={() => setView('digital')} style={{
               padding:'.55rem 1.4rem', borderRadius:'999px', fontSize:'.88rem', fontWeight:600,
-              background: view === k ? 'var(--primary)' : 'var(--card)',
-              color: view === k ? '#fff' : 'rgba(234,234,234,.65)',
-              border: view === k ? 'none' : '1px solid var(--border)',
+              background: view === 'digital' ? 'var(--primary)' : 'var(--card)',
+              color: view === 'digital' ? '#fff' : 'rgba(234,234,234,.65)',
+              border: view === 'digital' ? 'none' : '1px solid var(--border)',
               cursor:'pointer', fontFamily:'var(--font-body)', transition:'all .2s',
-            }}>{label}</button>
-          ))}
+            }}>📱 Carta Digital</button>
+            <button onClick={() => setShowMenu(true)} style={{
+              padding:'.55rem 1.4rem', borderRadius:'999px', fontSize:'.88rem', fontWeight:600,
+              background: 'var(--card)', color:'rgba(234,234,234,.65)',
+              border:'1px solid var(--border)',
+              cursor:'pointer', fontFamily:'var(--font-body)', transition:'all .2s',
+            }}>📄 Menú Impreso</button>
         </div>
 
         {view === 'visual' && (
@@ -109,6 +114,42 @@ export default function CartaCompleta() {
           </>
         )}
       </div>
+
+      {/* Modal Menú Impreso */}
+      {showMenu && (
+        <div
+          onClick={() => setShowMenu(false)}
+          style={{
+            position:'fixed', inset:0, zIndex:500,
+            background:'rgba(0,0,0,.92)',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            padding:'1rem',
+            cursor:'zoom-out',
+          }}
+        >
+          <div onClick={e => e.stopPropagation()} style={{ position:'relative', maxWidth:'900px', width:'100%', maxHeight:'90dvh' }}>
+            {/* Botón cerrar */}
+            <button onClick={() => setShowMenu(false)} style={{
+              position:'absolute', top:'-2.5rem', right:0,
+              background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)',
+              color:'#fff', borderRadius:'.5rem', padding:'.4rem .9rem',
+              fontSize:'.85rem', fontWeight:600, cursor:'pointer', zIndex:10,
+              fontFamily:'var(--font-body)',
+            }}>✕ Cerrar</button>
+
+            {/* Imagen del menú impreso */}
+            <img
+              src="https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/menu_impreso.png"
+              alt="Menú Litros & Litros"
+              style={{
+                width:'100%', maxHeight:'90dvh',
+                objectFit:'contain', borderRadius:'var(--radius-lg)',
+                display:'block',
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
