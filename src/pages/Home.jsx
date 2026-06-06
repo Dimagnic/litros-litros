@@ -59,7 +59,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
               decoding="async"
               style={{
                 position:'absolute', inset:0, width:'100%', height:'100%',
-                objectFit:'contain',
+                objectFit:'cover',
                 objectPosition:'center',
                 opacity: i === current ? 1 : 0,
                 transform: i === current ? 'scale(1)' : 'scale(1.02)',
@@ -132,7 +132,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
               cursor:'pointer', padding:0, transition:'border-color .3s',
               background:'rgba(10,15,25,.9)',
             }}>
-              <img src={src} alt="" loading="lazy" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center' }} />
+              <img src={src} alt="" loading="lazy" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
             </button>
           ))}
         </div>
