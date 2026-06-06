@@ -32,7 +32,7 @@ export default function LoginModal() {
       <div style={{ background:'#111827', border:'1px solid rgba(41,90,158,.3)', borderRadius:'1rem', padding:'2.5rem', width:'100%', maxWidth:'400px', textAlign:'center' }}>
         {cms?.hero?.logo
           ? <img src={cms.hero.logo} alt="Logo" style={{ width:'5rem', height:'5rem', borderRadius:'1rem', objectFit:'cover', margin:'0 auto .75rem', display:'block' }} />
-          : <img src="https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/karaoke.jpeg"
+          : <img src="https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/karaoke.jpeg"
               alt="Logo" style={{ width:'5rem', height:'5rem', borderRadius:'1rem', objectFit:'cover', margin:'0 auto .75rem', display:'block' }} />
         }
         <h2 style={{ color:'#295A9E', fontWeight:800, fontSize:'1.3rem', marginBottom:'.25rem' }}>Panel Admin</h2>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useCMS } from '@/context/CMSContext'
 
-const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
+const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
 const BUCKET = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
 const CAT_ORDER = ['Ron','Vodka','Tequila','Brandy','Whisky','Mezcal','Digestivos','Coctelería','Cerveza','Refrescos','Snacks']
 

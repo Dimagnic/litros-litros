@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useCMS } from '@/context/CMSContext'
 
-const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
+const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
 
 export default function Hamburguesa() {
   const { cms } = useCMS()

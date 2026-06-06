@@ -1,5 +1,5 @@
 const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
-const OLD  = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
+const OLD  = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
 const LOGO = `${OLD}/karaoke.jpeg`
 
 export const initialCMSData = {
@@ -154,13 +154,13 @@ export const initialCMSData = {
     titulo:    'GALERÍA',
     subtitulo: 'Vive la experiencia — noches únicas, música en vivo y momentos que no olvidarás',
     imagenes: [
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/1.jpeg',
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/2.jpeg',
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/3.jpeg',
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/4.jpeg',
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/5.jpeg',
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/6.jpeg',
-      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/7.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/1.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/2.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/3.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/4.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/5.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/6.jpeg',
+      'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/7.jpeg',
     ],
   },
 

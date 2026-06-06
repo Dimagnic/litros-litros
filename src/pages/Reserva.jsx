@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCMS } from '@/context/CMSContext'
 
-const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
+const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
 
 export default function Reserva() {
   const { cms } = useCMS()
