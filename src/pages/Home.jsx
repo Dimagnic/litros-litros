@@ -158,8 +158,9 @@ export default function Home() {
       <section style={{ height:'calc(100dvh - 80px)', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden' }}>
         <div style={{ position:'absolute', inset:0, zIndex:0 }}>
           <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-          <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.78)' }} />
-          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 30%, rgba(41,90,158,.18) 0%, transparent 65%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(11,18,40,.45) 0%, rgba(11,18,40,.92) 100%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(41,90,158,.35) 0%, transparent 70%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(5,10,25,.6) 100%)' }} />
         </div>
 
         <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.75rem, 2vh, 1.25rem)' }}>
