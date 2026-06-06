@@ -30,44 +30,76 @@ const PROMOS = [
 ]
 
 function ImageModal({ src, alt, onClose }) {
-  const [scale, setScale] = useState(1)
-  const ref = React.useRef(null)
-  const dragging = React.useRef(false)
-  const last = React.useRef({ x:0, y:0 })
+  const [scale, setScale] = React.useState(1)
+  const containerRef = React.useRef(null)
 
-  function zoomIn()  { setScale(s => Math.min(parseFloat((s+0.5).toFixed(1)), 5)) }
-  function zoomOut() {
-    setScale(s => {
-      const n = parseFloat((s-0.5).toFixed(1))
-      if (n <= 1 && ref.current) { ref.current.scrollLeft=0; ref.current.scrollTop=0 }
-      return Math.max(n, 1)
-    })
-  }
-  function close() { setScale(1); onClose() }
-  function onMD(e) { if(scale<=1) return; e.preventDefault(); dragging.current=true; last.current={x:e.clientX,y:e.clientY} }
-  function onMM(e) { if(!dragging.current||!ref.current) return; ref.current.scrollLeft-=(e.clientX-last.current.x); ref.current.scrollTop-=(e.clientY-last.current.y); last.current={x:e.clientX,y:e.clientY} }
-  function onMU()  { dragging.current=false }
-  function onTS(e) { if(scale<=1) return; const t=e.touches[0]; dragging.current=true; last.current={x:t.clientX,y:t.clientY} }
-  function onTM(e) { if(!dragging.current||!ref.current) return; const t=e.touches[0]; ref.current.scrollLeft-=(t.clientX-last.current.x); ref.current.scrollTop-=(t.clientY-last.current.y); last.current={x:t.clientX,y:t.clientY} }
+  function zoomIn()  { setScale(s => Math.min(parseFloat((s + 0.5).toFixed(1)), 5)) }
+  function zoomOut() { setScale(s => Math.max(parseFloat((s - 0.5).toFixed(1)), 1)) }
+  function close()   { setScale(1); onClose() }
 
   return (
-    <div onClick={close} style={{ position:'fixed',inset:0,zIndex:500,background:'rgba(0,0,0,.88)',display:'flex',alignItems:'center',justifyContent:'center',padding:'3.5rem 1rem 1rem' }}>
-      <div onClick={e=>e.stopPropagation()} style={{ position:'relative',width:'min(500px,92vw)',display:'flex',flexDirection:'column',gap:'.75rem' }}>
-        <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',background:'rgba(17,24,39,.95)',border:'1px solid rgba(41,90,158,.4)',borderRadius:'.75rem',padding:'.5rem 1rem' }}>
-          <div style={{ display:'flex',alignItems:'center',gap:'.5rem' }}>
-            <button onClick={zoomOut} disabled={scale<=1} style={{ background:'rgba(41,90,158,.2)',border:'1px solid rgba(41,90,158,.4)',color:'#fff',borderRadius:'.4rem',width:'2.2rem',height:'2.2rem',fontSize:'1.2rem',cursor:scale<=1?'not-allowed':'pointer',opacity:scale<=1?.3:1,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center' }}>−</button>
-            <span style={{ color:'#fff',fontSize:'.85rem',fontWeight:600,minWidth:'3rem',textAlign:'center' }}>{scale.toFixed(1)}x</span>
-            <button onClick={zoomIn} disabled={scale>=5} style={{ background:'rgba(41,90,158,.2)',border:'1px solid rgba(41,90,158,.4)',color:'#fff',borderRadius:'.4rem',width:'2.2rem',height:'2.2rem',fontSize:'1.2rem',cursor:scale>=5?'not-allowed':'pointer',opacity:scale>=5?.3:1,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center' }}>+</button>
-            {scale>1 && <span style={{ color:'rgba(255,255,255,.4)',fontSize:'.7rem',marginLeft:'.25rem' }}>arrastra</span>}
-          </div>
-          <button onClick={close} style={{ background:'rgba(220,38,38,.15)',border:'1px solid rgba(220,38,38,.3)',color:'#f87171',borderRadius:'.4rem',padding:'.3rem .75rem',fontSize:'.82rem',fontWeight:600,cursor:'pointer' }}>✕</button>
+    <div onClick={close} style={{
+      position:'fixed', inset:0, zIndex:500,
+      background:'rgba(0,0,0,.9)',
+      display:'flex', flexDirection:'column',
+      alignItems:'center', justifyContent:'center',
+      padding:'1rem',
+    }}>
+      {/* Barra controles */}
+      <div onClick={e => e.stopPropagation()} style={{
+        display:'flex', alignItems:'center', justifyContent:'space-between',
+        width:'min(500px,92vw)', marginBottom:'.75rem',
+        background:'rgba(17,24,39,.97)', border:'1px solid rgba(41,90,158,.4)',
+        borderRadius:'.75rem', padding:'.5rem 1rem',
+      }}>
+        <div style={{ display:'flex', alignItems:'center', gap:'.5rem' }}>
+          <button onClick={zoomOut} disabled={scale<=1} style={{
+            background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.5)',
+            color:'#fff', borderRadius:'.4rem', width:'2.4rem', height:'2.4rem',
+            fontSize:'1.4rem', fontWeight:700, cursor:scale<=1?'not-allowed':'pointer',
+            opacity:scale<=1?.3:1, display:'flex', alignItems:'center', justifyContent:'center',
+          }}>−</button>
+          <span style={{ color:'#fff', fontSize:'.9rem', fontWeight:700, minWidth:'3.5rem', textAlign:'center' }}>
+            {scale.toFixed(1)}x
+          </span>
+          <button onClick={zoomIn} disabled={scale>=5} style={{
+            background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.5)',
+            color:'#fff', borderRadius:'.4rem', width:'2.4rem', height:'2.4rem',
+            fontSize:'1.4rem', fontWeight:700, cursor:scale>=5?'not-allowed':'pointer',
+            opacity:scale>=5?.3:1, display:'flex', alignItems:'center', justifyContent:'center',
+          }}>+</button>
+          {scale > 1 && (
+            <span style={{ color:'rgba(255,255,255,.4)', fontSize:'.72rem', marginLeft:'.5rem' }}>
+              desplaza para ver más
+            </span>
+          )}
         </div>
-        <div ref={ref}
-          onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
-          onTouchStart={onTS} onTouchMove={onTM} onTouchEnd={onMU}
-          style={{ overflow:'auto',borderRadius:'.75rem',maxHeight:'78vh',cursor:scale>1?'grab':'default',background:'#000',scrollbarWidth:'thin' }}>
-          <img src={src} alt={alt} draggable={false}
-            style={{ display:'block',width:`${scale*100}%`,minWidth:'100%',transition:'width .2s ease',userSelect:'none',pointerEvents:'none' }} />
+        <button onClick={close} style={{
+          background:'rgba(220,38,38,.15)', border:'1px solid rgba(220,38,38,.35)',
+          color:'#f87171', borderRadius:'.4rem', padding:'.35rem .85rem',
+          fontSize:'.85rem', fontWeight:600, cursor:'pointer',
+        }}>✕ Cerrar</button>
+      </div>
+
+      {/* Contenedor de imagen con scroll */}
+      <div onClick={e => e.stopPropagation()} ref={containerRef} style={{
+        width:'min(500px,92vw)',
+        maxHeight:'80vh',
+        overflow:'auto',
+        borderRadius:'.75rem',
+        background:'#000',
+        scrollbarWidth:'thin',
+      }}>
+        <div style={{
+          transformOrigin:'top left',
+          transform:`scale(${scale})`,
+          width:`${100/scale}%`,
+        }}>
+          <img
+            src={src} alt={alt}
+            draggable={false}
+            style={{ width:'100%', display:'block', userSelect:'none' }}
+          />
         </div>
       </div>
     </div>
