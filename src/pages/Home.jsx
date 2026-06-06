@@ -164,7 +164,7 @@ export default function Home() {
 
         <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.75rem, 2vh, 1.25rem)' }}>
           <img src={h.logo} alt="Litros & Litros" className="neon-glow"
-            style={{ width:'8rem', height:'8rem', borderRadius:'1.1rem', objectFit:'cover' }} />
+            style={{ width:'6rem', height:'6rem', borderRadius:'1rem', objectFit:'cover', marginTop:'clamp(1rem, 3vh, 2rem)' }} />
           <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-hero)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', lineHeight:'var(--lh-tight)', color:'#fff' }}>
             Litros & Litros
           </h1>
@@ -188,18 +188,6 @@ export default function Home() {
             <button className="btn btn-outline" onClick={() => go('/reserva')}>
               📅 {h.btn3 || 'RESERVAR'}
             </button>
-          </div>
-
-          <div style={{ display:'flex', alignItems:'center', gap:'1.5rem', flexWrap:'wrap', justifyContent:'center' }}>
-            <button onClick={() => go('/alimentos')} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(234,234,234,.6)', fontSize:'.9rem', fontFamily:'var(--font-body)', transition:'color .2s' }}
-              onMouseEnter={e => e.currentTarget.style.color='var(--primary-l)'}
-              onMouseLeave={e => e.currentTarget.style.color='rgba(234,234,234,.6)'}
-            >◄ Carta de Alimentos</button>
-            <span style={{ color:'rgba(255,255,255,.2)', fontSize:'.8rem' }}>|</span>
-            <button onClick={() => go('/carta')} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(234,234,234,.6)', fontSize:'.9rem', fontFamily:'var(--font-body)', transition:'color .2s' }}
-              onMouseEnter={e => e.currentTarget.style.color='var(--primary-l)'}
-              onMouseLeave={e => e.currentTarget.style.color='rgba(234,234,234,.6)'}
-            >Carta de Bebidas ►</button>
           </div>
         </div>
       </section>
