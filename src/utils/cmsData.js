@@ -1,192 +1,149 @@
-const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
-const LOGO = 'https://horizons-cdn.hostinger.com/a11fab72-8fa1-435a-81fd-8c8f92a5a284/176ad26295791c3dbb5a84904bb2322a.jpg'
+const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
+const OLD  = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
+const LOGO = `${OLD}/karaoke.jpeg`
 
 export const initialCMSData = {
 
-  // ── HEADER ────────────────────────────────────────────────────
-  header: {
-    logo:      LOGO,
-    brand:     'Litros & Litros',
-    nav: [
-      { label:'Inicio',           path:'/'              },
-      { label:'Alimentos',        path:'/alimentos'     },
-      { label:'Bebidas',          path:'/carta-bebidas' },
-      { label:'Eventos',          path:'/eventos'       },
-      { label:'Cabinas Privadas', path:'/#reservas', special:true },
-    ],
-  },
-
-  // ── HERO (Inicio) ─────────────────────────────────────────────
   hero: {
-    logo:     LOGO,
-    title:    'Litros & Litros',
-    subtitle: 'El lugar donde se oye la música, el servicio y las alitas para pasar un excelente momento',
-    horario:  'Mar – Dom  |  6:00 PM – 3:00 AM  |  Lunes Descansamos',
-    btn1:     'Ver Menú Promo',
-    btn2:     'Ver Carta',
-    btn3:     'Reservar',
-    bgImg:    `${BASE}/1.jpeg`,
+    logo:   LOGO,
+    bgImg:  `${OLD}/1.jpeg`,
+    title:  'Litros & Litros',
+    frase:  'EL LUGAR DONDE SE OYE LA MÚSICA, EL SERVICIO Y LAS AMISTADES PARA PASAR UN EXCELENTE MOMENTO',
+    btn1:   'VER MENÚ PROMO',
+    btn2:   'VER CARTA',
+    btn3:   'RESERVAR',
   },
 
-  // ── ¿POR QUÉ ELEGIRNOS? ──────────────────────────────────────
-  porqueElegirnos: {
-    titulo:  '¿Por qué elegirnos?',
-    subtitulo: 'Somos un lugar seguro y amigable con experiencia',
-    pills: [
-      { icon:'🎵', label:'Música'       },
-      { icon:'🍺', label:'Buena Vibra'  },
-      { icon:'🎤', label:'Karaoke'      },
-    ],
-    musica: {
-      titulo:  '🎶 Música',
-      texto:   'Todos los géneros disponibles. Puedes pedir 3 canciones que más te gusten y las ponemos sin costo.',
-      destacado: '3 canciones que más te gusten',
-      gratis:    'sin costo',
-    },
-  },
-
-  // ── HORARIO ───────────────────────────────────────────────────
   horario: {
-    titulo:   '🕐 Horario',
-    horas:    '6:00 PM – 3:00 AM',
-    dias:     'Martes a Domingo — Karaoke todos los días',
+    titulo:   'HORARIO',
+    horas:    'De 6:00 PM a 3:00 AM',
     descanso: 'Lunes Descansamos',
-    fotoUrl:  `${BASE}/5.jpeg`,
+    dias:     'Karaoke todos los demás días',
   },
 
-  // ── RESERVAS / CABINAS ────────────────────────────────────────
-  reservas: {
-    titulo:   'Cabinas Privadas',
-    subtitulo:'Reserva tu espacio privado para grupos, cumpleaños o eventos especiales',
-    fotoUrl:  `${BASE}/2.jpeg`,
-    wa:       '522224302693',
-    waMsg:    'Hola, quiero hacer una reservación en Litros & Litros',
-    btnTexto: 'Reservar por WhatsApp',
-    telefono: '+52 222 430 2693',
+  menuPromo: {
+    titulo:    'MENÚ PROMO',
+    subtitulo: 'Las mejores promociones para tu noche',
+    fotoUrl:   `${OLD}/promociones.jpeg`,
+    nota:      'BLVD 5 DE MAYO #4610 · +222 430 26 93 · *Precios sujetos a cambio*',
   },
 
-  // ── ALIMENTOS ─────────────────────────────────────────────────
-  alimentos: {
-    titulo:   'Alimentos',
-    subtitulo:'Snacks y platillos preparados con ingredientes frescos',
-    platillos: [
-      {
-        id:1, nombre:'Hamburguesa', fotoUrl:`${BASE}/7.jpeg`,
-        ingredientes:['Carne de res frita','Queso amarillo','Frijoles','Mantequilla','Tocino','Catsup','Mostaza'],
-        opcionales:['Mayonesa'],
-        extras:['Papas onduladas','Aderezo de la casa'],
-        badge:'',
-      },
-      {
-        id:2, nombre:'Alitas', fotoUrl:`${BASE}/3.jpeg`,
-        desc:'Marinadas con sabor a elegir y aderezo incluido.',
-        ingredientes:[], opcionales:[], extras:[],
-        badge:'🔥 Elige tu sabor',
-      },
-      {
-        id:3, nombre:'Nachos', fotoUrl:`${BASE}/4.jpeg`,
-        desc:'Totopos crujientes con chiles y queso amarillo.',
-        especiales:['Carne Pastor','Carne Asada','Salseado (Salsa Verde)'],
-        ingredientes:[], opcionales:[], extras:[],
-        badge:'⭐ Especiales',
-      },
-      {
-        id:4, nombre:'Hot Dog', fotoUrl:`${BASE}/6.jpeg`,
-        ingredientes:['Pan caliente','Salchicha italiana','Tocino','Queso amarillo','Frijoles','Chiles','Catsup','Mayonesa','Mostaza'],
-        opcionales:[], extras:[], badge:'',
-      },
-      {
-        id:5, nombre:'Papas Francesas', fotoUrl:`${BASE}/1.jpeg`,
-        desc:'Papa ondulada, sin aceite en exceso.',
-        ingredientes:['Queso amarillo'],
-        aderezos:['Catsup'],
-        opcionales:[], extras:[], badge:'',
-      },
-    ],
-  },
-
-  // ── CARTA BEBIDAS ─────────────────────────────────────────────
   bebidas: {
-    titulo:   'Carta de Bebidas',
-    subtitulo:'La mejor selección de destilados, cocteles y bebidas',
-    promo:    '🎂 Bebida de bienvenida gratis en tu cumpleaños',
-    nota:     '*Propina opcional no incluida*',
+    titulo:    'CARTA DE BEBIDAS',
+    subtitulo: 'La mejor selección de destilados, cocteles y bebidas',
+    promo:     '🎂 Bebida de bienvenida gratis en tu cumpleaños',
+    nota:      '*Propina opcional no incluida*',
   },
 
-  // ── EVENTOS ───────────────────────────────────────────────────
-  eventos: {
-    titulo:    'Eventos Especiales',
-    subtitulo: 'Vive experiencias únicas en Litros & Litros',
-    fotoUrl:   `${BASE}/3.jpeg`,
-    puertaCerrada: {
-      titulo: 'Shows de Puerta Cerrada',
-      items:  ['Eventos privados con reservación anticipada'],
+  reservas: {
+    titulo:     'RESERVA TU MESA',
+    bienvenida: 'Bienvenido a Litros & Litros Karaoke Bar. Completa los datos y te contactamos por WhatsApp para confirmar tu reservación.',
+    wa:         '522224302693',
+    waMsg:      'Hola, quiero hacer una reservación en Litros & Litros',
+  },
+
+  platillos: {
+    alitas: {
+      img:          `${OLD}/alitas.jpeg`,
+      desc:         'Marinadas con sabor a elegir y aderezo incluido',
+      ingredientes: [],
+      aderezos:     [],
     },
-    mejorVoz: {
-      titulo: 'Compite por la Mejor Voz',
-      items:  ['Participa y gana premios'],
+    nachos: {
+      img:          `${OLD}/nachos.jpeg`,
+      desc:         'Totopo crujiente con chile y queso amarillo',
+      ingredientes: [],
+      especiales:   ['Carne Pastor','Carne Asada','Salsa Verde'],
     },
-    karaoke: {
-      titulo:  'Karaoke c/ Animador',
-      items:   ['Karaoke con animador — dúos bienvenidos', 'Compite con nuestro Mesero Estrella'],
-      premio:  '🎁 El que gana recibe una bebida gratis',
+    hotdog: {
+      img:          `${OLD}/hotdog.jpeg`,
+      desc:         '',
+      ingredientes: ['Pan caliente','Salchicha italiana','Tocino','Queso amarillo','Frijoles','Chiles','Catsup','Mayonesa','Mostaza'],
     },
-    cumpleanos: {
-      titulo:    'Cumpleaños',
-      subtitulo: 'Celebra tu día con nosotros y recibe un trato único. Reserva con anticipación para asegurar tu lugar.',
+    papas: {
+      img:          `${OLD}/papas.jpeg`,
+      desc:         'Papa ondulada · Sin exceso de aceite · Con queso amarillo · Aderezo y catsup',
+      ingredientes: [],
+    },
+    hamburguesa: {
+      img:          `${OLD}/hamburguesa.jpeg`,
+      titulo:       'HAMBURGUESAS',
+      desc:         'Preparada al momento con ingredientes seleccionados',
+      ingredientes: ['Carne de res frita','Queso amarillo','Frijoles','Mantequilla','Tocino','Catsup','Mostaza','Mayonesa'],
+      extras:       ['Papas onduladas','Aderezo de la casa'],
+    },
+  },
+
+  espectaculos: {
+    'puerta-cerrada': {
+      img:   `${OLD}/2.jpeg`,
+      title: 'Puerta Cerrada',
+      items: ['Eventos privados con reservación anticipada'],
+    },
+    'mejor-voz': {
+      img:   `${OLD}/open_mind.jpeg`,
+      title: 'Competencia por la Mejor Voz',
+      items: ['Participa y gana premios'],
+    },
+    'karaoke': {
+      img:   `${OLD}/karaoke.jpeg`,
+      title: 'Karaoke con Animador',
+      items: ['Ambiente dinámico'],
+    },
+    'vs-mesero': {
+      img:   `${OLD}/vs_mesero.jpeg`,
+      title: 'Compite con el Mesero',
+      items: ['Si ganas recibes bebida gratis'],
+      premio: '🎁 Si ganas recibes una bebida gratis',
+    },
+    'cumpleanos': {
+      titulo: 'CUMPLEAÑOS',
       checks: [
         'Reserva con anticipación',
-        'Adornamos tu mesa',
-        '1 Bebida de bienvenida',
-        'La casa le da al cumpleañero una bebida igual de cada mesa que esté con nosotros en el lugar',
+        'Mesa decorada',
+        'Bebida de bienvenida',
+        'Bebida gratis para el cumpleañero',
+        'Bebida gratis para cada mesa',
       ],
-      nota:   '💡 Entre más mesas vengan a celebrar contigo, ¡más bebidas recibe el cumpleañero!',
+      nota: '💡 Entre más mesas vengan a celebrar contigo, ¡más bebidas recibe el cumpleañero!',
+      cta:  'RESERVAR AHORA',
     },
-    btnTexto: 'Reservar Ahora',
-    wa:       '522224302693',
-    waMsg:    'Hola, quiero hacer una reservación en Litros & Litros',
   },
 
-  // ── CONTACTO ──────────────────────────────────────────────────
-  contact: {
-    address:  'Blvd Héroes del 5 de Mayo 4610, Santa María, 72080 Heroica Puebla de Zaragoza, Pue.',
-    phone:    '+52 222 430 2693',
-    email:    'info@litrosylitros.com',
-    hours:    'Martes a Domingo: 6:00 PM – 3:00 AM  |  Lunes cerrado',
-    wa:       '522224302693',
-  },
-
-  // ── FOOTER ────────────────────────────────────────────────────
   footer: {
     brand:     'Litros & Litros',
-    desc:      'Karaoke Bar en Puebla. El lugar donde se oye la música, el servicio y las alitas.',
-    copyright: '© 2026 Litros & Litros Karaoke Bar. Todos los derechos reservados.',
+    desc:      'Karaoke Bar en Puebla',
+    copyright: '© Litros & Litros Karaoke Bar — Todos los derechos reservados.',
   },
 
-  // ── REDES SOCIALES ────────────────────────────────────────────
   socials: {
-    fb:  'https://www.facebook.com/profile.php?id=61589505942247',
-    ig:  'https://www.instagram.com/litr.oslitros/',
-    wa:  '522224302693',
-    tt:  '',
-    yt:  '',
+    fb: 'https://www.facebook.com/profile.php?id=61589505942247',
+    ig: 'https://www.instagram.com/litr.oslitros/',
+    tt: '',
+    yt: '',
+    wa: '522224302693',
   },
 
-  // ── WHATSAPP FLOTANTE ─────────────────────────────────────────
   waFlotante: {
-    numero:  '522224302693',
-    mensaje: 'Hola, quiero información sobre Litros & Litros',
     visible: true,
+    numero:  '522224302693',
+    mensaje: '¡Hola! Quiero reservar en Litros & Litros',
   },
 
-  // ── SEO ───────────────────────────────────────────────────────
+  contact: {
+    address: 'Blvd Héroes del 5 de Mayo 4610, Santa María, 72080 Puebla, Pue.',
+    phone:   '+52 222 430 2693',
+    email:   'info@litrosylitros.com',
+    hours:   'Martes a Domingo: 6:00 PM – 3:00 AM | Lunes cerrado',
+    wa:      '522224302693',
+  },
+
   seo: {
-    title: 'Litros & Litros Karaoke Bar – Puebla | Reserva tu cabina',
-    desc:  'El mejor karaoke bar en Puebla. Música en vivo, canciones a petición, alitas, bebidas y cabinas privadas. Abierto Martes a Domingo 6PM–3AM.',
-    kw:    'bar karaoke puebla, litros y litros, karaoke puebla, cabinas privadas puebla, bar puebla',
+    title: 'Litros & Litros Karaoke Bar – Puebla | Reserva tu mesa',
+    desc:  'El mejor karaoke bar en Puebla. Música en vivo, canciones a petición, alitas, bebidas y más. Abierto Martes a Domingo 6PM–3AM.',
+    kw:    'bar karaoke puebla, litros y litros, karaoke puebla, bar puebla',
   },
 
-  // ── MENÚ BEBIDAS (precios) ────────────────────────────────────
   menuBebidas: [
     { id:1,  cat:'Ron',       name:'Bacardi Blanco',                     vol:'700 ml',     botella:690,  copa:65   },
     { id:2,  cat:'Ron',       name:'Bacardi Sabores',                    vol:'700 ml',     botella:720,  copa:75   },
@@ -220,127 +177,12 @@ export const initialCMSData = {
     { id:30, cat:'Cerveza',   name:'10 Latas',                           vol:'355 ml c/u', botella:260,  copa:null },
     { id:31, cat:'Refrescos', name:'Refrescos',                          vol:'350 ml',     botella:38,   copa:null },
     { id:32, cat:'Refrescos', name:'Energet Azul',                       vol:'355 ml',     botella:45,   copa:null },
-    { id:33, cat:'Refrescos', name:'Energet Azul Botella',               vol:'285 ml',     botella:77,   copa:null },
-    { id:34, cat:'Refrescos', name:'Jugo sabores',                       vol:'1 L',        botella:85,   copa:45  },
-    { id:35, cat:'Refrescos', name:'Jugo de arándano',                   vol:'1 L',        botella:95,   copa:null },
-    { id:36, cat:'Refrescos', name:'Jugo Mango Piña',                    vol:'1 L',        botella:130,  copa:null },
-    { id:37, cat:'Refrescos', name:'Agua Natural',                       vol:'335 ml',     botella:30,   copa:null },
-    { id:38, cat:'Refrescos', name:'Caribe Cooler',                      vol:'355 ml',     botella:90,   copa:null },
-    { id:39, cat:'Refrescos', name:'Boones',                             vol:'750 ml',     botella:290,  copa:null },
-    { id:40, cat:'Snacks',    name:'Papas Locas',                        vol:'Individual', botella:65,   copa:null },
-    { id:41, cat:'Snacks',    name:'Nachos',                             vol:'—',          botella:100,  copa:null },
-    { id:42, cat:'Snacks',    name:'Nachos Árabes',                      vol:'—',          botella:100,  copa:null },
-    { id:43, cat:'Snacks',    name:'Nachos al Pastor',                   vol:'—',          botella:100,  copa:null },
+    { id:33, cat:'Refrescos', name:'Jugo sabores',                       vol:'1 L',        botella:85,   copa:45  },
+    { id:34, cat:'Refrescos', name:'Agua Natural',                       vol:'335 ml',     botella:30,   copa:null },
+    { id:35, cat:'Refrescos', name:'Caribe Cooler',                      vol:'355 ml',     botella:90,   copa:null },
+    { id:36, cat:'Snacks',    name:'Papas Locas',                        vol:'Individual', botella:65,   copa:null },
+    { id:37, cat:'Snacks',    name:'Nachos',                             vol:'—',          botella:100,  copa:null },
+    { id:38, cat:'Snacks',    name:'Nachos Árabes',                      vol:'—',          botella:100,  copa:null },
+    { id:39, cat:'Snacks',    name:'Nachos al Pastor',                   vol:'—',          botella:100,  copa:null },
   ],
-
-  // legacy compat
-  musica: { title:'Música', sub:'', features:[] },
-
-  // ── HOME — Cards de secciones ────────────────────────────────
-  homeCards: {
-    alimentos: [
-      { id:'alitas',       icon:'🍗', title:'Alitas',          desc:'Marinadas con sabor a elegir · Aderezo incluido',                     img:`${BASE}/alitas.jpeg` },
-      { id:'nachos',       icon:'🧀', title:'Nachos',          desc:'Base crujiente + variantes especiales',                               img:`${BASE}/nachos.jpeg` },
-      { id:'hotdog',       icon:'🌭', title:'Hot Dog',         desc:'Pan caliente · Salchicha italiana · Receta completa',                 img:`${BASE}/hotdog.jpeg` },
-      { id:'papas',        icon:'🍟', title:'Papas Francesas', desc:'Papa ondulada · Queso amarillo · Catsup',                            img:`${BASE}/papas.jpeg` },
-    ],
-    hamburguesa: { id:'hamburguesa', icon:'🍔', title:'Hamburguesa', desc:'Carne de res frita · Queso amarillo · Tocino · y más',         img:`${BASE}/hamburguesa.jpeg` },
-    espectaculos: [
-      { id:'puerta-cerrada', icon:'🚪', title:'Puerta Cerrada',       desc:'Eventos privados con reservación anticipada',                  img:`${BASE}/2.jpeg` },
-      { id:'mejor-voz',      icon:'🏆', title:'Competencia de Voz',   desc:'Participa y gana premios · Demuestra tu talento',             img:`${BASE}/open_mind.jpeg` },
-      { id:'karaoke',        icon:'🎤', title:'Karaoke con Animador',  desc:'Show completo · Dúos bienvenidos · Toda la noche',            img:`${BASE}/karaoke.jpeg` },
-      { id:'vs-mesero',      icon:'⚔️', title:'Compite con Mesero',   desc:'¿Puedes ganarle? El ganador recibe bebida gratis',            img:`${BASE}/vs_mesero.jpeg` },
-    ],
-    cumpleanos: { id:'cumpleanos', icon:'🎂', title:'Especial Cumpleaños', desc:'Mesa decorada · Bebida de bienvenida · Bebida gratis',    img:`${BASE}/cumpleanos.jpeg` },
-  },
-
-  // ── PLATILLOS DETALLE ─────────────────────────────────────────
-  platillos: {
-    alitas: {
-      icon:'🍗', title:'Alitas', img:`${BASE}/alitas.jpeg`,
-      desc:'Marinadas al momento con el sabor que tú elijas. Aderezo incluido.',
-      ingredientes:['Alitas marinadas al momento','Sabor a elegir','Aderezo incluido'],
-      especiales:[], opcionales:[], extras:[], aderezos:[],
-    },
-    nachos: {
-      icon:'🧀', title:'Nachos', img:`${BASE}/nachos.jpeg`,
-      desc:'Totopos crujientes con chile y queso amarillo. Elige tu variante especial.',
-      ingredientes:['Totopos crujientes','Chiles','Queso amarillo'],
-      especiales:['Carne al Pastor','Carne Asada','Salseado (Salsa Verde)'],
-      opcionales:[], extras:[], aderezos:[],
-    },
-    hotdog: {
-      icon:'🌭', title:'Hot Dog', img:`${BASE}/hotdog.jpeg`,
-      desc:'Pan caliente con salchicha italiana y todos los ingredientes que lo hacen único.',
-      ingredientes:['Pan caliente','Salchicha italiana','Tocino','Queso amarillo','Frijoles','Chiles','Catsup','Mayonesa','Mostaza'],
-      especiales:[], opcionales:[], extras:[], aderezos:[],
-    },
-    papas: {
-      icon:'🍟', title:'Papas Francesas', img:`${BASE}/papas.jpeg`,
-      desc:'Papa ondulada, poco aceite, servida con queso amarillo y catsup.',
-      ingredientes:['Papa ondulada','Poco aceite','Queso amarillo'],
-      aderezos:['Catsup'], especiales:[], opcionales:[], extras:[],
-    },
-    hamburguesa: {
-      icon:'🍔', title:'Hamburguesa', img:`${BASE}/hamburguesa.jpeg`,
-      desc:'Nuestra hamburguesa es preparada con ingredientes frescos y de calidad.',
-      ingredientes:['Carne de res frita','Queso amarillo','Frijoles','Mantequilla','Tocino','Catsup','Mostaza'],
-      opcionales:['Mayonesa'],
-      extras:['Papas onduladas','Aderezo de la casa'],
-      especiales:[], aderezos:[],
-    },
-  },
-
-  // ── ESPECTÁCULOS DETALLE ──────────────────────────────────────
-  espectaculos: {
-    'puerta-cerrada': {
-      icon:'🚪', title:'Shows de Puerta Cerrada', img:`${BASE}/2.jpeg`,
-      desc:'Una experiencia exclusiva e íntima para tu grupo. El show de puerta cerrada es el evento privado más especial de Litros & Litros.',
-      items:['Evento privado con reservación anticipada','Ambiente exclusivo solo para tu grupo','Experiencia única e irrepetible','Disponible para grupos y empresas'],
-      premio:'', nota:'', cta:'Reservar mi evento privado',
-    },
-    'mejor-voz': {
-      icon:'🏆', title:'Competencia por la Mejor Voz', img:`${BASE}/open_mind.jpeg`,
-      desc:'Demuestra que tienes el talento. Compite contra otros cantantes y gana el título de la mejor voz de la noche.',
-      items:['Compite contra otros participantes','El jurado es el público presente','Premios para el ganador cada noche','Abierto a todos los géneros musicales'],
-      premio:'', nota:'', cta:'Quiero participar',
-    },
-    'karaoke': {
-      icon:'🎤', title:'Karaoke con Animador', img:`${BASE}/karaoke.jpeg`,
-      desc:'Nuestro animador hace que cada canción sea una experiencia única. El escenario es tuyo y los dúos son bienvenidos.',
-      items:['Animador profesional toda la noche','Dúos y grupos bienvenidos','Todos los géneros disponibles','Canciones a petición sin costo'],
-      premio:'', nota:'', cta:'Reservar mi noche de karaoke',
-    },
-    'vs-mesero': {
-      icon:'⚔️', title:'Compite con Nuestro Mesero', img:`${BASE}/vs_mesero.jpeg`,
-      desc:'¿Crees que puedes superar a nuestro mesero en el karaoke? Acepta el reto y si ganas, ¡la bebida corre por cuenta de la casa!',
-      items:['Reta a nuestro mesero estrella','El público decide quién gana','El ganador recibe una bebida gratis','Se vale animar, gritar y apostar'],
-      premio:'🎁 El que gana recibe una bebida gratis de la casa', nota:'', cta:'Acepto el reto',
-    },
-    'cumpleanos': {
-      icon:'🎂', title:'Especial Cumpleaños', img:`${BASE}/cumpleanos.jpeg`,
-      desc:'Celebra tu día especial con nosotros y recibe un trato único que no olvidarás. Reserva con anticipación para asegurar tu lugar.',
-      items:[],
-      checks:['Reserva con anticipación','Adornamos tu mesa especialmente para ti','1 Bebida de bienvenida incluida','La casa le da al cumpleañero una bebida igual de cada mesa que esté en el lugar'],
-      nota:'💡 Entre más mesas vengan a celebrar contigo, ¡más bebidas recibe el cumpleañero!',
-      premio:'', cta:'Reservar mi cumpleaños',
-    },
-  },
-
-  // ── MENÚ PROMO ────────────────────────────────────────────────
-  menuPromo: {
-    titulo:   'Promociones',
-    subtitulo:'Las mejores promos para que disfrutes al máximo tu noche',
-    fotoUrl:  `${BASE}/promociones.jpeg`,
-    cards: [
-      { emoji:'🍺', title:'Cervezas',    desc:'3 x $75  ·  10 x $260  ·  MicheLitro $98' },
-      { emoji:'🪣', title:'Naturales',   desc:'Ron, Tequila, Vodka o Gin · 3 Litros x $175' },
-      { emoji:'🥤', title:'Escarchados', desc:'Sandía, Mango, Tamarindo y más · 3L x $190' },
-      { emoji:'🍶', title:'Caguamón',    desc:'Xxlager, Carta Blanca, Victoria · 2 x $190' },
-      { emoji:'🌮', title:'Nachos',      desc:'Árabe $100 · Pastor $100' },
-      { emoji:'🍗', title:'Alitas (7)',  desc:'$78' },
-      { emoji:'🌭', title:'Hot Dog',     desc:'$48' },
-    ],
-    nota:'BLVD 5 DE MAYO #4610 · +222 430 26 93',
-  },
 }
