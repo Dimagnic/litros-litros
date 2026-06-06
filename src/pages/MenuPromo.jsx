@@ -42,7 +42,7 @@ export default function MenuPromo() {
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.82)' }} />
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(41,90,158,.25) 0%, transparent 65%)' }} />
-        <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'3rem 1.5rem' }}>
+        <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'clamp(2rem, 5vh, 4rem) 1.5rem' }}>
           <div style={{ fontSize:'2.5rem', marginBottom:'.5rem' }}>🎉</div>
           <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', marginBottom:'.75rem' }}>
             MENÚ PROMO

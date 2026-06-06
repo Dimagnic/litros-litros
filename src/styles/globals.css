@@ -302,3 +302,15 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   padding: 0 1.5rem;
   width: 100%;
 }
+
+/* ── SEPARACIÓN hero → siguiente sección ── */
+.page-hero + section,
+.page-hero + div {
+  margin-top: 0;
+}
+
+/* Asegurar que el hero nunca tenga overflow de su contenido */
+.page-hero .hero-content {
+  max-height: 100%;
+  overflow: hidden;
+}
