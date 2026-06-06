@@ -16,21 +16,13 @@ export default function Header() {
   const navigate = useNavigate()
   const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const fn = () => {
-      setScrolled(window.scrollY > 10)
-      setScrollY(window.scrollY)
-    }
+    const fn = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', fn, { passive:true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
-
-  // Opacidad: 100% en top → 20% al desplazar (mínimo 0.2)
-  const maxScroll = 300
-  const opacity = Math.max(0.2, 1 - (scrollY / maxScroll) * 0.8)
 
   function go(path) { setMobileOpen(false); navigate(path); window.scrollTo(0,0) }
   const active = (path) => location.pathname === path
@@ -38,11 +30,10 @@ export default function Header() {
   return (
     <header style={{
       position:'sticky', top:0, zIndex:100, height:'80px',
-      background: `rgba(17,24,39,${scrolled ? opacity : 0.92})`,
-      backdropFilter: scrollY > 50 ? `blur(${Math.max(4, 20 - scrollY/20)}px)` : 'blur(20px)',
-      borderBottom:`1px solid ${scrolled ? `rgba(41,90,158,${opacity * 0.4})` : 'rgba(41,90,158,.15)'}`,
-      transition:'background .3s, border-color .3s',
-      opacity: scrolled ? opacity : 1,
+      background: scrolled ? 'rgba(17,24,39,.98)' : 'rgba(17,24,39,.92)',
+      backdropFilter:'blur(20px)',
+      borderBottom:`1px solid ${scrolled ? 'rgba(41,90,158,.4)' : 'rgba(41,90,158,.15)'}`,
+      transition:'all .3s',
     }}>
       <div className="container" style={{ height:'100%', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
         <button onClick={() => go('/')} style={{ display:'flex', alignItems:'center', gap:'.75rem', background:'none', border:'none', cursor:'pointer' }}>
