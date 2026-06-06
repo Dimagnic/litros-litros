@@ -58,21 +58,41 @@ function ImageUploader({ label, value, onChange, folder='cms' }) {
     if (!file) return
     setUploading(true)
     try { onChange(await uploadImage(file, folder)) }
-    catch (err) { alert('Error: ' + err.message) }
+    catch (err) { alert('Error al subir: ' + err.message) }
     finally { setUploading(false) }
   }
 
   return (
     <div style={{ marginBottom:'1rem' }}>
-      <label style={{ display:'block', fontSize:'.68rem', fontWeight:700, color:C.fgd, textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.3rem' }}>{label}</label>
-      {value && <div style={{ marginBottom:'.5rem', borderRadius:'.5rem', overflow:'hidden', maxHeight:'120px', border:`1px solid ${C.bdr}` }}><img src={value} alt="" style={{ width:'100%', height:'120px', objectFit:'cover' }} /></div>}
-      <div style={{ display:'flex', gap:'.5rem' }}>
-        <input style={{ ...INP, flex:1, fontSize:'.8rem' }} value={value || ''} placeholder="URL de imagen..." onChange={e => onChange(e.target.value)} onFocus={e => e.target.style.borderColor=C.bdrs} onBlur={e => e.target.style.borderColor=C.bdr} />
-        <button onClick={() => ref.current.click()} disabled={uploading} style={{ background:'rgba(41,90,158,.2)', color:C.pril, border:`1px solid ${C.bdr}`, borderRadius:'.5rem', padding:'.5rem .9rem', fontSize:'.8rem', fontWeight:600, cursor:'pointer', whiteSpace:'nowrap' }}>
-          {uploading ? '⏳' : '📤 Subir'}
-        </button>
+      <label style={{ display:'block', fontSize:'.68rem', fontWeight:700, color:C.fgd, textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.5rem' }}>{label}</label>
+
+      {/* Preview */}
+      <div style={{ marginBottom:'.75rem', borderRadius:'.6rem', overflow:'hidden', height:'140px', border:`1px solid ${C.bdr}`, background:C.card2, display:'flex', alignItems:'center', justifyContent:'center' }}>
+        {value
+          ? <img src={value} alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
+          : <span style={{ color:C.fgd, fontSize:'.85rem' }}>Sin imagen</span>
+        }
       </div>
+
+      {/* Solo botón subir */}
+      <button onClick={() => ref.current.click()} disabled={uploading} style={{
+        width:'100%', background: uploading ? '#1a3a6b' : 'rgba(41,90,158,.15)',
+        color: uploading ? C.fgd : C.pril,
+        border:`1px dashed ${C.bdr}`, borderRadius:'.6rem',
+        padding:'.7rem', fontSize:'.88rem', fontWeight:600,
+        cursor: uploading ? 'not-allowed' : 'pointer',
+        fontFamily:'var(--font-body)', transition:'all .2s',
+        display:'flex', alignItems:'center', justifyContent:'center', gap:'.5rem',
+      }}
+        onMouseEnter={e => { if(!uploading) e.currentTarget.style.borderColor=C.bdrs }}
+        onMouseLeave={e => { e.currentTarget.style.borderColor=C.bdr }}
+      >
+        {uploading ? '⏳ Subiendo imagen...' : '📷 Seleccionar imagen'}
+      </button>
       <input ref={ref} type="file" accept="image/*" style={{ display:'none' }} onChange={handleFile} />
+      <p style={{ fontSize:'.65rem', color:C.fgd, marginTop:'.3rem' }}>
+        {value ? '✅ Imagen cargada — guarda los cambios para aplicar' : 'Sube una imagen desde tu dispositivo'}
+      </p>
     </div>
   )
 }
