@@ -19,7 +19,7 @@ export default function CartaCompleta() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
       {/* Hero */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
-        <img src={beb.bgImg || `${BASE}/menu_litros.jpeg`} alt="Carta"
+        <img src={beb.bgImg || 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_carta.jpg'} alt="Carta"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.80)' }} />
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(41,90,158,.2) 0%, transparent 65%)' }} />
@@ -50,7 +50,7 @@ export default function CartaCompleta() {
 
         {view === 'visual' && (
           <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', boxShadow:'0 0 50px rgba(41,90,158,.2)' }}>
-            <img src={`${BASE}/menu_litros.jpeg`} alt="Menú" style={{ width:'100%', height:'auto' }} />
+            <img src={'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_carta.jpg'} alt="Menú" style={{ width:'100%', height:'auto' }} />
           </div>
         )}
 

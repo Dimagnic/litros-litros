@@ -6,7 +6,7 @@ export const initialCMSData = {
 
   hero: {
     logo:   LOGO,
-    bgImg:  `${OLD}/1.jpeg`,
+    bgImg:  'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_inicio.jpg',
     title:  'Litros & Litros',
     frase:  'EL LUGAR DONDE SE OYE LA MÚSICA, EL SERVICIO Y LAS AMISTADES PARA PASAR UN EXCELENTE MOMENTO',
     btn1:   'VER MENÚ PROMO',

@@ -16,7 +16,7 @@ export default function Hamburguesa() {
 
       {/* Imagen grande */}
       <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
-        <img src={p.img || `${BASE}/hamburguesa.jpeg`} alt="Hamburguesa"
+        <img src={p.img || 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_hamburguesa.jpg'} alt="Hamburguesa"
           style={{ width:'100%', height:'100%', position:'absolute', inset:0, objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.15) 0%, rgba(17,24,39,.82) 100%)' }} />
         <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center' }}>

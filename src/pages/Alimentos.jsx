@@ -57,7 +57,7 @@ export default function Alimentos() {
   const al = cms.alimentos  || {}
 
   // Imagen y título principal desde CMS, con fallbacks
-  const heroImg    = al.imgPrincipal || `${BASE}/alitas.jpeg`
+  const heroImg    = al.imgPrincipal || 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_alimentos.jpg'
   const heroTitulo = al.tituloPrincipal || 'ALIMENTOS'
 
   return (

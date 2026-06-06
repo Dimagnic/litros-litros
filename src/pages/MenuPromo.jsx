@@ -38,7 +38,7 @@ export default function MenuPromo() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
       {/* Hero con imagen de fondo */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
-        <img src={mp.fotoUrl || `${BASE}/promociones.jpeg`} alt="Promos"
+        <img src={mp.fotoUrl || 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_menúpromo.jpg'} alt="Promos"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.82)' }} />
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, rgba(41,90,158,.25) 0%, transparent 65%)' }} />

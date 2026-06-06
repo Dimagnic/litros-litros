@@ -30,7 +30,7 @@ export default function Eventos() {
 
       {/* Imagen principal */}
       <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
-        <img src={ev['puerta-cerrada']?.img || `${BASE}/open_mind.jpeg`} alt="Eventos"
+        <img src={ev['puerta-cerrada']?.img || 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_eventos.jpg'} alt="Eventos"
           style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.3) 0%, rgba(17,24,39,.9) 100%)' }} />
         <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
