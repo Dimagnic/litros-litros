@@ -29,7 +29,7 @@ export default function Reserva() {
     <div style={{ minHeight:'100dvh', background:'var(--bg)' }}>
       {/* Hero */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
-        <img src={r.fotoUrl || 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/hero_reservas.jpg'} alt="Reserva"
+        <img src={r.fotoUrl || `${BASE}/2.jpeg`} alt="Reserva"
           style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
         <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.78)' }} />
         <div style={{ position:'relative', zIndex:2, textAlign:'center', padding:'clamp(2rem, 5vh, 4rem) 1.5rem' }}>
