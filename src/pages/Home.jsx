@@ -169,16 +169,16 @@ export default function Home() {
           {/* 4 botones — Galería entre Ver Carta y Reservar */}
           <div style={{ display:'flex', flexDirection:'column', gap:'.85rem', width:'100%', maxWidth:'22rem' }}>
             <button className="btn btn-primary" onClick={() => go('/menu-promo')}>
-              {h.btn1 || 'VER MENÚ PROMO'}
+              🎉 {h.btn1 || 'VER MENÚ PROMO'}
             </button>
             <button className="btn btn-outline" onClick={() => go('/carta')}>
-              {h.btn2 || 'VER CARTA'}
+              🍹 {h.btn2 || 'VER CARTA'}
             </button>
             <button className="btn btn-outline" onClick={scrollToGaleria}>
-              📷 Galería
+              📷 GALERÍA
             </button>
             <button className="btn btn-outline" onClick={() => go('/reserva')}>
-              {h.btn3 || 'RESERVAR'}
+              📅 {h.btn3 || 'RESERVAR'}
             </button>
           </div>
 
