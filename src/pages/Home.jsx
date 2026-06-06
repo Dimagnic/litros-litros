@@ -43,20 +43,26 @@ function Galeria({ imgs, titulo, subtitulo }) {
 
       {/* Carrusel */}
       <div
-        style={{ position:'relative', maxWidth:'900px', margin:'0 auto', padding:'0 1.5rem' }}
+        style={{ position:'relative', maxWidth:'1100px', margin:'0 auto', padding:'0 1.5rem' }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Imagen principal */}
-        <div style={{ position:'relative', borderRadius:'var(--radius-lg)', overflow:'hidden', aspectRatio:'16/9' }}>
+        {/* Imagen principal — contain para mostrar completa sin recortar */}
+        <div style={{
+          position:'relative', borderRadius:'var(--radius-lg)', overflow:'hidden',
+          background:'rgba(10,15,25,.95)',
+          height:'clamp(260px, 55vw, 580px)',
+        }}>
           {imgs.map((src, i) => (
             <img key={i} src={src} alt={`Galería ${i+1}`}
-              loading="lazy"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
               style={{
                 position:'absolute', inset:0, width:'100%', height:'100%',
-                objectFit:'cover', objectPosition:'center',
+                objectFit:'contain',
+                objectPosition:'center',
                 opacity: i === current ? 1 : 0,
-                transform: i === current ? 'scale(1)' : 'scale(1.03)',
+                transform: i === current ? 'scale(1)' : 'scale(1.02)',
                 transition:'opacity .5s ease, transform .5s ease',
                 pointerEvents: i === current ? 'auto' : 'none',
               }}
@@ -66,31 +72,39 @@ function Galeria({ imgs, titulo, subtitulo }) {
           {/* Flecha izquierda */}
           <button onClick={prev} style={{
             position:'absolute', left:'.75rem', top:'50%', transform:'translateY(-50%)',
-            zIndex:10, background:'rgba(0,0,0,.45)', border:'1px solid rgba(255,255,255,.2)',
-            color:'#fff', borderRadius:'50%', width:'2.5rem', height:'2.5rem',
+            zIndex:10, background:'rgba(0,0,0,.55)', border:'1px solid rgba(255,255,255,.2)',
+            color:'#fff', borderRadius:'50%', width:'2.75rem', height:'2.75rem',
             display:'flex', alignItems:'center', justifyContent:'center',
-            cursor:'pointer', fontSize:'1.1rem', transition:'all .2s', backdropFilter:'blur(4px)',
+            cursor:'pointer', fontSize:'1.3rem', transition:'all .2s', backdropFilter:'blur(6px)',
           }}
-            onMouseEnter={e => e.currentTarget.style.background='rgba(41,90,158,.7)'}
-            onMouseLeave={e => e.currentTarget.style.background='rgba(0,0,0,.45)'}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(41,90,158,.8)'}
+            onMouseLeave={e => e.currentTarget.style.background='rgba(0,0,0,.55)'}
           >‹</button>
 
           {/* Flecha derecha */}
           <button onClick={next} style={{
             position:'absolute', right:'.75rem', top:'50%', transform:'translateY(-50%)',
-            zIndex:10, background:'rgba(0,0,0,.45)', border:'1px solid rgba(255,255,255,.2)',
-            color:'#fff', borderRadius:'50%', width:'2.5rem', height:'2.5rem',
+            zIndex:10, background:'rgba(0,0,0,.55)', border:'1px solid rgba(255,255,255,.2)',
+            color:'#fff', borderRadius:'50%', width:'2.75rem', height:'2.75rem',
             display:'flex', alignItems:'center', justifyContent:'center',
-            cursor:'pointer', fontSize:'1.1rem', transition:'all .2s', backdropFilter:'blur(4px)',
+            cursor:'pointer', fontSize:'1.3rem', transition:'all .2s', backdropFilter:'blur(6px)',
           }}
-            onMouseEnter={e => e.currentTarget.style.background='rgba(41,90,158,.7)'}
-            onMouseLeave={e => e.currentTarget.style.background='rgba(0,0,0,.45)'}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(41,90,158,.8)'}
+            onMouseLeave={e => e.currentTarget.style.background='rgba(0,0,0,.55)'}
           >›</button>
+
+          {/* Contador */}
+          <div style={{
+            position:'absolute', bottom:'.75rem', right:'.85rem', zIndex:10,
+            background:'rgba(0,0,0,.55)', borderRadius:'999px', padding:'.2rem .75rem',
+            fontSize:'.72rem', color:'rgba(255,255,255,.8)', backdropFilter:'blur(4px)',
+          }}>{current + 1} / {imgs.length}</div>
 
           {/* Overlay pausa */}
           {paused && (
-            <div style={{ position:'absolute', top:'.75rem', right:'.75rem', zIndex:10,
-              background:'rgba(0,0,0,.5)', borderRadius:'999px', padding:'.2rem .7rem',
+            <div style={{
+              position:'absolute', top:'.75rem', right:'.85rem', zIndex:10,
+              background:'rgba(0,0,0,.55)', borderRadius:'999px', padding:'.2rem .7rem',
               fontSize:'.72rem', color:'rgba(255,255,255,.7)', backdropFilter:'blur(4px)',
             }}>⏸ Pausado</div>
           )}
@@ -100,8 +114,8 @@ function Galeria({ imgs, titulo, subtitulo }) {
         <div style={{ display:'flex', justifyContent:'center', gap:'.5rem', marginTop:'1.25rem' }}>
           {imgs.map((_, i) => (
             <button key={i} onClick={() => goTo(i)} style={{
-              width: i === current ? '1.5rem' : '.5rem',
-              height:'.5rem', borderRadius:'999px', border:'none', cursor:'pointer',
+              width: i === current ? '1.75rem' : '.55rem',
+              height:'.55rem', borderRadius:'999px', border:'none', cursor:'pointer',
               background: i === current ? 'var(--primary)' : 'var(--border)',
               transition:'all .35s ease', padding:0,
             }} />
@@ -109,14 +123,16 @@ function Galeria({ imgs, titulo, subtitulo }) {
         </div>
 
         {/* Miniaturas */}
-        <div style={{ display:'flex', gap:'.5rem', marginTop:'1rem', overflowX:'auto', scrollbarWidth:'none', padding:'.25rem 0' }}>
+        <div style={{ display:'flex', gap:'.5rem', marginTop:'1rem', overflowX:'auto', scrollbarWidth:'none', padding:'.25rem 0', justifyContent:'center', flexWrap:'wrap' }}>
           {imgs.map((src, i) => (
             <button key={i} onClick={() => goTo(i)} style={{
-              flexShrink:0, width:'5rem', height:'3.5rem', borderRadius:'.4rem',
-              overflow:'hidden', border:`2px solid ${i === current ? 'var(--primary)' : 'transparent'}`,
+              flexShrink:0, width:'5.5rem', height:'3.75rem', borderRadius:'.5rem',
+              overflow:'hidden',
+              border:`2px solid ${i === current ? 'var(--primary)' : 'rgba(41,90,158,.2)'}`,
               cursor:'pointer', padding:0, transition:'border-color .3s',
+              background:'rgba(10,15,25,.9)',
             }}>
-              <img src={src} alt="" loading="lazy" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
+              <img src={src} alt="" loading="lazy" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center' }} />
             </button>
           ))}
         </div>
