@@ -144,6 +144,21 @@ export const initialCMSData = {
     kw:    'bar karaoke puebla, litros y litros, karaoke puebla, bar puebla',
   },
 
+
+  galeria: {
+    titulo:    'GALERÍA',
+    subtitulo: 'Vive la experiencia — noches únicas, música en vivo y momentos que no olvidarás',
+    imagenes: [
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/1.jpeg',
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/2.jpeg',
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/3.jpeg',
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/4.jpeg',
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/5.jpeg',
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/6.jpeg',
+      'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)/7.jpeg',
+    ],
+  },
+
   menuBebidas: [
     { id:1,  cat:'Ron',       name:'Bacardi Blanco',                     vol:'700 ml',     botella:690,  copa:65   },
     { id:2,  cat:'Ron',       name:'Bacardi Sabores',                    vol:'700 ml',     botella:720,  copa:75   },
@@ -186,3 +201,6 @@ export const initialCMSData = {
     { id:39, cat:'Snacks',    name:'Nachos al Pastor',                   vol:'—',          botella:100,  copa:null },
   ],
 }
+
+// Exportación separada para galería (se agrega al initialCMSData externamente)
+// Se inyecta en CMSContext

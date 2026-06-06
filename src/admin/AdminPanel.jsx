@@ -111,6 +111,7 @@ const TABS = [
   { id:'waFlotante',  label:'💬 WhatsApp'  },
   { id:'contact',     label:'📍 Contacto'  },
   { id:'seo',         label:'🔍 SEO'       },
+  { id:'galeria',     label:'📷 Galería'   },
 ]
 
 export default function AdminPanel() {
@@ -341,6 +342,61 @@ export default function AdminPanel() {
               <Field label="Palabras clave" value={seo.kw} onChange={v => ch('seo','kw',v)} />
             </Card>
             <SaveBtn onClick={() => save('seo')} loading={loading} />
+          </>}
+
+          {/* GALERÍA */}
+          {tab==='galeria' && <>
+            <Card title="Textos de la Galería">
+              <Field label="Título" value={d.galeria?.titulo || 'GALERÍA'} onChange={v => { setD(prev => ({...prev, galeria:{...prev.galeria, titulo:v}})) }} />
+              <Field label="Subtítulo" value={d.galeria?.subtitulo} onChange={v => { setD(prev => ({...prev, galeria:{...prev.galeria, subtitulo:v}})) }} textarea />
+            </Card>
+            <Card title="Imágenes del carrusel" subtitle={`${(d.galeria?.imagenes||[]).length} imágenes — se muestran en orden`}>
+              <p style={{ fontSize:'.82rem', color:C.fgd, marginBottom:'1rem' }}>
+                Sube cada imagen del carrusel. Puedes agregar hasta 10. El carrusel las rota cada 3 segundos.
+              </p>
+              {(d.galeria?.imagenes || Array(7).fill('')).map((img, i) => (
+                <div key={i} style={{ background:C.card2, borderRadius:'.5rem', padding:'1rem', marginBottom:'.75rem', border:`1px solid ${C.bdr}` }}>
+                  <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'.6rem' }}>
+                    <span style={{ fontSize:'.78rem', fontWeight:700, color:C.fgd }}>Imagen {i+1}</span>
+                    <button onClick={() => {
+                      const imgs = [...(d.galeria?.imagenes||[])]
+                      imgs.splice(i, 1)
+                      setD(prev => ({...prev, galeria:{...prev.galeria, imagenes:imgs}}))
+                    }} style={{ background:'rgba(220,38,38,.1)', color:'#f87171', border:'1px solid rgba(220,38,38,.3)', borderRadius:'.4rem', padding:'.2rem .6rem', fontSize:'.75rem', cursor:'pointer' }}>
+                      🗑 Quitar
+                    </button>
+                  </div>
+                  <ImageUploader
+                    label=""
+                    value={img}
+                    folder="galeria"
+                    onChange={v => {
+                      const imgs = [...(d.galeria?.imagenes||[])]
+                      imgs[i] = v
+                      setD(prev => ({...prev, galeria:{...prev.galeria, imagenes:imgs}}))
+                    }}
+                  />
+                </div>
+              ))}
+              {(d.galeria?.imagenes||[]).length < 10 && (
+                <button onClick={() => {
+                  const imgs = [...(d.galeria?.imagenes||[]), '']
+                  setD(prev => ({...prev, galeria:{...prev.galeria, imagenes:imgs}}))
+                }} style={{ width:'100%', background:'rgba(41,90,158,.1)', color:C.pril, border:`1px dashed ${C.bdr}`, borderRadius:'.5rem', padding:'.65rem', fontSize:'.85rem', fontWeight:600, cursor:'pointer', fontFamily:'var(--font-body)' }}>
+                  + Agregar imagen
+                </button>
+              )}
+            </Card>
+            <SaveBtn onClick={async () => {
+              setLoading(true)
+              const timeout = setTimeout(() => { setLoading(false); showToast('⚠️ Timeout') }, 10000)
+              try {
+                await saveCMSSection('galeria', d.galeria)
+                updateCMS('galeria', d.galeria)
+                showToast('✅ Galería guardada correctamente')
+              } catch(e) { showToast('❌ Error: ' + e.message) }
+              finally { clearTimeout(timeout); setLoading(false) }
+            }} loading={loading} />
           </>}
 
         </div></div>

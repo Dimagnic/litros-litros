@@ -4,17 +4,9 @@ import { useCMS } from '@/context/CMSContext'
 
 const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/images%20(publico)'
 
-const GALERIA = [
-  `${BASE}/1.jpeg`,
-  `${BASE}/2.jpeg`,
-  `${BASE}/3.jpeg`,
-  `${BASE}/4.jpeg`,
-  `${BASE}/5.jpeg`,
-  `${BASE}/6.jpeg`,
-  `${BASE}/7.jpeg`,
-]
+// Las imágenes de la galería vienen del CMS (se pasan como prop)
 
-function Galeria({ imgs }) {
+function Galeria({ imgs, titulo, subtitulo }) {
   const [current, setCurrent] = useState(0)
   const [paused, setPaused] = useState(false)
   const [transitioning, setTransitioning] = useState(false)
@@ -42,10 +34,10 @@ function Galeria({ imgs }) {
   return (
     <section style={{ padding:'4rem 0', overflow:'hidden' }}>
       <div className="container" style={{ textAlign:'center', marginBottom:'2rem' }}>
-        <h2 className="section-title">Galería</h2>
+        <h2 className="section-title">{titulo || 'GALERÍA'}</h2>
         <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
         <p style={{ color:'var(--fg-dim)', fontSize:'1rem', maxWidth:'36rem', margin:'0 auto' }}>
-          Vive la experiencia — noches únicas, música en vivo y momentos que no olvidarás
+          {subtitulo || 'Vive la experiencia — noches únicas, música en vivo y momentos que no olvidarás'}
         </p>
       </div>
 
@@ -198,7 +190,7 @@ export default function Home() {
 
       {/* ── GALERÍA ── */}
       <div id="galeria">
-        <Galeria imgs={GALERIA} />
+        <Galeria imgs={cms.galeria?.imagenes || []} titulo={cms.galeria?.titulo} subtitulo={cms.galeria?.subtitulo} />
       </div>
 
       {/* ── HORARIO ── */}

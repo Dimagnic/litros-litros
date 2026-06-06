@@ -7,7 +7,7 @@ const CMSContext = createContext(null)
 const SECTIONS = [
   'hero','header','horario','menuPromo','bebidas',
   'reservas','platillos','espectaculos','footer',
-  'socials','waFlotante','contact','seo','menuBebidas'
+  'socials','waFlotante','contact','seo','menuBebidas','galeria'
 ]
 
 export function CMSProvider({ children }) {
