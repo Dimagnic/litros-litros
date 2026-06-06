@@ -32,6 +32,8 @@ export default function MenuPromo() {
   const { cms } = useCMS()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState(0)
+  const [showPromo, setShowPromo] = useState(false)
+  const [zoom, setZoom] = useState(1)
   const mp = cms.menuPromo || {}
 
   return (
@@ -55,6 +57,20 @@ export default function MenuPromo() {
       </div>
 
       <div className="container" style={{ padding:'2.5rem 1.5rem 5rem' }}>
+        {/* Botón Carta Promo */}
+        <div style={{ display:'flex', justifyContent:'flex-end', marginBottom:'1rem' }}>
+          <button onClick={() => setShowPromo(true)} style={{
+            display:'inline-flex', alignItems:'center', gap:'.5rem',
+            padding:'.55rem 1.25rem', borderRadius:'999px', fontSize:'.88rem', fontWeight:700,
+            background:'linear-gradient(135deg,#295A9E,#1B3F6B)', color:'#fff',
+            border:'none', cursor:'pointer', fontFamily:'var(--font-body)',
+            boxShadow:'0 4px 16px rgba(41,90,158,.4)', transition:'all .2s',
+          }}
+            onMouseEnter={e => e.currentTarget.style.opacity='.85'}
+            onMouseLeave={e => e.currentTarget.style.opacity='1'}
+          >📋 Carta Promo</button>
+        </div>
+
         {/* Tabs categorías */}
         <div style={{ display:'flex', flexWrap:'nowrap', overflowX:'auto', WebkitOverflowScrolling:'touch', gap:'.5rem', justifyContent:'flex-start', marginBottom:'2rem', paddingBottom:'.25rem' }}>
           {PROMOS.map((p, i) => (
@@ -97,6 +113,47 @@ export default function MenuPromo() {
           </button>
         </div>
       </div>
+
+      {/* Modal Carta Promo */}
+      {showPromo && (
+        <div onClick={() => { setShowPromo(false); setZoom(1) }} style={{
+          position:'fixed', inset:0, zIndex:500,
+          background:'rgba(0,0,0,.92)',
+          display:'flex', alignItems:'center', justifyContent:'center',
+          padding:'1rem', cursor:'zoom-out',
+        }}>
+          <div onClick={e => e.stopPropagation()} style={{ position:'relative', maxWidth:'600px', width:'100%', maxHeight:'90dvh' }}>
+
+            {/* Controles */}
+            <div style={{ position:'absolute', top:'-2.5rem', left:0, display:'flex', gap:'.5rem' }}>
+              <button onClick={() => setZoom(z => Math.min(z+1,3))} disabled={zoom>=3}
+                style={{ background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)', color:'#fff', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'1rem', cursor: zoom>=3?'not-allowed':'pointer', opacity: zoom>=3?.4:1, fontWeight:700 }}>🔍+</button>
+              <button onClick={() => setZoom(z => Math.max(z-1,1))} disabled={zoom<=1}
+                style={{ background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)', color:'#fff', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'1rem', cursor: zoom<=1?'not-allowed':'pointer', opacity: zoom<=1?.4:1, fontWeight:700 }}>🔍-</button>
+              <span style={{ background:'rgba(0,0,0,.5)', color:'rgba(255,255,255,.6)', borderRadius:'.5rem', padding:'.4rem .75rem', fontSize:'.8rem', display:'flex', alignItems:'center' }}>{zoom}x</span>
+            </div>
+
+            {/* Botón cerrar */}
+            <button onClick={() => { setShowPromo(false); setZoom(1) }} style={{
+              position:'absolute', top:'-2.5rem', right:0,
+              background:'rgba(41,90,158,.2)', border:'1px solid rgba(41,90,158,.4)',
+              color:'#fff', borderRadius:'.5rem', padding:'.4rem .9rem',
+              fontSize:'.85rem', fontWeight:600, cursor:'pointer', fontFamily:'var(--font-body)',
+            }}>✕ Cerrar</button>
+
+            {/* Imagen con zoom */}
+            <div style={{ overflow: zoom>1?'auto':'hidden', maxHeight:'90dvh', borderRadius:'var(--radius-lg)', cursor: zoom<3?'zoom-in':'zoom-out' }}
+              onClick={() => setZoom(z => z<3 ? z+1 : 1)}>
+              <img
+                src="https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images/menu_promo.jpeg"
+                alt="Carta Promo Litros & Litros"
+                style={{ width: zoom===1?'100%':`${zoom*100}%`, display:'block', transition:'width .3s ease', userSelect:'none' }}
+                draggable={false}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
