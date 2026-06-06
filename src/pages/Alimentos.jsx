@@ -4,7 +4,7 @@ const BASE = 'https://cdsisztvqtritdillnax.supabase.co/storage/v1/object/public/
 
 function HeroImg({ src, titulo }) {
   return (
-    <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', minHeight:'clamp(220px, 45vh, 420px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+    <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
       <img src={src} alt={titulo}
         style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
       <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.2) 0%, rgba(17,24,39,.88) 100%)' }} />

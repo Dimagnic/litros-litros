@@ -155,7 +155,7 @@ export default function Home() {
   return (
     <>
       {/* ── HERO ── */}
-      <section style={{ minHeight:'100dvh', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden', padding:'2rem 0' }}>
+      <section style={{ height:'calc(100dvh - 80px)', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden' }}>
         <div style={{ position:'absolute', inset:0, zIndex:0 }}>
           <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
           <div style={{ position:'absolute', inset:0, background:'rgba(17,24,39,.78)' }} />

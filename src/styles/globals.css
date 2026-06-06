@@ -1,6 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
+  --header-h: 80px;      /* Altura del header sticky */
+  --hero-h:   calc(100dvh - var(--header-h)); /* Hero = viewport - header */
   --bg:       #111827;
   --card:     #1a2537;
   --card2:    #1e2d42;
@@ -268,4 +270,35 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   max-width: 36rem;
   margin: 0 auto 2rem;
   line-height: var(--lh-loose);
+}
+
+/* ── HERO DE PÁGINA — altura estandarizada ── */
+.page-hero {
+  position: relative;
+  height: var(--hero-h);          /* calc(100dvh - 80px) */
+  overflow: hidden;
+  background: #0a0f19;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-hero img.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.page-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(17,24,39,.2) 0%, rgba(17,24,39,.85) 100%);
+}
+.page-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1.5rem;
+  width: 100%;
 }
