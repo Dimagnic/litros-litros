@@ -58,8 +58,8 @@ export default function Footer() {
 
   return (
     <footer style={{
-      background:'linear-gradient(135deg, #060e1e 0%, #0b1628 50%, #071020 100%)',
-      borderTop:'2px solid rgba(41,90,158,.4)',
+      background:'linear-gradient(135deg, #080410 0%, #0a0612 50%, #060310 100%)',
+      borderTop:'2px solid rgba(180,30,10,.4)',
       padding:'2.5rem 0 1.5rem',
       position:'relative',
       overflow:'hidden',
@@ -67,7 +67,7 @@ export default function Footer() {
       {/* Acento azul sutil en la parte superior */}
       <div style={{ position:'absolute', top:0, left:0, right:0, height:'3px', background:'linear-gradient(to right, transparent, #295A9E, #3a7bd5, #295A9E, transparent)' }} />
       {/* Halo decorativo */}
-      <div style={{ position:'absolute', top:'-60px', left:'50%', transform:'translateX(-50%)', width:'600px', height:'120px', background:'radial-gradient(ellipse, rgba(41,90,158,.12) 0%, transparent 70%)', pointerEvents:'none' }} />
+      <div style={{ position:'absolute', top:'-60px', left:'50%', transform:'translateX(-50%)', width:'600px', height:'120px', background:'radial-gradient(ellipse, rgba(180,30,10,.12) 0%, transparent 70%)', pointerEvents:'none' }} />
       <div className="container">
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(160px,1fr))', gap:'1.5rem', marginBottom:'2rem' }}>
 
@@ -132,7 +132,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div style={{ borderTop:'1px solid rgba(41,90,158,.15)', paddingTop:'1.25rem', textAlign:'center', fontSize:'.78rem', color:'rgba(234,234,234,.25)' }}>
+        <div style={{ borderTop:'1px solid rgba(180,30,10,.15)', paddingTop:'1.25rem', textAlign:'center', fontSize:'.78rem', color:'rgba(234,234,234,.25)' }}>
           {f.copyright || '© Litros & Litros Karaoke Bar — Todos los derechos reservados.'}
         </div>
       </div>
@@ -140,5 +140,5 @@ export default function Footer() {
   )
 }
 
-const labelStyle = { fontSize:'.72rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:'rgba(41,90,158,.9)', marginBottom:'.75rem' }
+const labelStyle = { fontSize:'.72rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'.08em', color:'rgba(180,30,10,.9)', marginBottom:'.75rem' }
 const linkStyle  = { fontSize:'.85rem', color:'rgba(234,234,234,.55)', lineHeight:1.7 }

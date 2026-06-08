@@ -12,13 +12,13 @@ export default function Hamburguesa() {
   const extras = p.extras?.length > 0 ? p.extras : ['Papas onduladas','Aderezo de la casa']
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
 
       {/* Imagen grande */}
-      <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <img src={p.img || `${BASE}/hamburguesa.jpeg`} alt="Hamburguesa"
           style={{ width:'100%', height:'100%', position:'absolute', inset:0, objectFit:'cover', objectPosition:'center' }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(11,18,40,.45) 0%, rgba(11,18,40,.92) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(10,4,15,.45) 0%, rgba(10,4,15,.92) 100%)' }} />
         <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center' }}>
           <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
             HAMBURGUESAS
@@ -35,7 +35,7 @@ export default function Hamburguesa() {
           </h3>
           <div style={{ display:'flex', flexDirection:'column', gap:'.15rem' }}>
             {ingredientes.map((ing, i) => (
-              <div key={i} style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.4rem 0', borderBottom: i < ingredientes.length-1 ? '1px solid rgba(41,90,158,.1)' : 'none' }}>
+              <div key={i} style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.4rem 0', borderBottom: i < ingredientes.length-1 ? '1px solid rgba(180,30,10,.1)' : 'none' }}>
                 <span style={{ width:'6px', height:'6px', borderRadius:'50%', background:'var(--primary)', flexShrink:0 }}/>
                 <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{ing}</span>
               </div>
@@ -47,7 +47,7 @@ export default function Hamburguesa() {
         <hr className="separator" />
 
         {/* Incluye */}
-        <div style={{ background:'var(--card)', border:'1px solid rgba(41,90,158,.35)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
+        <div style={{ background:'var(--card)', border:'1px solid rgba(180,30,10,.35)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
           <h3 style={{ fontFamily:'var(--font-body)', fontSize:'var(--text-caption)', fontWeight:'var(--fw-bold)', textTransform:'uppercase', letterSpacing:'var(--ls-wider)', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
             Incluye
           </h3>

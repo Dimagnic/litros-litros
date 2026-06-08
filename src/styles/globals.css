@@ -3,17 +3,18 @@
 :root {
   --header-h: 80px;      /* Altura del header sticky */
   --hero-h:   calc(100dvh - var(--header-h)); /* Hero = viewport - header */
-  --bg:       #111827;
-  --card:     #1a2537;
-  --card2:    #1e2d42;
+  --bg:       #0d0810;
+  --card:     #160d1a;
+  --card2:    #1e1025;
   --fg:       #FFFFFF;
   --fg-muted: #EAEAEA;
-  --fg-dim:   #9ca3af;
-  --border:   rgba(41,90,158,.25);
-  --border-s: rgba(41,90,158,.5);
-  --primary:  #295A9E;
-  --primary-d:#1B3F6B;
-  --primary-l:#3a7bd5;
+  --fg-dim:   #b09ab8;
+  --border:   rgba(200,50,30,.2);
+  --border-s: rgba(220,80,30,.45);
+  --primary:  #c0202a;
+  --primary-d:#8a1018;
+  --primary-l:#e84030;
+  --neon:     rgba(220,80,20,.6);
   --radius:   0.75rem;
   --radius-lg:1rem;
   --font-head:'Outfit', sans-serif;
@@ -373,3 +374,19 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   background: linear-gradient(to right, transparent, rgba(41,90,158,.4), transparent);
   margin: 0;
 }
+
+/* ══════════════════════════════════════════════
+   PALETA NEÓN — colores del logo
+   ══════════════════════════════════════════════ */
+
+/* Secciones con tono oscuro morado/negro */
+.sec-a { background: #0d0810; border-top: 1px solid rgba(200,50,30,.15); border-bottom: 1px solid rgba(200,50,30,.15); }
+.sec-b { background: #130a18; border-top: 1px solid rgba(180,40,20,.2); border-bottom: 1px solid rgba(180,40,20,.2); position: relative; }
+.sec-b::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%, rgba(180,30,10,.06) 0%, transparent 60%); pointer-events:none; }
+.sec-c { background: #0a0612; border-top: 1px solid rgba(150,30,20,.2); border-bottom: 1px solid rgba(150,30,20,.2); }
+
+/* Acento section-title */
+.section-accent { width:3rem; height:3px; background:linear-gradient(to right,#c0202a,#e84030); border-radius:999px; }
+
+/* Divisor neón */
+.section-divider { height:1px; background:linear-gradient(to right, transparent, rgba(200,50,30,.4), transparent); margin:0; }

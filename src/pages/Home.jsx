@@ -32,7 +32,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
   }, [paused, total])
 
   return (
-    <section style={{ padding:'4rem 0', overflow:'hidden', background:'#111d30', borderTop:'1px solid rgba(41,90,158,.12)', borderBottom:'1px solid rgba(41,90,158,.12)' }}>
+    <section style={{ padding:'4rem 0', overflow:'hidden', background:'#130a18', borderTop:'1px solid rgba(180,30,10,.12)', borderBottom:'1px solid rgba(180,30,10,.12)' }}>
       <div className="container" style={{ textAlign:'center', marginBottom:'2rem' }}>
         <h2 className="section-title">{titulo || 'GALERÍA'}</h2>
         <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
@@ -50,7 +50,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
         {/* Imagen principal — contain para mostrar completa sin recortar */}
         <div style={{
           position:'relative', borderRadius:'var(--radius-lg)', overflow:'hidden',
-          background:'rgba(10,15,25,.95)',
+          background:'rgba(8,3,12,.95)',
           height:'clamp(220px, 42vh, 520px)',
         }}>
           {imgs.map((src, i) => (
@@ -77,7 +77,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
             display:'flex', alignItems:'center', justifyContent:'center',
             cursor:'pointer', fontSize:'1.3rem', transition:'all .2s', backdropFilter:'blur(6px)',
           }}
-            onMouseEnter={e => e.currentTarget.style.background='rgba(41,90,158,.8)'}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(180,30,10,.8)'}
             onMouseLeave={e => e.currentTarget.style.background='rgba(0,0,0,.55)'}
           >‹</button>
 
@@ -89,7 +89,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
             display:'flex', alignItems:'center', justifyContent:'center',
             cursor:'pointer', fontSize:'1.3rem', transition:'all .2s', backdropFilter:'blur(6px)',
           }}
-            onMouseEnter={e => e.currentTarget.style.background='rgba(41,90,158,.8)'}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(180,30,10,.8)'}
             onMouseLeave={e => e.currentTarget.style.background='rgba(0,0,0,.55)'}
           >›</button>
 
@@ -128,9 +128,9 @@ function Galeria({ imgs, titulo, subtitulo }) {
             <button key={i} onClick={() => goTo(i)} style={{
               flexShrink:0, width:'5.5rem', height:'3.75rem', borderRadius:'.5rem',
               overflow:'hidden',
-              border:`2px solid ${i === current ? 'var(--primary)' : 'rgba(41,90,158,.2)'}`,
+              border:`2px solid ${i === current ? 'var(--primary)' : 'rgba(180,30,10,.2)'}`,
               cursor:'pointer', padding:0, transition:'border-color .3s',
-              background:'rgba(10,15,25,.9)',
+              background:'rgba(8,3,12,.9)',
             }}>
               <img src={src} alt="" loading="lazy" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
             </button>
@@ -158,8 +158,8 @@ export default function Home() {
       <section style={{ height:'calc(100dvh - 80px)', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden' }}>
         <div style={{ position:'absolute', inset:0, zIndex:0 }}>
           <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(5,10,40,.35) 0%, rgba(10,20,60,.55) 40%, rgba(5,10,30,.88) 100%)' }} />
-          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(41,90,158,.2) 0%, transparent 65%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(8,3,12,.35) 0%, rgba(10,20,60,.55) 40%, rgba(5,10,30,.88) 100%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(180,30,10,.2) 0%, transparent 65%)' }} />
         </div>
 
         <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem clamp(2.5rem, 6vh, 4rem)', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.65rem, 1.8vh, 1.1rem)' }}>
@@ -170,7 +170,7 @@ export default function Home() {
           </h1>
           <p style={{ fontSize:'clamp(1rem,2.2vw,1.15rem)', color:'rgba(234,234,234,.9)', lineHeight:1.75, maxWidth:'34rem',
             borderLeft:'3px solid var(--primary)', paddingLeft:'1.1rem', textAlign:'left',
-            background:'rgba(17,24,39,.5)', borderRadius:'0 .5rem .5rem 0', padding:'.9rem 1.1rem' }}>
+            background:'rgba(10,5,15,.5)', borderRadius:'0 .5rem .5rem 0', padding:'.9rem 1.1rem' }}>
             "{h.frase || 'EL LUGAR DONDE SE OYE LA MÚSICA, EL SERVICIO Y LAS AMISTADES PARA PASAR UN EXCELENTE MOMENTO'}"
           </p>
 
@@ -198,9 +198,9 @@ export default function Home() {
       </div>
 
       {/* ── HORARIO ── */}
-      <section style={{ padding:'3.5rem 0', background:'#0a1628', borderTop:'1px solid rgba(27,63,107,.3)', borderBottom:'1px solid rgba(27,63,107,.3)' }}>
+      <section style={{ padding:'3.5rem 0', background:'#0a0612', borderTop:'1px solid rgba(140,20,8,.3)', borderBottom:'1px solid rgba(140,20,8,.3)' }}>
         <div className="container">
-          <div style={{ maxWidth:'580px', margin:'0 auto', border:'1px solid rgba(41,90,158,.35)', borderRadius:'var(--radius-lg)', padding:'2.5rem', background:'rgba(26,37,55,.6)', textAlign:'center' }}>
+          <div style={{ maxWidth:'580px', margin:'0 auto', border:'1px solid rgba(180,30,10,.35)', borderRadius:'var(--radius-lg)', padding:'2.5rem', background:'rgba(26,37,55,.6)', textAlign:'center' }}>
             <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-black)', color:'var(--primary-l)', letterSpacing:'var(--ls-wider)', marginBottom:'1.5rem', textTransform:'uppercase' }}>
               HORARIO
             </h2>
@@ -218,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* ── ¿POR QUÉ ELEGIRNOS? ── */}
-      <section style={{ padding:'4rem 0', background:'#0d1520', borderTop:'1px solid rgba(41,90,158,.12)' }}>
+      <section style={{ padding:'4rem 0', background:'#0d0810', borderTop:'1px solid rgba(180,30,10,.12)' }}>
         <div className="container" style={{ textAlign:'center' }}>
           <h2 className="t-section-title" style={{ marginBottom:'.5rem' }}>¿POR QUÉ ELEGIRNOS?</h2>
           <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
@@ -232,7 +232,7 @@ export default function Home() {
               { icon:'🏠', label:'CABINA' },
             ].map((s, i) => (
               <div key={i} style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:'var(--radius-lg)', padding:'1.75rem 1rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'.65rem', transition:'all .3s' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(41,90,158,.6)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(41,90,158,.2)' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(180,30,10,.6)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(180,30,10,.2)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='' }}
               >
                 <span style={{ fontSize:'2rem' }}>{s.icon}</span>

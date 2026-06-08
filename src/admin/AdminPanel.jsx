@@ -3,7 +3,7 @@ import { useCMS } from '@/context/CMSContext'
 import { useAuth } from '@/context/AuthContext'
 import { saveCMSSection, uploadImage } from '@/services/adminService'
 
-const C = { bg:'#0d1520', card:'#141f30', card2:'#1a2537', bdr:'rgba(41,90,158,.25)', bdrs:'rgba(41,90,158,.5)', pri:'#295A9E', pril:'#3a7bd5', fg:'#fff', fgm:'rgba(234,234,234,.65)', fgd:'rgba(234,234,234,.35)' }
+const C = { bg:'#0d0810', card:'#160d1a', card2:'#1e1025', bdr:'rgba(180,40,20,.25)', bdrs:'rgba(220,60,30,.5)', pri:'#c0202a', pril:'#e84030', fg:'#fff', fgm:'rgba(234,234,234,.65)', fgd:'rgba(234,234,234,.35)' }
 const INP = { width:'100%', background:C.card2, border:`1px solid ${C.bdr}`, borderRadius:'.5rem', padding:'.65rem .9rem', color:C.fg, fontSize:'.88rem', fontFamily:'var(--font-body)', outline:'none' }
 const TA  = { ...INP, minHeight:'4.5rem', resize:'vertical' }
 

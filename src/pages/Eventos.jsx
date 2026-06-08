@@ -26,13 +26,13 @@ export default function Eventos() {
   ]
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
 
       {/* Imagen principal */}
-      <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <img src={ev['puerta-cerrada']?.img || `${BASE}/open_mind.jpeg`} alt="Eventos"
           style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(17,24,39,.3) 0%, rgba(17,24,39,.9) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(10,5,15,.3) 0%, rgba(10,5,15,.9) 100%)' }} />
         <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
           <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
             EVENTOS ESPECIALES
@@ -47,7 +47,7 @@ export default function Eventos() {
           {ITEMS.map((item, i) => {
             const data = ev[item.key] || {}
             return (
-              <div key={item.key} style={{ display:'flex', gap:'1rem', padding:'1rem 0', borderBottom: i < ITEMS.length-1 ? '1px solid rgba(41,90,158,.12)' : 'none' }}>
+              <div key={item.key} style={{ display:'flex', gap:'1rem', padding:'1rem 0', borderBottom: i < ITEMS.length-1 ? '1px solid rgba(180,30,10,.12)' : 'none' }}>
                 <span style={{ color:'var(--primary-l)', fontWeight:900, fontSize:'1.2rem', flexShrink:0, marginTop:'.05rem' }}>►</span>
                 <div>
                   <h3 style={{ fontFamily:'var(--font-head)', fontWeight:'var(--fw-bold)', fontSize:'var(--text-h3)', color:'#fff', marginBottom:'.25rem' }}>
@@ -71,20 +71,20 @@ export default function Eventos() {
         <hr className="separator" />
 
         {/* CUMPLEAÑOS */}
-        <div style={{ background:'var(--card)', border:'1px solid rgba(41,90,158,.4)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
+        <div style={{ background:'var(--card)', border:'1px solid rgba(180,30,10,.4)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
           <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h2)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', marginBottom:'1.5rem', textAlign:'center' }}>
             CUMPLEAÑOS
           </h2>
           <div style={{ display:'flex', flexDirection:'column', gap:'.15rem' }}>
             {checks.map((item, i) => (
-              <div key={i} style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.5rem 0', borderBottom: i < checks.length-1 ? '1px solid rgba(41,90,158,.1)' : 'none' }}>
+              <div key={i} style={{ display:'flex', alignItems:'center', gap:'.75rem', padding:'.5rem 0', borderBottom: i < checks.length-1 ? '1px solid rgba(180,30,10,.1)' : 'none' }}>
                 <span style={{ color:'#22c55e', fontWeight:800, fontSize:'1.1rem', flexShrink:0 }}>✓</span>
                 <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{item}</span>
               </div>
             ))}
           </div>
           {cu.nota && (
-            <div style={{ marginTop:'1.25rem', padding:'.85rem 1rem', borderRadius:'.5rem', background:'rgba(41,90,158,.1)', border:'1px solid rgba(41,90,158,.2)', fontSize:'.88rem', color:'rgba(234,234,234,.6)', lineHeight:1.65 }}>
+            <div style={{ marginTop:'1.25rem', padding:'.85rem 1rem', borderRadius:'.5rem', background:'rgba(180,30,10,.1)', border:'1px solid rgba(180,30,10,.2)', fontSize:'.88rem', color:'rgba(234,234,234,.6)', lineHeight:1.65 }}>
               {cu.nota}
             </div>
           )}

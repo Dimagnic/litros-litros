@@ -37,9 +37,9 @@ export default function Header() {
   return (
     <header style={{
       position:'fixed', top:0, left:0, right:0, zIndex:100, height:'80px',
-      background: `rgba(17,24,39,${bgOpacity})`,
+      background: `rgba(10,5,15,${bgOpacity})`,
       backdropFilter: scrollY > 20 ? 'blur(8px)' : 'blur(20px)',
-      borderBottom:`1px solid rgba(41,90,158,${bgOpacity * 0.5})`,
+      borderBottom:`1px solid rgba(180,30,10,${bgOpacity * 0.5})`,
       transition:'background .4s ease, border-color .4s ease',
     }}>
       <div className="container" style={{ height:'100%', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
@@ -54,7 +54,7 @@ export default function Header() {
         <nav className="desk-nav" style={{ display:'flex', alignItems:'center', gap:'.25rem' }}>
           {NAV.map(n => (
             <button key={n.path} onClick={() => go(n.path)} style={{ padding:'.5rem 1rem', borderRadius:'.5rem', fontSize:'.88rem', fontWeight: active(n.path) ? 700 : 500, color: active(n.path) ? '#fff' : 'rgba(234,234,234,.7)', background: active(n.path) ? '#295A9E' : 'transparent', border:'none', cursor:'pointer', transition:'all .2s', fontFamily:'var(--font-body)' }}
-              onMouseEnter={e => { if(!active(n.path)){e.currentTarget.style.background='rgba(41,90,158,.15)';e.currentTarget.style.color='#fff'}}}
+              onMouseEnter={e => { if(!active(n.path)){e.currentTarget.style.background='rgba(180,30,10,.15)';e.currentTarget.style.color='#fff'}}}
               onMouseLeave={e => { if(!active(n.path)){e.currentTarget.style.background='transparent';e.currentTarget.style.color='rgba(234,234,234,.7)'}}}
             >{n.label}</button>
           ))}
@@ -66,7 +66,7 @@ export default function Header() {
               {mobileOpen ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></>}
             </svg>
           </button>
-          <button onClick={() => isAdmin ? setAdminPanelOpen(true) : openAdmin()} style={{ background: isAdmin ? 'rgba(41,90,158,.2)' : 'none', border:'1px solid rgba(41,90,158,.4)', color: isAdmin ? '#fff' : 'rgba(234,234,234,.4)', borderRadius:'.5rem', padding:'.35rem .7rem', fontSize:'.75rem', fontWeight:600, cursor:'pointer', fontFamily:'var(--font-body)' }}>
+          <button onClick={() => isAdmin ? setAdminPanelOpen(true) : openAdmin()} style={{ background: isAdmin ? 'rgba(180,30,10,.2)' : 'none', border:'1px solid rgba(180,30,10,.4)', color: isAdmin ? '#fff' : 'rgba(234,234,234,.4)', borderRadius:'.5rem', padding:'.35rem .7rem', fontSize:'.75rem', fontWeight:600, cursor:'pointer', fontFamily:'var(--font-body)' }}>
             🔒 {isAdmin ? 'Panel' : 'Admin'}
           </button>
           {isAdmin && <button onClick={signOut} style={{ background:'none', border:'1px solid rgba(255,255,255,.1)', color:'rgba(234,234,234,.4)', borderRadius:'.5rem', padding:'.35rem .6rem', fontSize:'.75rem', cursor:'pointer' }}>Salir</button>}
@@ -74,7 +74,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div style={{ padding:'1rem', borderTop:'1px solid rgba(41,90,158,.2)', background:'#111827', display:'flex', flexDirection:'column', gap:'.35rem' }}>
+        <div style={{ padding:'1rem', borderTop:'1px solid rgba(180,30,10,.2)', background:'#0d0810', display:'flex', flexDirection:'column', gap:'.35rem' }}>
           {NAV.map(n => (
             <button key={n.path} onClick={() => go(n.path)} style={{ padding:'.75rem 1rem', borderRadius:'.5rem', fontSize:'.95rem', fontWeight: active(n.path) ? 700 : 500, color: active(n.path) ? '#fff' : 'rgba(234,234,234,.75)', background: active(n.path) ? '#295A9E' : 'transparent', border:'none', cursor:'pointer', textAlign:'left' }}>{n.label}</button>
           ))}

@@ -4,10 +4,10 @@ const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/
 
 function HeroImg({ src, titulo }) {
   return (
-    <div style={{ position:'relative', background:'#0a0f19', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+    <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
       <img src={src} alt={titulo}
         style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-      <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(11,18,40,.45) 0%, rgba(11,18,40,.92) 100%)' }} />
+      <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(10,4,15,.45) 0%, rgba(10,4,15,.92) 100%)' }} />
       <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
         <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
           {titulo}
@@ -22,7 +22,7 @@ function Platillo({ img, titulo, children }) {
     <div style={{ marginBottom:'4rem' }}>
       <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', aspectRatio:'16/9', position:'relative' }}>
         <img src={img} alt={titulo} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block' }} />
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, transparent 50%, rgba(17,24,39,.9) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, transparent 50%, rgba(10,5,15,.9) 100%)' }} />
         <h2 style={{ position:'absolute', bottom:'1.25rem', left:'1.5rem',
           fontFamily:'var(--font-head)', fontSize:'var(--text-h2)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff' }}>
           {titulo}
@@ -35,7 +35,7 @@ function Platillo({ img, titulo, children }) {
 
 function Bullet({ children }) {
   return (
-    <div style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.3rem 0', borderBottom:'1px solid rgba(41,90,158,.1)' }}>
+    <div style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.3rem 0', borderBottom:'1px solid rgba(180,30,10,.1)' }}>
       <span style={{ width:'6px', height:'6px', borderRadius:'50%', background:'var(--primary)', flexShrink:0 }}/>
       <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{children}</span>
     </div>
@@ -61,7 +61,7 @@ export default function Alimentos() {
   const heroTitulo = al.tituloPrincipal || 'ALIMENTOS'
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d1520' }}>
+    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
 
       {/* ── IMAGEN PRINCIPAL (editable desde CMS) ── */}
       <HeroImg src={heroImg} titulo={heroTitulo} />
