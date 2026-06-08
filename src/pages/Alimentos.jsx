@@ -26,10 +26,6 @@ function Platillo({ img, titulo, children }) {
     <div style={{ marginBottom:'3rem', padding:'2rem 0', borderBottom:'1px solid rgba(180,40,20,.1)' }}>
       <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', aspectRatio:'16/9', position:'relative', boxShadow:'0 0 30px rgba(180,20,10,.15)' }}>
         <img src={img} alt={titulo} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block' }} />
-        
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(160,50,0,.5) 0%, rgba(100,20,0,.4) 35%, rgba(8,4,25,.88) 100%)' }} />
-        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 65%, rgba(15,50,160,.5) 0%, rgba(8,25,90,.25) 40%, transparent 65%)' }} />
-        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 25%, rgba(200,80,10,.35) 0%, transparent 50%)' }} />
         <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 15% 85%, rgba(180,50,0,.2) 0%, transparent 35%), radial-gradient(ellipse at 85% 85%, rgba(140,10,70,.15) 0%, transparent 35%)' }} />
         <h2 style={{ position:'absolute', bottom:'1.25rem', left:'1.5rem',
           fontFamily:'var(--font-head)', fontSize:'var(--text-h2)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff' }}>
