@@ -157,35 +157,63 @@ export default function Home() {
       {/* ── HERO ── */}
       <section style={{ height:'calc(100dvh - 80px)', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden' }}>
         <div style={{ position:'absolute', inset:0, zIndex:0 }}>
-          <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(8,3,12,.35) 0%, rgba(10,20,60,.55) 40%, rgba(5,10,30,.88) 100%)' }} />
-          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(180,30,10,.2) 0%, transparent 65%)' }} />
+          <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', filter:'saturate(1.4) contrast(1.1) brightness(0.75)' }} />
+          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(160,50,0,.5) 0%, rgba(100,20,0,.4) 35%, rgba(8,4,25,.88) 100%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 65%, rgba(15,50,160,.5) 0%, rgba(8,25,90,.25) 40%, transparent 65%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 25%, rgba(200,80,10,.35) 0%, transparent 50%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 15% 85%, rgba(180,50,0,.2) 0%, transparent 35%), radial-gradient(ellipse at 85% 85%, rgba(140,10,70,.15) 0%, transparent 35%)' }} />
         </div>
 
-        <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem clamp(2.5rem, 6vh, 4rem)', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.65rem, 1.8vh, 1.1rem)' }}>
-          <img src={h.logo} alt="Litros & Litros" className="neon-glow"
-            style={{ width:'6rem', height:'6rem', borderRadius:'1rem', objectFit:'cover', marginTop:'clamp(2rem, 5vh, 4rem)' }} />
-          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-hero)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', lineHeight:'var(--lh-tight)', background:'linear-gradient(135deg, #fff 0%, #ffcccc 60%, #ff6644 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter:'drop-shadow(0 2px 12px rgba(220,50,20,.4))' }}>
+        <div className="animate-fade-up" style={{ position:'relative', zIndex:2, width:'100%', maxWidth:'480px', padding:'clamp(1.5rem, 4vh, 2.5rem) 1.5rem clamp(2rem, 5vh, 3.5rem)', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.75rem, 2vh, 1.25rem)' }}>
+
+          {/* Logo grande y redondo con anillo neón */}
+          <div style={{ position:'relative', marginTop:'clamp(1rem, 3vh, 2rem)' }}>
+            {/* Anillo neón exterior */}
+            <div style={{
+              position:'absolute', inset:'-12px',
+              borderRadius:'50%',
+              border:'3px solid transparent',
+              background:'linear-gradient(135deg, #ff4500, #ff8c00, #ff4500) border-box',
+              WebkitMask:'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+              WebkitMaskComposite:'destination-out',
+              boxShadow:'0 0 25px rgba(255,80,0,.7), 0 0 50px rgba(255,60,0,.4), inset 0 0 25px rgba(255,80,0,.1)',
+              animation:'ringPulse 2.5s ease-in-out infinite',
+            }} />
+            {/* Halo de brillo */}
+            <div style={{ position:'absolute', inset:'-20px', borderRadius:'50%', background:'radial-gradient(circle, rgba(255,80,0,.15) 0%, transparent 70%)', animation:'ringPulse 2.5s ease-in-out infinite' }} />
+            <img src={h.logo} alt="Litros & Litros"
+              style={{ width:'clamp(7rem, 18vw, 9rem)', height:'clamp(7rem, 18vw, 9rem)', borderRadius:'50%', objectFit:'cover', border:'3px solid rgba(255,80,0,.6)', boxShadow:'0 0 30px rgba(255,60,0,.5), 0 0 60px rgba(200,40,0,.3)', position:'relative', zIndex:1 }} />
+          </div>
+
+          {/* Título */}
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'clamp(2.2rem, 7vw, 3.5rem)', fontWeight:900, letterSpacing:'-.02em', lineHeight:1.05, color:'#fff', textShadow:'0 0 20px rgba(255,80,0,.5), 0 2px 8px rgba(0,0,0,.8)', marginTop:'.25rem' }}>
             Litros & Litros
           </h1>
-          <p style={{ fontSize:'clamp(1rem,2.2vw,1.15rem)', color:'rgba(234,234,234,.9)', lineHeight:1.75, maxWidth:'34rem',
-            borderLeft:'3px solid var(--primary)', paddingLeft:'1.1rem', textAlign:'left',
-            background:'rgba(10,5,15,.5)', borderRadius:'0 .5rem .5rem 0', padding:'.9rem 1.1rem' }}>
+
+          {/* Párrafo centrado */}
+          <p style={{
+            fontSize:'clamp(.85rem, 2vw, 1rem)', color:'rgba(255,255,255,.88)',
+            lineHeight:1.8, textAlign:'center', maxWidth:'36rem',
+            background:'rgba(0,0,0,.45)', backdropFilter:'blur(8px)',
+            borderRadius:'.75rem', padding:'.9rem 1.25rem',
+            border:'1px solid rgba(255,80,0,.2)',
+            textShadow:'0 1px 3px rgba(0,0,0,.8)',
+          }}>
             "{h.frase || 'EL LUGAR DONDE SE OYE LA MÚSICA, EL SERVICIO Y LAS AMISTADES PARA PASAR UN EXCELENTE MOMENTO'}"
           </p>
 
-          {/* 4 botones — Galería entre Ver Carta y Reservar */}
-          <div style={{ display:'flex', flexDirection:'column', gap:'.85rem', width:'100%', maxWidth:'min(22rem, 90vw)' }}>
-            <button className="btn btn-primary" onClick={() => go('/menu-promo')}>
+          {/* Botones */}
+          <div style={{ display:'flex', flexDirection:'column', gap:'.75rem', width:'100%', maxWidth:'min(24rem, 92vw)', marginTop:'.25rem' }}>
+            <button className="btn btn-primary" onClick={() => go('/menu-promo')} style={{ borderRadius:'999px', fontSize:'clamp(.88rem,2vw,1rem)', fontWeight:800, letterSpacing:'.04em' }}>
               🎉 {h.btn1 || 'VER MENÚ PROMO'}
             </button>
-            <button className="btn btn-outline" onClick={() => go('/carta')}>
+            <button className="btn btn-outline" onClick={() => go('/carta')} style={{ borderRadius:'999px', fontSize:'clamp(.88rem,2vw,1rem)', fontWeight:700 }}>
               🍹 {h.btn2 || 'VER CARTA'}
             </button>
-            <button className="btn btn-outline" onClick={scrollToGaleria}>
+            <button className="btn btn-outline" onClick={scrollToGaleria} style={{ borderRadius:'999px', fontSize:'clamp(.88rem,2vw,1rem)', fontWeight:700 }}>
               📷 GALERÍA
             </button>
-            <button className="btn btn-outline" onClick={() => go('/reserva')}>
+            <button className="btn btn-outline" onClick={() => go('/reserva')} style={{ borderRadius:'999px', fontSize:'clamp(.88rem,2vw,1rem)', fontWeight:700 }}>
               📅 {h.btn3 || 'RESERVAR'}
             </button>
           </div>
