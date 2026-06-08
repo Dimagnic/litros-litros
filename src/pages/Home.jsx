@@ -158,15 +158,14 @@ export default function Home() {
       <section style={{ height:'calc(100dvh - 80px)', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', overflow:'hidden' }}>
         <div style={{ position:'absolute', inset:0, zIndex:0 }}>
           <img src={h.bgImg || `${BASE}/1.jpeg`} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
-          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(11,18,40,.45) 0%, rgba(11,18,40,.92) 100%)' }} />
-          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(41,90,158,.35) 0%, transparent 70%)' }} />
-          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(5,10,25,.6) 100%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(5,10,40,.35) 0%, rgba(10,20,60,.55) 40%, rgba(5,10,30,.88) 100%)' }} />
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 40%, rgba(41,90,158,.2) 0%, transparent 65%)' }} />
         </div>
 
         <div className="animate-fade-up" style={{ position:'relative', zIndex:2, maxWidth:'44rem', padding:'clamp(1.5rem, 4vh, 3rem) 1.5rem clamp(2.5rem, 6vh, 4rem)', display:'flex', flexDirection:'column', alignItems:'center', gap:'clamp(.65rem, 1.8vh, 1.1rem)' }}>
           <img src={h.logo} alt="Litros & Litros" className="neon-glow"
             style={{ width:'6rem', height:'6rem', borderRadius:'1rem', objectFit:'cover', marginTop:'clamp(2rem, 5vh, 4rem)' }} />
-          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-hero)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', lineHeight:'var(--lh-tight)', color:'#fff' }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-hero)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', lineHeight:'var(--lh-tight)', background:'linear-gradient(135deg, #fff 0%, #ffcccc 60%, #ff6644 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', filter:'drop-shadow(0 2px 12px rgba(220,50,20,.4))' }}>
             Litros & Litros
           </h1>
           <p style={{ fontSize:'clamp(1rem,2.2vw,1.15rem)', color:'rgba(234,234,234,.9)', lineHeight:1.75, maxWidth:'34rem',
