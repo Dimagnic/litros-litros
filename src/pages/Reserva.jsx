@@ -26,7 +26,7 @@ export default function Reserva() {
   }
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
+    <div style={{ minHeight:'100dvh', background:'linear-gradient(180deg, #0d0810, #130a18)' }}>
       {/* Hero */}
       <div style={{ position:'relative', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
         <img src={r.fotoUrl || `${BASE}/2.jpeg`} alt="Reserva"

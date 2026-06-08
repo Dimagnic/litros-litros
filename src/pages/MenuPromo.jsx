@@ -160,12 +160,12 @@ export default function MenuPromo() {
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))', gap:'1.25rem' }}>
           {PROMOS[activeTab].items.map((item, i) => (
             <div key={i} style={{
-              background:'var(--card)', border:'1px solid var(--border-s)',
+              background:'linear-gradient(135deg, #160d1a, #1e1025)', border:'1px solid rgba(180,40,20,.25)',
               borderRadius:'var(--radius-lg)', padding:'1.75rem',
               display:'flex', flexDirection:'column', gap:'.75rem',
               transition:'all .3s',
             }}
-              onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.boxShadow='0 10px 35px rgba(41,90,158,.25)'; e.currentTarget.style.borderColor='rgba(41,90,158,.7)' }}
+              onMouseEnter={e => { e.currentTarget.style.transform='translateY(-5px)'; e.currentTarget.style.boxShadow='0 10px 35px rgba(180,30,10,.3)'; e.currentTarget.style.borderColor='rgba(220,60,20,.7)' }}
               onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow=''; e.currentTarget.style.borderColor='var(--border-s)' }}
             >
               <div style={{ fontWeight:700, fontSize:'1.05rem', color:'#fff' }}>{item.name}</div>

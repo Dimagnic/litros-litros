@@ -12,7 +12,7 @@ export default function Hamburguesa() {
   const extras = p.extras?.length > 0 ? p.extras : ['Papas onduladas','Aderezo de la casa']
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
+    <div style={{ minHeight:'100dvh', background:'linear-gradient(180deg, #0d0810, #130a18)' }}>
 
       {/* Imagen grande */}
       <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>

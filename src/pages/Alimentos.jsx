@@ -19,8 +19,8 @@ function HeroImg({ src, titulo }) {
 
 function Platillo({ img, titulo, children }) {
   return (
-    <div style={{ marginBottom:'4rem' }}>
-      <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', aspectRatio:'16/9', position:'relative' }}>
+    <div style={{ marginBottom:'3rem', padding:'2rem 0', borderBottom:'1px solid rgba(180,40,20,.1)' }}>
+      <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', aspectRatio:'16/9', position:'relative', boxShadow:'0 0 30px rgba(180,20,10,.15)' }}>
         <img src={img} alt={titulo} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, transparent 50%, rgba(10,5,15,.9) 100%)' }} />
         <h2 style={{ position:'absolute', bottom:'1.25rem', left:'1.5rem',
@@ -28,7 +28,7 @@ function Platillo({ img, titulo, children }) {
           {titulo}
         </h2>
       </div>
-      <div style={{ paddingLeft:'.5rem' }}>{children}</div>
+      <div style={{ paddingLeft:'.5rem', borderLeft:'2px solid rgba(220,60,20,.3)', marginLeft:'.25rem' }}>{children}</div>
     </div>
   )
 }
@@ -61,7 +61,7 @@ export default function Alimentos() {
   const heroTitulo = al.tituloPrincipal || 'ALIMENTOS'
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
+    <div style={{ minHeight:'100dvh', background:'linear-gradient(180deg, #0d0810, #110812)' }}>
 
       {/* ── IMAGEN PRINCIPAL (editable desde CMS) ── */}
       <HeroImg src={heroImg} titulo={heroTitulo} />

@@ -65,7 +65,7 @@ export default function Footer() {
       overflow:'hidden',
     }}>
       {/* Acento azul sutil en la parte superior */}
-      <div style={{ position:'absolute', top:0, left:0, right:0, height:'3px', background:'linear-gradient(to right, transparent, #295A9E, #3a7bd5, #295A9E, transparent)' }} />
+      <div style={{ position:'absolute', top:0, left:0, right:0, height:'3px', background:'linear-gradient(to right, transparent, #c0202a, #e84030, #c0202a, transparent)' }} />
       {/* Halo decorativo */}
       <div style={{ position:'absolute', top:'-60px', left:'50%', transform:'translateX(-50%)', width:'600px', height:'120px', background:'radial-gradient(ellipse, rgba(180,30,10,.12) 0%, transparent 70%)', pointerEvents:'none' }} />
       <div className="container">

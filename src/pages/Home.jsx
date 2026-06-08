@@ -32,7 +32,7 @@ function Galeria({ imgs, titulo, subtitulo }) {
   }, [paused, total])
 
   return (
-    <section style={{ padding:'4rem 0', overflow:'hidden', background:'#130a18', borderTop:'1px solid rgba(180,30,10,.12)', borderBottom:'1px solid rgba(180,30,10,.12)' }}>
+    <section className="particles neon-section" style={{ padding:'4rem 0', overflow:'hidden', background:'#130a18', borderTop:'1px solid rgba(180,30,10,.12)', borderBottom:'1px solid rgba(180,30,10,.12)', position:'relative' }}>
       <div className="container" style={{ textAlign:'center', marginBottom:'2rem' }}>
         <h2 className="section-title">{titulo || 'GALERÍA'}</h2>
         <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
@@ -198,10 +198,10 @@ export default function Home() {
       </div>
 
       {/* ── HORARIO ── */}
-      <section style={{ padding:'3.5rem 0', background:'#0a0612', borderTop:'1px solid rgba(140,20,8,.3)', borderBottom:'1px solid rgba(140,20,8,.3)' }}>
+      <section className="halo-bg neon-section" style={{ padding:'3.5rem 0', background:'linear-gradient(135deg, #0a0612, #120616, #0a0612)', borderTop:'1px solid rgba(140,20,8,.3)', borderBottom:'1px solid rgba(140,20,8,.3)', position:'relative' }}>
         <div className="container">
           <div style={{ maxWidth:'580px', margin:'0 auto', border:'1px solid rgba(180,30,10,.35)', borderRadius:'var(--radius-lg)', padding:'2.5rem', background:'rgba(26,37,55,.6)', textAlign:'center' }}>
-            <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-black)', color:'var(--primary-l)', letterSpacing:'var(--ls-wider)', marginBottom:'1.5rem', textTransform:'uppercase' }}>
+            <h2 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h3)', fontWeight:'var(--fw-black)', color:'#e84030', letterSpacing:'var(--ls-wider)', marginBottom:'1.5rem', textTransform:'uppercase', textShadow:'0 0 15px rgba(220,80,20,.5)' }}>
               HORARIO
             </h2>
             <p style={{ fontSize:'1.3rem', fontWeight:700, color:'#fff', marginBottom:'.65rem' }}>
@@ -218,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* ── ¿POR QUÉ ELEGIRNOS? ── */}
-      <section style={{ padding:'4rem 0', background:'#0d0810', borderTop:'1px solid rgba(180,30,10,.12)' }}>
+      <section className="particles halo-bg" style={{ padding:'4rem 0', background:'linear-gradient(180deg, #0d0810, #130a18)', borderTop:'1px solid rgba(180,30,10,.12)', position:'relative' }}>
         <div className="container" style={{ textAlign:'center' }}>
           <h2 className="t-section-title" style={{ marginBottom:'.5rem' }}>¿POR QUÉ ELEGIRNOS?</h2>
           <div className="section-accent" style={{ margin:'0 auto .75rem' }} />
@@ -231,7 +231,7 @@ export default function Home() {
               { icon:'🎭', label:'SHOWS'  },
               { icon:'🏠', label:'CABINA' },
             ].map((s, i) => (
-              <div key={i} style={{ background:'var(--card)', border:'1px solid var(--border)', borderRadius:'var(--radius-lg)', padding:'1.75rem 1rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'.65rem', transition:'all .3s' }}
+              <div key={i} style={{ background:'linear-gradient(135deg, #160d1a, #1e1025)', border:'1px solid rgba(180,40,20,.2)', borderRadius:'var(--radius-lg)', padding:'1.75rem 1rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'.65rem', transition:'all .3s', position:'relative', overflow:'hidden' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(180,30,10,.6)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(180,30,10,.2)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='' }}
               >

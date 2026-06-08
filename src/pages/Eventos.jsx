@@ -26,7 +26,7 @@ export default function Eventos() {
   ]
 
   return (
-    <div style={{ minHeight:'100dvh', background:'#0d0810' }}>
+    <div style={{ minHeight:'100dvh', background:'linear-gradient(180deg, #0d0810, #110812)' }}>
 
       {/* Imagen principal */}
       <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -43,7 +43,7 @@ export default function Eventos() {
       <div className="container" style={{ padding:'3rem 1.5rem 5rem', maxWidth:'720px' }}>
 
         {/* Eventos con ► */}
-        <div style={{ background:'var(--card)', border:'1px solid var(--border-s)', borderRadius:'var(--radius-lg)', padding:'1.75rem', marginBottom:'1.5rem' }}>
+        <div style={{ background:'linear-gradient(135deg, #160d1a, #1e1025)', border:'1px solid rgba(180,40,20,.25)', borderRadius:'var(--radius-lg)', boxShadow:'0 4px 20px rgba(0,0,0,.3)', padding:'1.75rem', marginBottom:'1.5rem' }}>
           {ITEMS.map((item, i) => {
             const data = ev[item.key] || {}
             return (

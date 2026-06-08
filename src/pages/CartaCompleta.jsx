@@ -149,10 +149,10 @@ export default function CartaCompleta() {
             <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))', gap:'1rem' }}>
               {items.map(item => (
                 <div key={item.id} style={{
-                  background:'var(--card)', border:'1px solid var(--border-s)',
+                  background:'linear-gradient(135deg, #160d1a, #1e1025)', border:'1px solid rgba(180,40,20,.2)',
                   borderRadius:'var(--radius-lg)', padding:'1.25rem', transition:'all .25s',
                 }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(41,90,158,.7)'; e.currentTarget.style.boxShadow='0 4px 20px rgba(41,90,158,.2)' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(220,60,20,.7)'; e.currentTarget.style.boxShadow='0 4px 20px rgba(180,30,10,.25)' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-s)'; e.currentTarget.style.boxShadow='' }}
                 >
                   <div style={{ display:'flex', justifyContent:'space-between', gap:'.5rem', marginBottom:'.75rem' }}>
