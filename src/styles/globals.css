@@ -53,31 +53,47 @@ svg { vertical-align: middle; }
   background: rgba(5,0,0,.35);
   backdrop-filter: blur(10px);
   color: #fff;
-  border: 2px solid #ff5010 !important;
+  border: 2px solid transparent !important;
   border-radius: 999px;
-  box-shadow: 0 0 10px #ff5010, 0 0 22px rgba(255,60,0,.35);
-  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+  border-image: none !important;
   outline: none;
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+  box-shadow:
+    0 -1px 8px rgba(0,160,255,.6),
+    0  1px 8px rgba(0,160,255,.6),
+    0 0 18px rgba(255,70,10,.4),
+    inset 0 0 0 2px #ff5010;
 }
 .btn-primary:hover {
-  background: rgba(255,60,10,.12);
-  box-shadow: 0 0 18px #ff6020, 0 0 40px rgba(255,70,0,.45);
+  background: rgba(255,60,10,.1);
+  box-shadow:
+    0 -2px 14px rgba(0,180,255,.8),
+    0  2px 14px rgba(0,180,255,.8),
+    0 0 28px rgba(255,80,10,.5),
+    inset 0 0 0 2px #ff6520;
 }
 
 .btn-outline {
   background: rgba(5,0,0,.35);
   backdrop-filter: blur(10px);
   color: #fff;
-  border: 2px solid #ff5010;
+  border: 2px solid transparent;
   border-radius: 999px;
-  box-shadow: 0 0 10px #ff5010, 0 0 22px rgba(255,60,0,.35);
-  text-shadow: 0 1px 6px rgba(0,0,0,.8);
   outline: none;
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+  box-shadow:
+    0 -1px 8px rgba(0,160,255,.6),
+    0  1px 8px rgba(0,160,255,.6),
+    0 0 18px rgba(255,70,10,.4),
+    inset 0 0 0 2px #ff5010;
 }
 .btn-outline:hover {
-  background: rgba(255,60,10,.12);
-  border-color: #ff6820;
-  box-shadow: 0 0 18px #ff6020, 0 0 40px rgba(255,70,0,.45);
+  background: rgba(255,60,10,.1);
+  box-shadow:
+    0 -2px 14px rgba(0,180,255,.8),
+    0  2px 14px rgba(0,180,255,.8),
+    0 0 28px rgba(255,80,10,.5),
+    inset 0 0 0 2px #ff6520;
 }
 
 .btn-ghost {
