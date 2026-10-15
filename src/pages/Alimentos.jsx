@@ -1,0 +1,111 @@
+import { useCMS } from '@/context/CMSContext'
+
+const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
+
+function HeroImg({ src, titulo }) {
+  return (
+    <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <img src={src} alt={titulo}
+        style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center' }} />
+      
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(160,50,0,.5) 0%, rgba(100,20,0,.4) 35%, rgba(8,4,25,.88) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 65%, rgba(15,50,160,.5) 0%, rgba(8,25,90,.25) 40%, transparent 65%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 25%, rgba(200,80,10,.35) 0%, transparent 50%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 15% 85%, rgba(180,50,0,.2) 0%, transparent 35%), radial-gradient(ellipse at 85% 85%, rgba(140,10,70,.15) 0%, transparent 35%)' }} />
+        <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center', padding:'0 1.5rem' }}>
+        <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
+          {titulo}
+        </h1>
+      </div>
+    </div>
+  )
+}
+
+function Platillo({ img, titulo, children }) {
+  return (
+    <div style={{ marginBottom:'3rem', padding:'2rem 0', borderBottom:'1px solid rgba(180,40,20,.1)' }}>
+      <div style={{ borderRadius:'var(--radius-lg)', overflow:'hidden', marginBottom:'1.75rem', aspectRatio:'16/9', position:'relative', boxShadow:'0 0 30px rgba(180,20,10,.15)' }}>
+        <img src={img} alt={titulo} style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 15% 85%, rgba(180,50,0,.2) 0%, transparent 35%), radial-gradient(ellipse at 85% 85%, rgba(140,10,70,.15) 0%, transparent 35%)' }} />
+        <h2 style={{ position:'absolute', bottom:'1.25rem', left:'1.5rem',
+          fontFamily:'var(--font-head)', fontSize:'var(--text-h2)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff' }}>
+          {titulo}
+        </h2>
+      </div>
+      <div style={{ paddingLeft:'.5rem', borderLeft:'2px solid rgba(220,60,20,.3)', marginLeft:'.25rem' }}>{children}</div>
+    </div>
+  )
+}
+
+function Bullet({ children }) {
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.3rem 0', borderBottom:'1px solid rgba(180,30,10,.1)' }}>
+      <span style={{ width:'6px', height:'6px', borderRadius:'50%', background:'var(--primary)', flexShrink:0 }}/>
+      <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{children}</span>
+    </div>
+  )
+}
+
+function Especial({ children }) {
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.3rem 0' }}>
+      <span style={{ color:'var(--primary-l)', fontWeight:700, fontSize:'1rem' }}>•</span>
+      <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{children}</span>
+    </div>
+  )
+}
+
+export default function Alimentos() {
+  const { cms } = useCMS()
+  const p  = cms.platillos  || {}
+  const al = cms.alimentos  || {}
+
+  // Imagen y título principal desde CMS, con fallbacks
+  const heroImg    = al.imgPrincipal || `${BASE}/alitas.jpeg`
+  const heroTitulo = al.tituloPrincipal || 'ALIMENTOS'
+
+  return (
+    <div style={{ minHeight:'100dvh', background:'linear-gradient(180deg, #0d0810, #110812)' }}>
+
+      {/* ── IMAGEN PRINCIPAL (editable desde CMS) ── */}
+      <HeroImg src={heroImg} titulo={heroTitulo} />
+
+      <div className="container" style={{ padding:'3rem 1.5rem 5rem', maxWidth:'760px' }}>
+
+        {/* ALITAS */}
+        <Platillo img={p.alitas?.img || `${BASE}/alitas.jpeg`} titulo="ALITAS">
+          <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem', lineHeight:1.75 }}>
+            {p.alitas?.desc || 'Marinadas con sabor a elegir y aderezo incluido'}
+          </p>
+        </Platillo>
+
+        {/* NACHOS */}
+        <Platillo img={p.nachos?.img || `${BASE}/nachos.jpeg`} titulo="NACHOS">
+          <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem', marginBottom:'1rem', lineHeight:1.75 }}>
+            {p.nachos?.desc || 'Totopo crujiente con chile y queso amarillo'}
+          </p>
+          <p style={{ fontSize:'.85rem', fontWeight:700, color:'var(--primary-l)', textTransform:'uppercase', letterSpacing:'.06em', marginBottom:'.65rem' }}>Especiales:</p>
+          {(p.nachos?.especiales?.length > 0 ? p.nachos.especiales : ['Carne Pastor','Carne Asada','Salsa Verde']).map((e, i) => (
+            <Especial key={i}>{e}</Especial>
+          ))}
+        </Platillo>
+
+        {/* HOT DOG */}
+        <Platillo img={p.hotdog?.img || `${BASE}/hotdog.jpeg`} titulo="HOT DOG">
+          <div style={{ display:'flex', flexDirection:'column' }}>
+            {(p.hotdog?.ingredientes?.length > 0 ? p.hotdog.ingredientes : ['Pan caliente','Salchicha italiana','Tocino','Queso amarillo','Frijoles','Chiles','Catsup','Mayonesa','Mostaza']).map((ing, i) => (
+              <Bullet key={i}>{ing}</Bullet>
+            ))}
+          </div>
+        </Platillo>
+
+        {/* PAPAS FRANCESAS */}
+        <Platillo img={p.papas?.img || `${BASE}/papas.jpeg`} titulo="PAPAS FRANCESAS">
+          <p style={{ color:'rgba(234,234,234,.75)', fontSize:'1rem', lineHeight:1.9 }}>
+            {p.papas?.desc || 'Papa ondulada · Sin exceso de aceite · Con queso amarillo · Aderezo y catsup'}
+          </p>
+        </Platillo>
+      </div>
+    </div>
+  )
+}

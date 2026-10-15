@@ -1,0 +1,86 @@
+import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useCMS } from '@/context/CMSContext'
+import { useAuth } from '@/context/AuthContext'
+
+const NAV = [
+  { label:'Inicio',            path:'/'            },
+  { label:'Alimentos',         path:'/alimentos'   },
+  { label:'Hamburguesas',      path:'/hamburguesa' },
+  { label:'Eventos Especiales',path:'/eventos'     },
+]
+
+export default function Header() {
+  const { cms, openAdmin, setAdminPanelOpen } = useCMS()
+  const { isAdmin, signOut } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [scrolled, setScrolled] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    const fn = () => {
+      setScrolled(window.scrollY > 10)
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener('scroll', fn, { passive:true })
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
+
+  // Opacidad: 100% en top → 15% al desplazar 200px
+  const bgOpacity = Math.max(0.15, 0.95 - (scrollY / 200) * 0.8)
+
+  function go(path) { setMobileOpen(false); navigate(path); window.scrollTo(0,0) }
+  const active = (path) => location.pathname === path
+
+  return (
+    <header style={{
+      position:'fixed', top:0, left:0, right:0, zIndex:100, height:'80px',
+      background: `rgba(10,5,15,${bgOpacity})`,
+      backdropFilter: scrollY > 20 ? 'blur(8px)' : 'blur(20px)',
+      borderBottom:`1px solid rgba(180,30,10,${bgOpacity * 0.5})`,
+      transition:'background .4s ease, border-color .4s ease',
+    }}>
+      <div className="container" style={{ height:'100%', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+        <button onClick={() => go('/')} style={{ display:'flex', alignItems:'center', gap:'.75rem', background:'none', border:'none', cursor:'pointer' }}>
+          <img src={cms.hero?.logo} alt="Logo" style={{ height:'2.6rem', borderRadius:'.5rem', objectFit:'cover' }} />
+          <div>
+            <div style={{ fontSize:'1rem', fontWeight:800, fontFamily:'var(--font-head)', color:'#fff', lineHeight:1.1 }}>Litros & Litros</div>
+            <div style={{ fontSize:'.65rem', color:'rgba(234,234,234,.55)', letterSpacing:'.06em', textTransform:'uppercase', display:'block' }}>Karaoke Bar</div>
+          </div>
+        </button>
+
+        <nav className="desk-nav" style={{ display:'flex', alignItems:'center', gap:'.25rem' }}>
+          {NAV.map(n => (
+            <button key={n.path} onClick={() => go(n.path)} style={{ padding:'.5rem 1rem', borderRadius:'.5rem', fontSize:'.88rem', fontWeight: active(n.path) ? 700 : 500, color: active(n.path) ? '#fff' : 'rgba(234,234,234,.7)', background: active(n.path) ? '#295A9E' : 'transparent', border:'none', cursor:'pointer', transition:'all .2s', fontFamily:'var(--font-body)' }}
+              onMouseEnter={e => { if(!active(n.path)){e.currentTarget.style.background='rgba(180,30,10,.15)';e.currentTarget.style.color='#fff'}}}
+              onMouseLeave={e => { if(!active(n.path)){e.currentTarget.style.background='transparent';e.currentTarget.style.color='rgba(234,234,234,.7)'}}}
+            >{n.label}</button>
+          ))}
+        </nav>
+
+        <div style={{ display:'flex', alignItems:'center', gap:'.4rem' }}>
+          <button className="menu-toggle" onClick={() => setMobileOpen(o=>!o)} style={{ display:'none', background:'none', border:'none', cursor:'pointer', color:'#fff', padding:'.35rem' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {mobileOpen ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></>}
+            </svg>
+          </button>
+          <button onClick={() => isAdmin ? setAdminPanelOpen(true) : openAdmin()} style={{ background: isAdmin ? 'rgba(180,30,10,.2)' : 'none', border:'1px solid rgba(180,30,10,.4)', color: isAdmin ? '#fff' : 'rgba(234,234,234,.4)', borderRadius:'.5rem', padding:'.35rem .7rem', fontSize:'.75rem', fontWeight:600, cursor:'pointer', fontFamily:'var(--font-body)' }}>
+            🔒 {isAdmin ? 'Panel' : 'Admin'}
+          </button>
+          {isAdmin && <button onClick={signOut} style={{ background:'none', border:'1px solid rgba(255,255,255,.1)', color:'rgba(234,234,234,.4)', borderRadius:'.5rem', padding:'.35rem .6rem', fontSize:'.75rem', cursor:'pointer' }}>Salir</button>}
+        </div>
+      </div>
+
+      {mobileOpen && (
+        <div style={{ padding:'1rem', borderTop:'1px solid rgba(180,30,10,.2)', background:'#0d0810', display:'flex', flexDirection:'column', gap:'.35rem' }}>
+          {NAV.map(n => (
+            <button key={n.path} onClick={() => go(n.path)} style={{ padding:'.75rem 1rem', borderRadius:'.5rem', fontSize:'.95rem', fontWeight: active(n.path) ? 700 : 500, color: active(n.path) ? '#fff' : 'rgba(234,234,234,.75)', background: active(n.path) ? '#295A9E' : 'transparent', border:'none', cursor:'pointer', textAlign:'left' }}>{n.label}</button>
+          ))}
+        </div>
+      )}
+      <style>{`@media(max-width:768px){.desk-nav{display:none !important;}.menu-toggle{display:flex !important;align-items:center;}}@media(max-width:400px){.hdr-sub{display:none!important;}}`}</style>
+    </header>
+  )
+}

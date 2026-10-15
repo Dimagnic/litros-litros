@@ -1,0 +1,74 @@
+import { useNavigate } from 'react-router-dom'
+import { useCMS } from '@/context/CMSContext'
+
+const BASE = 'https://plsxcorrlfkxsxunnmna.supabase.co/storage/v1/object/public/litros-images'
+
+export default function Hamburguesa() {
+  const { cms } = useCMS()
+  const navigate = useNavigate()
+  const p = (cms.platillos || {}).hamburguesa || {}
+
+  const ingredientes = p.ingredientes?.length > 0 ? p.ingredientes : ['Carne de res frita','Queso amarillo','Frijoles','Mantequilla','Tocino','Catsup','Mostaza','Mayonesa']
+  const extras = p.extras?.length > 0 ? p.extras : ['Papas onduladas','Aderezo de la casa']
+
+  return (
+    <div style={{ minHeight:'100dvh', background:'linear-gradient(180deg, #0d0810, #130a18)' }}>
+
+      {/* Imagen grande */}
+      <div style={{ position:'relative', background:'#0a0610', overflow:'hidden', height:'calc(100dvh - 80px)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+        <img src={p.img || `${BASE}/hamburguesa.jpeg`} alt="Hamburguesa"
+          style={{ width:'100%', height:'100%', position:'absolute', inset:0, objectFit:'cover', objectPosition:'center' }} />
+        
+        <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(160,50,0,.5) 0%, rgba(100,20,0,.4) 35%, rgba(8,4,25,.88) 100%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 65%, rgba(15,50,160,.5) 0%, rgba(8,25,90,.25) 40%, transparent 65%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 50% 25%, rgba(200,80,10,.35) 0%, transparent 50%)' }} />
+        <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 15% 85%, rgba(180,50,0,.2) 0%, transparent 35%), radial-gradient(ellipse at 85% 85%, rgba(140,10,70,.15) 0%, transparent 35%)' }} />
+        <div style={{ position:'absolute', bottom:'clamp(1.25rem, 3vh, 2.5rem)', left:0, right:0, textAlign:'center' }}>
+          <h1 style={{ fontFamily:'var(--font-head)', fontSize:'var(--text-h1)', fontWeight:'var(--fw-black)', letterSpacing:'var(--ls-tight)', color:'#fff', textTransform:'uppercase' }}>
+            HAMBURGUESAS
+          </h1>
+        </div>
+      </div>
+
+      <div className="container" style={{ padding:'3rem 1.5rem 5rem', maxWidth:'680px' }}>
+
+        {/* Ingredientes */}
+        <div style={{ background:'var(--card)', border:'1px solid var(--border-s)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'1.25rem' }}>
+          <h3 style={{ fontFamily:'var(--font-body)', fontSize:'var(--text-caption)', fontWeight:'var(--fw-bold)', textTransform:'uppercase', letterSpacing:'var(--ls-wider)', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
+            Ingredientes
+          </h3>
+          <div style={{ display:'flex', flexDirection:'column', gap:'.15rem' }}>
+            {ingredientes.map((ing, i) => (
+              <div key={i} style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.4rem 0', borderBottom: i < ingredientes.length-1 ? '1px solid rgba(180,30,10,.1)' : 'none' }}>
+                <span style={{ width:'6px', height:'6px', borderRadius:'50%', background:'var(--primary)', flexShrink:0 }}/>
+                <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{ing}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Separador */}
+        <hr className="separator" />
+
+        {/* Incluye */}
+        <div style={{ background:'var(--card)', border:'1px solid rgba(180,30,10,.35)', borderRadius:'var(--radius-lg)', padding:'2rem', marginBottom:'2rem' }}>
+          <h3 style={{ fontFamily:'var(--font-body)', fontSize:'var(--text-caption)', fontWeight:'var(--fw-bold)', textTransform:'uppercase', letterSpacing:'var(--ls-wider)', color:'var(--primary-l)', marginBottom:'1.25rem' }}>
+            Incluye
+          </h3>
+          {extras.map((e, i) => (
+            <div key={i} style={{ display:'flex', alignItems:'center', gap:'.65rem', padding:'.4rem 0' }}>
+              <span style={{ color:'#22c55e', fontWeight:800, fontSize:'1.1rem' }}>✓</span>
+              <span style={{ fontSize:'.95rem', color:'rgba(234,234,234,.85)' }}>{e}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Botón */}
+        <button className="btn btn-outline" style={{ width:'100%', justifyContent:'center' }}
+          onClick={() => { navigate('/alimentos'); window.scrollTo(0,0) }}>
+          VER CARTA DE ALIMENTOS
+        </button>
+      </div>
+    </div>
+  )
+}
